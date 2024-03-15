@@ -66,9 +66,11 @@ _¿Cuales desearía que sean las funcionalidades de los administradores?_
 - Nosotros dos, maria y yo, podríamos registrar a personas que son colaboradores, ya que va cambiando dia a dia, quizás hay una persona nueva, estaría bueno que pueda usar el sistema.
 
 _¿Una vez que se sube una publicación, se puede eliminar?_
+
 Si.
 
 _¿Quien puede ver las donaciones?_
+
 Estaría bueno que todas las filiales puedan ver todas las donaciones que se hicieron en cualquier filial.
 
 _¿Como seria la elección de la filial para el intercambio?_
@@ -76,10 +78,12 @@ _¿Como seria la elección de la filial para el intercambio?_
 cómo me lo había imaginado, la gente al momento de ponerse de acuerdo en hacer el intercambio, puede elegir especificando la filial. o mismo la persona que ofrece, es decir, yo publico algo, la persona que me ofrece el intercambio me puede decir te ofrezco tal cosa, en tal día,en tal filial, y yo puedo aceptar o rechazar. Le puedo decir que se me complica ir a tal filial y podemos ir a otra. También cambiar el dia por conveniencia.
 
 _¿Poseen algún excel con la ubicación de las filiales?_
-Si, después les paso el excel.
+
+- Si, después les paso el excel.
 
 _¿Le gustaría un mapa con las filiales?_
-Si, podría ser. Más que nada al momento de elegir la filial.
+
+- Si, podría ser. Más que nada al momento de elegir la filial.
 
 _¿Una publicación estaría atada a una filial especifica?_
 
