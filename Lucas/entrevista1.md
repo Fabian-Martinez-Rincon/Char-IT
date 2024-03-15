@@ -52,7 +52,10 @@ _¿Cómo te lo imaginas?_
 
 _¿Quien maneja el tema de donaciones e intercambios en la filial (ademas de ustedes dos), hay algún colaborador?_
 
-- Hoy en día la gente que quiere donar se acerca a la filial y cualquiera de nosotros, les cuento, Nosotros tenemos colaboradores que son personas que están en el día a día, que van ad honorem, digamos, y van cuando tienen tiempo. Entonces eso es muy variable, no tenemos un numero fijo, quizás un día son cinco otro diez, pero bueno, también va rotando entre las filiales, pero son gente que recibe a las personas que quieren donar, le toman los datos, Y bueno, esa sería la persona que que también manejaría el sistema y que confirmaría también los intercambios.
+- Hoy en día la gente que quiere donar se acerca a la filial y cualquiera de nosotros, les cuento, Nosotros tenemos colaboradores que son personas que están en el día a día, que van ad honorem, digamos, y van cuando tienen tiempo. Entonces eso es muy variable, no tenemos un numero fijo, quizás un día son cinco otro diez, pero bueno, también va rotando entre las filiales.
+- Los colaboradores reciben a las personas que quieren donar, le toman los datos y registra la donación.
+
+- Confirmar los intercambios, en el caso de que se haga efectivo. En el caso de que falle el intercambio se detalle brevemente el motivo.
 
 - Al igual que nosotros, los colaboradores quizás podrían dar de baja las publicaciones que no corresponda.
 - Una de las ideas más necesarias poder ver el historial de donaciones.
@@ -61,3 +64,57 @@ _¿Quien maneja el tema de donaciones e intercambios en la filial (ademas de ust
 _¿Cuales desearía que sean las funcionalidades de los administradores?_
 
 - Nosotros dos, maria y yo, podríamos registrar a personas que son colaboradores, ya que va cambiando dia a dia, quizás hay una persona nueva, estaría bueno que pueda usar el sistema.
+
+_¿Una vez que se sube una publicación, se puede eliminar?_
+Si.
+
+_¿Quien puede ver las donaciones?_
+Estaría bueno que todas las filiales puedan ver todas las donaciones que se hicieron en cualquier filial.
+
+_¿Como seria la elección de la filial para el intercambio?_
+
+cómo me lo había imaginado, la gente al momento de ponerse de acuerdo en hacer el intercambio, puede elegir especificando la filial. o mismo la persona que ofrece, es decir, yo publico algo, la persona que me ofrece el intercambio me puede decir te ofrezco tal cosa, en tal día,en tal filial, y yo puedo aceptar o rechazar. Le puedo decir que se me complica ir a tal filial y podemos ir a otra. También cambiar el dia por conveniencia.
+
+_¿Poseen algún excel con la ubicación de las filiales?_
+Si, después les paso el excel.
+
+_¿Le gustaría un mapa con las filiales?_
+Si, podría ser. Más que nada al momento de elegir la filial.
+
+_¿Una publicación estaría atada a una filial especifica?_
+
+- No, no se especifica la filial, al momento de hacer el intercambio se elige la filial. Mas o menos como funciona mercado libre, que uno elige donde retirar el producto.
+
+_¿Le gustaría algún filtro para las publicaciones?_
+
+- Por categoría de producto, por ejemplo: electrodomésticos, ropa, juguetes, comida, otros, etc. Porque por lo general se reciben cosas muy variadas. Yo le paso las categorías de productos que más recibimos. si a ustedes se les ocurre alguna están libres a agregar.
+
+_¿Como se manejaría el sistema de propuesta de intercambio?_
+
+- Como me lo imagino, es que la publicación no pertenece a una filial, sino que pertenece al sistema y en el momento que otra persona quiere hacer un intercambio, ofrece algo (En la publicación), un artículo a cambio. Y en esa misma oferta puede incluir la ubicación, es decir, la filial en la cual tiene intercambio e incluso el día y la hora, y después la otra persona puede aceptar o rechazar si le queda cómodo o no. En el momento que se acepta el intercambio se hace donde acordaron.
+
+_¿Que información nos brindaría?_
+
+- Demostración de donación( ya sea en dinero o en algún producto)
+- categorías de productos que mas se reciben para el filtro
+- Nombre de la aplicación.
+- Logo de la aplicación y sus respectivos colores.
+- Excel con las filiales y sus ubicaciones.
+- Fotos de las filiales.
+- Información sobre ustedes y a que se dedican.
+- Horario de atención de las filiales.
+
+_¿Como seria la donación de dinero?_
+
+- Podrías donar mediante la aplicación, sería obviamente con tarjeta o transferencia.
+- Donar en efectivo en la filial, un colaborador se encargaría de tomar los datos y registrar la donación y recibir el dinero. Informar en la pagina que en caso de querer donar dinero se debe ser mayor de edad.
+
+_¿Como seria la donación de productos?_
+
+- Unicamente en la filial, la persona se acerca y dona el producto, el colaborador se encarga de tomar los datos y registrar la donación.
+- "A futuro", se podría hacer mediante la aplicación.
+- Informar el la pagina que en caso de querer donar un producto, se acerque a la filial de su preferencia.
+
+_¿Que debería pasar para que usted considere que el proyecto fue exitoso?_
+
+- Nosotros apuntamos a que la gente que no puede comprarse determinados productos, pueda acceder a ellos mediante el intercambio.Poder llegar a que muchas personas incorporen esa metodología estaría buenísimo.
