@@ -18,6 +18,8 @@ Necesitamos los datos que se van a pedir en cada formulario
 - Datos de consultas?
 - Que información de las filiares desea mostrar en la pagina principal?
 
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/b49fab4b-6fc2-49ea-a918-6102a43ed1a2)
+
 ---
 
 ### Inicio de sesión
@@ -26,11 +28,15 @@ Pensamos que para hacerlo de forma mas simple, a la hora de iniciar sesión el u
 
 - Los inicios de sesión deberian tener una cantidad de intentos?
 
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/e888710d-2bdc-4e24-a777-50fe191ced69)
+
 ### Registrar Usuario
 
 En este caso, los campos serian **mail**, **contraseña** y **fecha de nacimiento** para identificar que es mayor de edad
 
 - Mail Unico
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/171f6552-a8ee-4feb-beba-55d134793796)
 
 ---
 
@@ -40,43 +46,66 @@ En este caso, los campos serian **mail**, **contraseña** y **fecha de nacimient
 
 Esto depende del tipo de usuario, teniamos pensado tener solo un  usuario **owner** que se encargaria asignar los permisos a cada usuario.
 
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/1dacd31c-9056-441a-8460-fbd48550c41e)
+
 Ademas del **owner** tenemos dos tipos de usuario
 
 ### Usuario General
 
+**Mirar Información de la pagina principal**
 
-- Mirar Información de la pagina principal
-- Subir Producto
-    - Que datos se necesitan para subir un producto?
-    - Imagen
-    - Detalle (opcional?)
-    - Titulo
-    - Categoria
-- Modificar Producto
-    - Modificarian todos los campos?
-- Eliminar Producto
-    - Confirmación informativa
-- Enviar petición/oferta a un producto subido
-    - Nombre del producto en la postulación
-    - Nombre de mi producto que quiero intercambiar
-    - Foto de mi producto
-    - Detalle de mi producto(opcional)
-    - Filial
-    - Horario
-    - Fecha
-- Recibir mensajes de una oferta de un producto subido
-    - Aceptar
-    - Rechazar
-        - Una descripcion del motivo
-    - Enviar respuesta
-- Recibir notificación de mi oferta
-    - Aceptado
-    - Rechazado (Mensaje con descripción del rechazo)
+**Subir Producto** (Crear publicación)
+- Que datos se necesitan para subir un producto?
+- Imagen
+- Detalle (opcional?)
+- Titulo
+- Categoria
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/89f95f49-c386-4dc5-bb82-88000839b234)
+
+**Modificar Producto**
+- Modificarian todos los campos?
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/e438e156-461e-4705-bb4b-f7dbd7854231)
+
+**Eliminar Producto**
+- Confirmación informativa
+
+**Enviar petición/oferta a un producto subido**
+- Nombre del producto en la postulación
+- Nombre de mi producto que quiero intercambiar
+- Foto de mi producto
+- Detalle de mi producto(opcional)
+- Filial
+- Horario
+- Fecha
+
+
+**Recibir mensajes de una oferta de un producto subido**
+- Aceptar
+- Rechazar
+    - Una descripcion del motivo
+- Enviar respuesta
+
+
+**Recibir notificación de mi oferta**
+- Aceptado
+- Rechazado (Mensaje con descripción del rechazo)
+
 - Donar por la pagina
     - Que medio de pago es?
     - Teniamos pensado hacer un QR de mercado pago y Transferencias.
     - Necesitamos todos los datos de las cuentas para poder enviar donaciones
-- Cada usuario puede ver su historial de donaciones?
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/9b2d8669-45e1-487f-ac23-e08cc06f2ba8)
+
+**Cada usuario puede ver su historial de donaciones?**
+
+
+
+**Como se veria al clickear un producto**
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/518443ef-ada6-49a4-882b-840988762a16)
 
 ### Owner/Admin
 
