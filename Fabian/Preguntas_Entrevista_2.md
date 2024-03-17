@@ -44,6 +44,8 @@ Ademas del **owner** tenemos dos tipos de usuario
 
 ### Usuario General
 
+
+- Mirar Información de la pagina principal
 - Subir Producto
     - Que datos se necesitan para subir un producto?
     - Imagen
@@ -71,7 +73,29 @@ Ademas del **owner** tenemos dos tipos de usuario
     - Aceptado
     - Rechazado (Mensaje con descripción del rechazo)
 - Donar por la pagina
-    - 
+    - Que medio de pago es?
+    - Teniamos pensado hacer un QR de mercado pago y Transferencias.
+    - Necesitamos todos los datos de las cuentas para poder enviar donaciones
+- Cada usuario puede ver su historial de donaciones?
+
+### Owner/Admin
+
+- Permisos de todo
+- Funcionalidad Extra
+    - Crear Moderadores
+        - Mail
+        - Contraseña
+
+### Colaborador/Moderador (preguntar)
+- Eliminar una publicación
+- Que estadisticas de que?
+    - Cuales? PREGUNTAR
+- Ver historial de intercambios
+- Ver historial de donaciones
+- Registrar donación (producto/dinero) en la filial (Preguntar)
+    - Nombre del donante/mail
+    - Monto
+    - Fecha y Hora
 
 ---
 
