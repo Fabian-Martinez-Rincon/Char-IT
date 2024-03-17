@@ -1,4 +1,6 @@
-_¿Qué es Cáritas y cuál sería su misión principal?_
+# Entrevista 1
+
+*¿Qué es Cáritas y cuál sería su misión principal?*
 
 - Bueno, les cuento, yo soy Mario, soy representante de varias filiales acá en La Plata, de Cáritas, justamente junto con María, que puede ser como mi colega o la persona que está en el mismo rango que yo. Si nosotros estamos un poco en el día a día del manejo de las filiales en las filiales, les cuento. Por lo general la tarea que se hace es recibir productos, artículos que se quieran donar, de gente que quiera o no, y después nosotros los distribuimos en base a las necesidades, ya sea x barrio que sabemos que necesita ayuda, familias puntuales, somos como ese intermediario.
 
