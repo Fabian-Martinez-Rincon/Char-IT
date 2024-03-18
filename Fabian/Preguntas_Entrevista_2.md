@@ -72,14 +72,21 @@ Ademas del **owner** tenemos dos tipos de usuario
 - Confirmación informativa
 
 **Enviar petición/oferta a un producto subido**
-- Nombre del producto en la postulación
-- Nombre de mi producto que quiero intercambiar
-- Foto de mi producto
-- Detalle de mi producto(opcional)
+- Identificador del Producto
+- Mi Producto
+    - Nombre
+    - Foto
+    - Detalle (opcional)
+    - Categoria
 - Filial
 - Horario
 - Fecha
 
+#### Estadisticas
+
+- 
+
+> Hacer solicitud, 
 
 **Recibir mensajes de una oferta de un producto subido**
 - Aceptar
@@ -133,3 +140,5 @@ Ademas del **owner** tenemos dos tipos de usuario
 - Cual es el Nombre del Proyecto/Aplicación?
 - En la plantilla de la entrevista, hay una seccion que se llama **Documentos a que se hacen referencias**, aca que tendriamos que ingresar?
 - Excel con todos los datos de todas las filiales
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/eced20ec-ab82-4a8c-93f4-2136f8c20a21)
