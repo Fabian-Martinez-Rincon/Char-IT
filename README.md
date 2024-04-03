@@ -129,11 +129,12 @@ Registrar Usuario
 ## Mis Donaciones
 
 Todavia no esta, pero se supone que es un listado de las donaciones para mi usuario
-<img src="./imagenes/mis_donaciones.png"  width=50% >
+<img src="./General/mis_donaciones.png"  width=50% >
 
 ---
 
 # Owner ✒️
 
 ## Registrar Colaborador
+
 <img src="./imagenes/registrar_colaborador.png"  width=50% >
