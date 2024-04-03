@@ -58,31 +58,24 @@
 
 ## Iniciar Sesión
 
-<table><td>
+<table><tr><td>
+
+Iniciar Sesión
+</td><td>
+
+Registrar Usuario
+</td></tr>
+
+<tr><td>
 
 ![image](https://github.com/Fabian-Martinez-Rincon/Char-IT/assets/55964635/a896e885-61ff-4f6b-9de3-2b77a2dc4684)
 </td><td>
 
-- mail
-- contraseña
-</td></table>
-
-
----
-
-## Registrar Usuario
-
-<table><td>
-
 ![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/f5ca4dc9-d243-4cfc-ae84-bf02feabac9a)
-</td><td>
+</td></tr>
+</table>
 
-- nombre y apellido
-- mail
-- nro dni
-- contraseña
-- Fecha de Nacimiento
-</td></table>
+
 
 ---
 
