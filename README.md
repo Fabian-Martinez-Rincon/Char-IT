@@ -44,7 +44,7 @@
 
 <table><td>
 
-![image](https://github.com/Fabian-Martinez-Rincon/Char-IT/assets/55964635/7c6a9703-eecb-4b3a-9580-7a1ec9df9ecf)
+![image](/total/landing.png)
 
 </td>
 <td>
@@ -70,26 +70,28 @@ Registrar Usuario
 
 <tr><td>
 
-![image](https://github.com/Fabian-Martinez-Rincon/Char-IT/assets/55964635/a896e885-61ff-4f6b-9de3-2b77a2dc4684)
+![image](/total/Sig_in.png)
 
 </td><td>
 
-![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/f5ca4dc9-d243-4cfc-ae84-bf02feabac9a)
+![image](/general/sig_up.png)
 
 </td></tr>
 </table>
 
 ---
 
+# Usuario General
+
 <table>
 <tr><td>Pagina Principal</td><td>Menu</td></tr>
 <tr><td>
 
-![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/28468930-1746-4de9-a8dc-e5507238c21d)
+![image](/general/pagina_principal.png)
 
 </td><td>
 
-![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/ec46895a-77dd-4bb4-98ff-9c629b64cefb)
+![image](/general/pagina_principal_menu.png)
 
 </td></tr>
 <tr><td>Subir Producto</td><td>Mis Productos</td></tr>
@@ -105,7 +107,7 @@ Registrar Usuario
 <tr><td>Realizar Donación</td><td>Notificaciones</td></tr>
 <tr><td>
 
-![image](/imagenes/donacion.png)
+![image](/general/donacion.png)
 
 </td><td>
 
