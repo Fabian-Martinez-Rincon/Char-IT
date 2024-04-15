@@ -1,14 +1,14 @@
-# ID Registrar colaborador
+ID Registrar colaborador
 
-# Título
+Título
 
 **Como** usuario owner **Quiero** registrar un colaborador **Para** habilitarle las funcionalidades correspondientes
 
-# Regla de negocio
+Regla de negocio
 
 - El mail debe ser único en el sistema
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al registrar colaborador
   **Dado** el mail colaborador@gmail.com el cual no se encuentra registrado previamente

@@ -1,14 +1,14 @@
-# ID: Listar ofertas enviadas
+ID: Listar ofertas enviadas
 
-# Título
+Título
 
 **Como** usuario general **Quiero** ver el listado de mis ofertas enviadas **Para** consultar su estado
 
-## Reglas de negocio
+Reglas de negocio
 
 - El listado puede estar vació
 
-## Criterios de aceptación
+ Criterios de aceptación
 
 - **Escenario 1:** Éxito al listar listado de ofertas enviadas
   **Dado** un listado con ofertas enviadas

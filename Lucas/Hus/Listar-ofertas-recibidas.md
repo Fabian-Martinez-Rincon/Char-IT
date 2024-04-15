@@ -1,14 +1,14 @@
-# ID: Listar ofertas recibidas
+ID: Listar ofertas recibidas
 
-# Título
+Título
 
 **Como** usuario general **Quiero** ver el listado de mis ofertas recibidas **Para** consultar su estado
 
-## Reglas de negocio
+Reglas de negocio
 
 - El listado puede estar vació
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al listar listado de ofertas recibidas
   **Dado** un listado con ofertas recibidas

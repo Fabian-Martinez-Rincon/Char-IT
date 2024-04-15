@@ -1,10 +1,10 @@
-# ID: Responder comentario
+ID: Responder comentario
 
-# Título
+Título
 
 **Como** usuario general **Quiero** responder un comentario **Para** interactuar con otro usuario
 
-## Reglas de negocio
+Reglas de negocio
 
 - El texto de respuesta debe tener entre 1 y 280 caracteres
 

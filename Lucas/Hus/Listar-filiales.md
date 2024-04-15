@@ -1,10 +1,10 @@
-# ID: Listar Filiales
+ID: Listar Filiales
 
-# Título
+Título
 
 **Como** persona o usuario **Quiero** listar las filiales **Para** conocer su información
 
-## Criterios de aceptación
+ Criterios de aceptación
 
 - **Escenario 1:** Éxito al listar listado de filiales
   **Dado** un listado de filiales

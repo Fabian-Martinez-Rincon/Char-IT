@@ -1,14 +1,15 @@
-# ID: Rechazar oferta
-
-# Título
+ ID: Rechazar oferta
+ 
+ Título
 
 **Como** usuario general **Quiero** Rechazar la oferta **Para** buscar otra oferta que me interese
 
-## Reglas de negocio
+Reglas de negocio
 
 - La descripción debe tener entre 10 y 280 caracteres
 
-## Criterios de aceptación
+ 
+ Criterios de aceptación
 
 - **Escenario 1:** Éxito al Rechazar oferta
   **Dado** una oferta y una descripción de rechazo de 200 caracteres

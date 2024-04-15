@@ -1,12 +1,12 @@
-# ID Registrar donación de Producto
+ID Registrar donación de Producto
 
-# Título
+Título
 
 **Como** usuario colaborador **Quiero** registrar una donación de producto **Para** que quede registrado en el sistema
 
-# Regla de negocio
+Regla de negocio
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al registrar donación de producto donado por un usuario
   **Dado** una donación de producto donado por un usuario con email usuario1@gmail.com que se encuentra registrado en el sistema

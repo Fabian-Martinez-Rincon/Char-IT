@@ -1,10 +1,10 @@
-# ID: Detallar oferta enviada
+ID: Detallar oferta enviada
 
-# Título
+Título
 
 **Como** usuario general **Quiero** ver el detalle de la oferta enviada **Para** consultar su estado
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al detallar oferta enviada
   **Dado** una oferta enviada

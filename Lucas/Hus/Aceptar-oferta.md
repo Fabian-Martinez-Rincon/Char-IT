@@ -1,10 +1,10 @@
-# ID: Aceptar oferta
+ID: Aceptar oferta
 
-# Título
+Título
 
 **Como** usuario general **Quiero** aceptar la oferta **Para** proceder al intercambio de los productos
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al la aceptar oferta
   **Dado** una oferta

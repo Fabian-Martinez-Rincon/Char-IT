@@ -1,10 +1,10 @@
-# ID: Detallar oferta recibida
+ID: Detallar oferta recibida
 
-# Título
+Título
 
 **Como** usuario general **Quiero** ver el detalle de la oferta recibida **Para** determinar si la acepto o no
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al detallar oferta recibida
   **Dado** una oferta recibida 

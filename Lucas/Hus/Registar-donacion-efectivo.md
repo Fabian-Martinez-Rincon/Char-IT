@@ -1,13 +1,13 @@
-# ID Registrar donación en efectivo
+ID Registrar donación en efectivo
 
-# Título
+Título
 
 **Como** usuario colaborador **Quiero** registrar una donación en efectivo **Para** que quede registrado en el sistema
 
-# Regla de negocio
+Regla de negocio
 - El monto de la donación debe ser mayor a 0
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al registrar donación en efectivo donado por un usuario
   **Dado** una donación en efectivo donado por un usuario con email usuarioefectivo@gmail.com que se encuentra registrado en el sistema

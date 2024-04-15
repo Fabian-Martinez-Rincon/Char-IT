@@ -1,14 +1,14 @@
-# ID: Comentar publicación
+ID: Comentar publicación
 
-# Título
+Título
 
 **Como** usuario general **Quiero** comentar una publicación **Para** interactuar con otro usuario
 
-## Reglas de negocio
+Reglas de negocio
 
 - El texto del comentario debe tener entre 1 y 280 caracteres
 
-## Criterios de aceptación
+Criterios de aceptación
 
 - **Escenario 1:** Éxito al comentar publicación
   **Dado** una publicación y un texto de comentario con 230 caracteres
