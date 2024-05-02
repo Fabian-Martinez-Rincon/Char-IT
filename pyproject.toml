@@ -1,0 +1,8 @@
+[tool.flask-livetw]
+flask_root = "src"
+static_folder = "static"
+templates_folder = "web/templates"
+templates_glob = "**/*.html"
+base_layout = "layout.html"
+livetw_folder = ".dev"
+flask_app = "app"

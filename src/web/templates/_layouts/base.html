@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es-AR" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/static/img/logo_32x32.png">
+  {% block base_head %}{% endblock %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  {% if config.LIVETW_DEV %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='.dev/tailwind_development.css') }}">
+  <script src="{{ url_for('static', filename='.dev/live_reload.js') }}" defer></script>
+  {% else %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tailwind_production.css') }}">
+  {% endif %}
+</head>
+
+<body class="flex flex-col overflow-hidden h-full mx-auto max-w-7xl xl:border-l xl:border-r
+  font-[Poppins] bg-orange-50/30 text-zinc-800 border-zinc-950">
+  
+  <div class="flex flex-col overflow-hidden h-full bg-very-light-yellow-green">{% block base_body %}{% endblock %}</div>
+</body>
+
+</html>

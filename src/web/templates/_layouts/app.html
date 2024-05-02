@@ -1,0 +1,32 @@
+{% extends "_layouts/base.html" %}
+{% block base_head %}
+<script src="{{ url_for('static', filename='js/layout.js') }}" defer></script>
+{% block head %}{% endblock %}
+{% endblock %}
+{% block base_body %}
+<div class="relative bodyContainer h-full flex flex-col overflow-hidden">
+  <header class="flex-none flex justify-between p-2 md:px-3 border-b shadow border-zinc-900">
+    <div class="ml-2 flex items-center gap-2">
+      <a href="/">
+        <img src="/static/img/Logo.png"
+          alt="Hope Trade Logo" class='w-10 h-10' />
+      </a>
+      <a href="/" class="hidden md:inline-block underline-offset-2 hover:underline ">
+        <span class="text-xl font-medium">Hope Trade</span>
+      </a>
+    </div>
+    <nav class="flex md:mr-2">
+      <ul class="flex gap-x-2 md:gap-x-4 text-xl font-medium items-center">
+        <li class=" xs:hidden">
+          <button id="openMainMenu" class=" px-3 py-1.5 text-lg text-zinc-100 bg-green-shade rounded">
+            Iniciar Sesión
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="flex-1 flex flex-col overflow-x-hidden">{% block content %}Content placeholder{% endblock %}</div>
+</div>
+{% block body %}{% endblock %}
+{% endblock %}
