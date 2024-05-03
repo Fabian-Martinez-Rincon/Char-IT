@@ -28,8 +28,20 @@ pip install -r requirements.txt -r requirements-dev.txt
 #### Ejecutamos el proyecto
 
 ```bash
-livetw init -d
 livetw dev
+```
+
+#### No hace falta
+
+```bash
+livetw init -d
 livetw build
 ```
 
+---
+
+#### Para configurar las variables de entorno, renombramos el archivo `.env.example` a `.env` y configuramos las variables de entorno.
+
+```json
+DB_PASS = "password_example"
+```
