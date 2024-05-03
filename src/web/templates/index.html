@@ -4,22 +4,45 @@
 {% endblock %}
 
 {% block content %}
-<main class="flex flex-coll items-center justify-center h-full">
-  <section class="">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-      <div class="mx-auto max-w-[min(75vw,640px)] text-center">
-        <h1
-          class="mb-4 text-3xl tracking-tight font-extrabold md:text-4xl lg:text-5xl text-cyan-shade dark:text-cyan-shade">
-          Hope Trade
-        </h1>
-        <p class="mb-4 text-xl tracking-tight font-bold text-zinc-700 md:text-2xl">
-          Que esperas para registrarte!!
-        </p>
-        <p class="mb-4 text-base md:text-lg font-normal text-zinc-500">
-          "HopeTrade" es una página web diseñada para facilitar y mejorar la gestión de donaciones y promover el intercambio de productos entre los usuarios en la red de filiales de la organización benéfica Cáritas. El objetivo principal del sistema es centralizar y automatizar los procesos que actualmente se realizan de forma manual como los registros de donaciones, aumentando la eficiencia y la transparencia para todas las filiales involucradas.
-        </p>
-      </div>
+<main class="flex flex-col justify-center items-center min-h-screen">
+  <section class="text-center py-8 px-4 mx-auto max-w-screen-xl">
+    <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-cyan-shade dark:text-cyan-shade">
+      Hope Trade
+    </h1>
+    <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
+      Que esperas para registrarte!!
+    </p>
+    <p class="mb-4 text-base md:text-lg text-zinc-500">
+      "HopeTrade" es una página web diseñada para facilitar y mejorar la gestión de donaciones y promover el intercambio de productos entre los usuarios en la red de filiales de la organización benéfica Cáritas.
+    </p>
+    <!-- Botón para desplegar filiales -->
+    <button onclick="toggleFiliales()" class="my-4 px-6 py-2 text-white bg-blue-500 hover:bg-blue-700 transition duration-300">
+      Ver Filiales
+    </button>
+    <!-- Contenedor de Filiales -->
+    <div id="filialesContainer" class="hidden">
+      <h2 class="text-2xl font-bold my-4">Nuestras Filiales</h2>
+      <ul>
+        {% for filial in filiales %}
+        <li>
+          <h3>{{ filial.nombre }}</h3>
+          <p>Dirección: {{ filial.direccion }}</p>
+          <p>Horarios: {{ filial.horarios }}</p>
+          <p>Días: {{ filial.dias }}</p>
+          <p>Teléfono: {{ filial.telefono }}</p>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </section>
 </main>
+<script>
+function toggleFiliales() {
+    var container = document.getElementById('filialesContainer');
+    container.classList.toggle('hidden');
+}
+</script>
+<style>
+.hidden { display: none; }
+</style>
 {% endblock %}

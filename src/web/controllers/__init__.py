@@ -2,7 +2,7 @@ import flask
 from src.web.controllers import root
 
 _blueprints = (
-    root.bp
+    root.bp, 
 )
 
 def init_app(app: flask.Flask):
@@ -11,7 +11,7 @@ def init_app(app: flask.Flask):
     Also registers the before request hook for the application.
     """
 
-    app.register_blueprint(_blueprints)
-
+    for bp in _blueprints:
+        app.register_blueprint(bp)
 
 
