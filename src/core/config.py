@@ -31,15 +31,15 @@ class Config:
 class ProductionConfig(Config):
     """Production configuration"""
 
-load_dotenv()
 class DevelopmentConfig(Config):
     """Development configuration"""
     DB_USER = "postgres"
-    
+    load_dotenv()
+    DB_PASS = os.getenv("DB_PASS")
     DB_HOST = "localhost" 
     DB_NAME = "grupo08"
     SQLALCHEMY_TRACK_NOTIFICATIONS = True
-    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{os.environ['DB_PASS']}@{DB_HOST}:5432/{DB_NAME}"
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:5432/{DB_NAME}"
     
 
 class TestingConfig(Config):
