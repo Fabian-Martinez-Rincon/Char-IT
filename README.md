@@ -2,6 +2,7 @@
 
 - [Para Colaborar](#para-colaborar)
 - [Iniciar el Proyecto](#iniciar-el-proyecto)
+- [Rutas del admin](#rutas-del-admin)
 
 ## Para Colaborar
 
@@ -19,7 +20,7 @@
     ```
 - Una vez que estamos en la rama, hacemos un pull para asegurarnos de que estamos actualizados
     ```bash
-    git pull
+    git pull origin main
     ```
 - Hacemos la pull request
     ```bash
@@ -87,3 +88,8 @@ DB_PASS = "password_example"
 ```
 
 ---
+
+## Rutas del admin
+
+- /generales
+- /colaboradores
