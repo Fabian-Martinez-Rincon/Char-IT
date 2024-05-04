@@ -40,6 +40,7 @@ class DevelopmentConfig(Config):
     DB_NAME = "grupo08"
     SQLALCHEMY_TRACK_NOTIFICATIONS = True
     SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:5432/{DB_NAME}"
+    LIVETW_DEV=True
     
 
 class TestingConfig(Config):
