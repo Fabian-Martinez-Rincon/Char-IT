@@ -15,7 +15,7 @@
     ```
 - Si no existe la rama, la creamos con un nombre descriptivo
     ```bash
-    git branch {nombre-rama}
+    git branch {nombre-rama} o git checkout -b {nombre-rama}  //Para movernos despues de crearla
     ```
 - Una vez que estamos en la rama, hacemos un pull para asegurarnos de que estamos actualizados
     ```bash
