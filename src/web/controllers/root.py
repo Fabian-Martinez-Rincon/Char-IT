@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
+from src.core.models.publicacion import Publicacion
 
 from flask import (
     Blueprint,
@@ -34,3 +35,10 @@ def usuarios_colaboradores_get():
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
+@bp.get("/publicaciones")
+def publicaciones_get():
+    try:
+        todas_las_publicaciones = Publicacion.query.all()
+        return render_template("/owner/publicaciones.html", publicaciones=todas_las_publicaciones)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500

@@ -93,3 +93,4 @@ DB_PASS = "password_example"
 
 - /generales
 - /colaboradores
+- /publicaciones

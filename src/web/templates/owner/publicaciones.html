@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicaciones</title>
+</head>
+<body>
+    <h1>Publicaciones</h1>
+    <div>
+        {% for publicacion in publicaciones %}
+        <div>
+            <h2>{{ publicacion.titulo }}</h2>
+            <p>{{ publicacion.descripcion }}</p>
+            <img src="{{ url_for('static', filename=publicacion.foto_path) }}" alt="Imagen de la publicación">
+            <p>Publicado el: {{ publicacion.fecha_publicacion.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            <p>Filiales, horarios y días: {{ publicacion.filiales_horarios_dias }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -17,7 +17,7 @@ def create_app(env: str = "development", static_folder: str = "../static"):
         with app.app_context():
          database.reset_db()
     
-    from src.core.models import seed
+    from src.core import seed
     @app.cli.command(name="seeddb")
     def seed_db():
         with app.app_context():
