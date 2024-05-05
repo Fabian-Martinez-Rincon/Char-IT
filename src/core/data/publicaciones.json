@@ -1,0 +1,20 @@
+[
+    {
+        "titulo": "Labarropas",
+        "descripcion": "Lavarropas de alta eficiencia y bajo consumo. Con múltiples programas de lavado y gran capacidad. En perfecto estado y con poco uso.",
+        "foto_path": "img/lavarropas.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 1,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Camion",
+        "descripcion": "Camión en excelente estado, con pocos kilómetros y mantenimiento al día. Ideal para transporte pesado y largas distancias.",
+        "foto_path": "img/camion.webp",
+        "filiales_horarios_dias": "Sábados y domingos de 8 a 10",
+        "id_categoria": 2,
+        "id_visibilidad": 2,
+        "id_usuario": 2
+    }
+]
