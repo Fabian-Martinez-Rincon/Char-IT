@@ -42,3 +42,8 @@ def publicaciones_get():
         return render_template("/owner/publicaciones.html", publicaciones=todas_las_publicaciones)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
+
+@bp.get("/publicaciones/<int:publicacion_id>")
+def publicacion_detalle(publicacion_id):
+    publicacion = Publicacion.query.get_or_404(publicacion_id)
+    return render_template("publicaciones/detalle.html", publicacion=publicacion)
