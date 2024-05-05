@@ -1,49 +1,71 @@
-{% extends "_layouts/app.html" %}
+{% extends "_layouts/app.html" %} 
+{% import "_macros/table.html" as Table %}
 {% block head %}
 <title>Hope Trade</title>
-{% endblock %}
-
+{% endblock %} 
 {% block content %}
-<main class="flex flex-col justify-center items-center min-h-screen">
+<main class="flex flex-col min-h-screen">
   <section class="text-center py-8 px-4 max-h-full">
-    <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-cyan-shade dark:text-cyan-shade">
-      Hope Trade
-    </h1>
-    <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
-      Que esperas para registrarte!!
-    </p>
-    <p class="mb-4 text-base md:text-lg text-zinc-500">
-      "HopeTrade" es una página web diseñada para facilitar y mejorar la gestión de donaciones y promover el intercambio de productos entre los usuarios en la red de filiales de la organización benéfica Cáritas.
-    </p>
+    <div class="">
+      <h1
+        class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade"
+      >
+        HopeTrade
+      </h1>
+      <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
+        Que esperas para registrarte!!
+      </p>
+      <p class="mb-4 text-base md:text-lg text-zinc-500">
+        "HopeTrade" es una página web diseñada para facilitar y mejorar la
+        gestión de donaciones y promover el intercambio de productos entre los
+        usuarios en la red de filiales de la organización benéfica Cáritas.
+      </p>
+    </div>
+
     <!-- Botón para desplegar filiales -->
-    <button onclick="toggleFiliales()" class="my-4 px-6 py-2 text-white bg-blue-500 hover:bg-blue-700 transition duration-300">
+    <button
+      onclick="toggleFiliales()"
+      class="my-4 px-6 py-2 text-white bg-cyan-shade hover:bg-green-cyan-shade transition duration-300"
+    >
       Ver Filiales
     </button>
     <!-- Contenedor de Filiales -->
-    <div id="filialesContainer" class="hidden">
-      <h2 class="text-2xl font-bold my-4">Nuestras Filiales</h2>
-      <ul>
-        {% for filial in filiales %}
-        <li>
-          <h3>{{ filial.nombre }}</h3>
-          <p>Dirección: {{ filial.direccion }}</p>
-          <p>Horarios: {{ filial.horarios }}</p>
-          <p>Días: {{ filial.dias }}</p>
-          <p>Teléfono: {{ filial.telefono }}</p>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+    <div
+      id="filialesContainer"
+      class="overflow-x-auto overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out "
+    >
+      <h2 class="text-2xl font-bold my-4">Nuestras Filiales</h2>        
+        {% call Table.Table() %}
+          {{ Table.TableHeader(("Nombre", "Dirección", "Horarios", "Días")) }}
+          <tbody>
+            {% for filial in filiales %}
+            <tr class="bg-very-light-yellow-green text-black">
+              <td class="py-4 break-words whitespace-normal">{{ filial.nombre }}</td>
+              <td class="py-4 break-words whitespace-normal">{{ filial.direccion }}</td>
+              <td class="py-4 break-words whitespace-normal">{{ filial.horarios }}</td>
+              <td class="py-4 break-words whitespace-normal">{{ filial.dias }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>        
+        {% endcall %}                
   </section>
 </main>
 <script>
-function toggleFiliales() {
-    var container = document.getElementById('filialesContainer');
-    container.classList.toggle('hidden');
-}
+  function toggleFiliales() {
+    const container = document.getElementById("filialesContainer");
+    if (
+      container.style.maxHeight === "0px" ||
+      container.style.maxHeight === ""
+    ) {
+      container.style.maxHeight = container.scrollHeight + "px";
+    } else {
+      container.style.maxHeight = "0px";
+    }
+  }
 </script>
 <style>
-.hidden { display: none; }
+  .hidden {
+    display: none;
+  }
 </style>
 {% endblock %}
-
