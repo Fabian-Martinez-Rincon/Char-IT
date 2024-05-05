@@ -1,0 +1,19 @@
+{% macro Table(clas) %}
+<div class="overflow-x-scroll sm:overflow-x-auto bg-green-cyan-shade rounded text-xs md:text-base">
+    <table class="w-full text-center text-blue-100 dark:text-blue-100 rounded-lg">
+        {{ caller() }}
+    </table>
+</div>
+{% endmacro %}
+
+{% macro TableHeader(col_names) %}     
+<thead class="text-xs text-black uppercas dark:text-white">
+    <tr>
+        {% for name in col_names %}
+            <th scope="col"
+                class="p-2">{{ name }}
+            </th>
+        {% endfor %}
+    </tr>
+</thead>
+{% endmacro %}
