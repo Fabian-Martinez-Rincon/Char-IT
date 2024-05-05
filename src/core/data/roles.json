@@ -1,0 +1,6 @@
+[
+    {"nombre": "Visitante"},
+    {"nombre": "General"},
+    {"nombre": "Colaborador"},
+    {"nombre": "Owner"}
+]
