@@ -21,6 +21,7 @@ def create_app(env: str = "development", static_folder: str = "../static"):
     @app.cli.command(name="seeddb")
     def seed_db():
         with app.app_context():
+            database.reset_db()
             seed.seed_db()
             print("Database seeded successfully.")
             

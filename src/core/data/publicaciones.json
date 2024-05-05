@@ -1,19 +1,154 @@
 [
     {
-        "titulo": "Labarropas",
+        "titulo": "Lavarropas",
         "descripcion": "Lavarropas de alta eficiencia y bajo consumo. Con múltiples programas de lavado y gran capacidad. En perfecto estado y con poco uso.",
-        "foto_path": "img/lavarropas.webp",
+        "foto_path": "img/Electrodomésticos/lavarropas.webp",
         "filiales_horarios_dias": "Todos los días de 9 a 18",
         "id_categoria": 1,
         "id_visibilidad": 1,
         "id_usuario": 1
     },
     {
+        "titulo": "Televisión LED",
+        "descripcion": "Televisión LED de 42 pulgadas, resolución Full HD, con conectividad HDMI y USB. En perfecto estado y con poco uso.",
+        "foto_path": "img/Electrónica/tv1.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 2,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Televisión con Gato",
+        "descripcion": "Televisión de 32 pulgadas con un gato incluido. El gato es amigable y le encanta ver la televisión. La televisión y el gato están en perfecto estado.",
+        "foto_path": "img/Electrónica/tv.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 2,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Sillón Cómodo",
+        "descripcion": "Sillón de dos plazas, tapizado en tela de alta calidad y con cojines mullidos. En perfecto estado y muy cómodo para relajarse.",
+        "foto_path": "img/Muebles/sofa.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 3,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Martillo de Carpintero",
+        "descripcion": "Martillo de carpintero, con cabeza de acero y mango de madera. Ideal para trabajos de carpintería y construcción.",
+        "foto_path": "img/Herramientas/martillo.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 4,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Martillo de Goma",
+        "descripcion": "Martillo de goma, perfecto para trabajos que requieren un golpe suave para evitar daños. Ideal para ensamblar muebles y trabajos delicados.",
+        "foto_path": "img/Herramientas/martillo2.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 4,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Remera Casual",
+        "descripcion": "Remera casual de algodón, con diseño moderno y cómodo. Ideal para uso diario. Disponible en varios colores y tallas.",
+        "foto_path": "img/Ropa/remera1.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 5,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Remera Deportiva",
+        "descripcion": "Remera deportiva, fabricada con material transpirable y ligero. Perfecta para cualquier actividad física. Disponible en varios colores y tallas.",
+        "foto_path": "img/Ropa/remera2.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 5,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Buzo Cálido",
+        "descripcion": "Buzo de algodón, suave y cálido. Ideal para los días más fríos. Disponible en varios colores y tallas.",
+        "foto_path": "img/Ropa/buzo.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 5,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Libro Clásico",
+        "descripcion": "Edición de lujo de un clásico de la literatura. Encuadernado en tapa dura con marcapáginas de seda. Un imprescindible en cualquier biblioteca.",
+        "foto_path": "img/Libros/book.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 6,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Libro de Magia",
+        "descripcion": "Libro de magia para principiantes. Incluye ilustraciones detalladas y explicaciones paso a paso para aprender a realizar tus propios trucos de magia.",
+        "foto_path": "img/Libros/book1.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 6,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Bici Robótica",
+        "descripcion": "Bicicleta robótica de última generación. Cuenta con asistencia al pedaleo y monitorización de la actividad física. Ideal para entrenamientos intensivos.",
+        "foto_path": "img/Deportes/moto1.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 7,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Bici de Colores",
+        "descripcion": "Bicicleta de montaña con un diseño colorido y alegre. Perfecta para paseos al aire libre y para destacar en cualquier lugar.",
+        "foto_path": "img/Deportes/bici2.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 7,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Pesas",
+        "descripcion": "Set de pesas ajustables. Ideal para entrenamientos de fuerza en casa. Fáciles de guardar y de ajustar al peso deseado.",
+        "foto_path": "img/Deportes/pesas.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 7,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Pintura Acrílica",
+        "descripcion": "Pintura acrílica original, con un diseño abstracto y vibrante. Ideal para añadir un toque de color y estilo a cualquier espacio.",
+        "foto_path": "img/Arte/arte.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 8,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
+        "titulo": "Estatua de Caballo",
+        "descripcion": "Estatua de caballo, tallada en madera con gran detalle. Un hermoso adorno para cualquier amante de los caballos y la equitación.",
+        "foto_path": "img/Arte/escultura.webp",
+        "filiales_horarios_dias": "Todos los días de 9 a 18",
+        "id_categoria": 8,
+        "id_visibilidad": 1,
+        "id_usuario": 1
+    },
+    {
         "titulo": "Camion",
         "descripcion": "Camión en excelente estado, con pocos kilómetros y mantenimiento al día. Ideal para transporte pesado y largas distancias.",
-        "foto_path": "img/camion.webp",
+        "foto_path": "img/Otros/camion.webp",
         "filiales_horarios_dias": "Sábados y domingos de 8 a 10",
-        "id_categoria": 2,
+        "id_categoria": 10,
         "id_visibilidad": 2,
         "id_usuario": 2
     }

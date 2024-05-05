@@ -1,4 +1,12 @@
 [
-    {"id": 1, "nombre": "Electrónica"},
-    {"id": 2, "nombre": "Hogar"}
+    {"id": 1, "nombre": "Electrodomésticos"},
+    {"id": 2, "nombre": "Electrónica"},
+    {"id": 3, "nombre": "Muebles"},
+    {"id": 4, "nombre": "Herramientas"},
+    {"id": 5, "nombre": "Ropa"},
+    {"id": 6, "nombre": "Libros"},
+    {"id": 7, "nombre": "Deportes"},
+    {"id": 8, "nombre": "Juegos"},
+    {"id": 9, "nombre": "Arte"},
+    {"id": 10, "nombre": "Otros"}
 ]
