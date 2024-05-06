@@ -1,18 +1,12 @@
 {% extends "_layouts/app.html" %}
+{% import "_macros/publicacion.html" as Publicacion %}
+
 {% block content %}
 <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
     <h1 class="text-3xl font-bold leading-tight text-gray-900">Publicaciones</h1>
     <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for publicacion in publicaciones %}
-        <a href="{{ url_for('root.publicacion_detalle', publicacion_id=publicacion.id) }}" class="no-underline">
-            <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                <img class="w-full h-48 object-cover" src="{{ url_for('static', filename=publicacion.foto_path) }}" alt="{{ publicacion.titulo }}">
-                <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">{{ publicacion.titulo }}</div>
-                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Publicado el: {{ publicacion.fecha_publicacion.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-                </div>
-            </div>
-        </a>
+            {{ Publicacion.Publicacion(publicacion.titulo, publicacion.foto_path, publicacion.fecha_publicacion, root, publicacion.id) }}                  
         {% endfor %}
     </div>
 </main>
