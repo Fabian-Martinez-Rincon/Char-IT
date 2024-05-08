@@ -23,7 +23,7 @@ def index_get():
 @bp.get("/generales")
 def usuarios_generales_get():
     try:
-        usuarios_rol_2 = Usuario.query.filter(Usuario.id_rol == 2).all()
+        usuarios_rol_2 = Usuario.query.filter(Usuario.id_rol == 1).all()
         return render_template("/owner/usuarios.html", usuarios=usuarios_rol_2)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
@@ -31,7 +31,7 @@ def usuarios_generales_get():
 @bp.get("/colaboradores")
 def usuarios_colaboradores_get():
     try:
-        usuarios_rol_3 = Usuario.query.filter(Usuario.id_rol == 3).all()
+        usuarios_rol_3 = Usuario.query.filter(Usuario.id_rol == 2).all()
         return render_template("/owner/usuarios.html", usuarios=usuarios_rol_3)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500

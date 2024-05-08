@@ -14,19 +14,30 @@
       </a>
     </div>
     <nav class="flex md:mr-2">
-      <ul class="flex gap-x-2 md:gap-x-4 text-xl font-medium items-center">
-        <li>
-          {% if session.logged_in %}
-            <a href="{{ url_for('root.logout') }}" class="px-3 py-1.5 text-lg text-zinc-100 bg-red-600 rounded hover:bg-red-700">
-              Cerrar Sesión
-            </a>
-          {% else %}
-            <a href="{{ url_for('root.login') }}" id="openMainMenu" class="px-3 py-1.5 text-lg text-zinc-100 bg-green-shade rounded hover:bg-green-600">
-              Iniciar Sesión
-            </a>
-          {% endif %}
-        </li>
-      </ul>
+      <div class="relative">
+        <button id="dropdownButton" class="px-3 py-1.5 text-lg text-zinc-100 bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring">
+          Menú
+        </button>
+        <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+          <ul class="text-gray-700">
+            {% if session.logged_in %}
+            <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100">Cerrar Sesión</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Ver Perfil</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Editar Perfil</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Subir Publicación</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Mis Publicaciones</a></li>
+            <li><a href="/publicaciones" class="block px-4 py-2 hover:bg-gray-100">Listar Publicaciones</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Ofertas Recibidas</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Ofertas Enviadas</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Notificaciones</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Mi Historial de Donaciones</a></li>
+            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Donar con Tarjeta</a></li>
+            {% else %}
+            <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100">Iniciar Sesión</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -35,4 +46,30 @@
   </div>
 </div>
 {% block body %}{% endblock %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const dropdownButton = document.getElementById('dropdownButton');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+  
+      dropdownButton.addEventListener('click', function() {
+          dropdownMenu.classList.toggle('hidden');
+      });
+  
+      window.onclick = function(event) {
+          if (!event.target.matches('#dropdownButton')) {
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              for (var i = 0; i < dropdowns.length; i++) {
+                  var openDropdown = dropdowns[i];
+                  if (!openDropdown.classList.contains('hidden')) {
+                      openDropdown.classList.add('hidden');
+                  }
+              }
+          }
+      }
+  });
+  </script>
+  
+
 {% endblock %}
+
