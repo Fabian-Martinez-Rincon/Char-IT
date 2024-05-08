@@ -44,6 +44,14 @@ def publicaciones_get():
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
+@bp.get("/mispublicaciones")
+def mis_publicaciones_get():
+    try:
+        mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id']).all()
+        return render_template("/owner/mis-publicaciones.html", publicaciones=mis_publicaciones)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500
+
 @bp.get("/publicaciones/<int:publicacion_id>")
 def publicacion_detalle(publicacion_id):
     publicacion = Publicacion.query.get_or_404(publicacion_id)
