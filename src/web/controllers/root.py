@@ -61,6 +61,7 @@ def login():
         if user and user.password == form.password.data:  # Esto debería usar hashing en un caso real
             session['user_id'] = user.id
             session['logged_in'] = True
+            session['rol_id'] = user.id_rol
             flash('You have successfully logged in!', 'success')
             return redirect(url_for('root.index_get'))
         else:
