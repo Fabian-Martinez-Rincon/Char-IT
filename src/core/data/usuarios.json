@@ -2,8 +2,8 @@
     {
         "nombre": "Juan",
         "apellido": "Pérez",
-        "password": "securepassword", 
-        "email": "juan.perez@example.com",
+        "password": "contrageneral", 
+        "email": "usuario.general@gmail.com",
         "dni": "12345678",
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
@@ -12,28 +12,28 @@
     {
         "nombre": "María",
         "apellido": "González",
-        "password": "anothersecurepassword",
-        "email": "maria.gonzalez@example.com",
+        "password": "contrageneral2",
+        "email": "usuario.general2@gmail.com",
         "dni": "87654321",
         "fecha_nacimiento": "1985-08-15",
         "telefono": "5566778899",
-        "id_rol": 2
+        "id_rol": 1
     },
     {
         "nombre": "Carlos",
         "apellido": "Rodríguez",
-        "password": "password1234",
-        "email": "carlos.rodriguez@example.com",
+        "password": "contrageneral3",
+        "email": "usuario.general3@gmail.com",
         "dni": "34567890",
         "fecha_nacimiento": "1992-07-10",
         "telefono": "3344556677",
-        "id_rol": 3
+        "id_rol": 1
     },
     {
     "nombre": "Luis",
     "apellido": "Martinez",
-    "password": "password5678",
-    "email": "luis.martinez@example.com",
+    "password": "contracolaborador",
+    "email": "usuario.colaborador@gmail.com",
     "dni": "45678901",
     "fecha_nacimiento": "1988-09-12",
     "telefono": "4455667788",
@@ -42,8 +42,8 @@
 {
     "nombre": "Sofia",
     "apellido": "Fernandez",
-    "password": "sofiapassword",
-    "email": "sofia.fernandez@example.com",
+    "password": "contracolaborador2",
+    "email": "usuario.colaborador2@gmail.com",
     "dni": "56789012",
     "fecha_nacimiento": "1993-10-15",
     "telefono": "5566778899",
@@ -52,8 +52,8 @@
 {
     "nombre": "Pedro",
     "apellido": "Garcia",
-    "password": "pedropassword",
-    "email": "pedro.garcia@example.com",
+    "password": "contraowner",
+    "email": "usuario.owner@gmail.com",
     "dni": "67890123",
     "fecha_nacimiento": "1990-11-20",
     "telefono": "6677889900",
