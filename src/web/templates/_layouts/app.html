@@ -4,10 +4,10 @@
 {% endblock %}
 {% block base_body %}
 <div class="relative bodyContainer h-full flex flex-col overflow-hidden">
-  <header class="flex-none flex justify-between p-2 md:px-3 border-b shadow border-zinc-900">
+  <header class="flex-none flex justify-between p-2 md:px-3 border-b shadow border-zinc-900 bg-gray-800 text-white">
     <div class="ml-2 flex items-center gap-2">
       <a href="/">
-        <img src="/static/img/Logo.png" alt="Hope Trade Logo" class='w-10 h-10' />
+        <img src="/static/img/Logo.png" alt="Hope Trade Logo" class='w-12 h-12' />
       </a>
       <a href="/" class="hidden md:inline-block underline-offset-2 hover:underline">
         <span class="text-xl font-medium">Hope Trade</span>
@@ -15,25 +15,41 @@
     </div>
     <nav class="flex md:mr-2">
       <div class="relative">
-        <button id="dropdownButton" class="px-3 py-1.5 text-lg text-zinc-100 bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring">
+        <button id="dropdownButton" class="px-4 py-2 text-lg text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring ring-blue-300">
           Menú
         </button>
-        <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+        <div id="dropdownMenu" class="absolute right-0 mt-2 py-2 w-auto bg-white rounded-md shadow-lg hidden z-50">
           <ul class="text-gray-700">
             {% if session.logged_in %}
-            <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100">Cerrar Sesión</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Ver Perfil</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Editar Perfil</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Subir Publicación</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Mis Publicaciones</a></li>
-            <li><a href="/publicaciones" class="block px-4 py-2 hover:bg-gray-100">Listar Publicaciones</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Ofertas Recibidas</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Ofertas Enviadas</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Notificaciones</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Listar Mi Historial de Donaciones</a></li>
-            <li><a href="" class="block px-4 py-2 hover:bg-gray-100">Donar con Tarjeta</a></li>
+              <li><a href="/publicaciones" class="block px-4 py-2 hover:bg-gray-100">Listar Publicaciones</a></li>
+              {% if session.rol_id == 3 %}
+              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
+              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
+              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
+              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
+              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Colaboradores</a></li>
+              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registar Colaborador</a></li>
+              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Historial de Donaciones</a></li>
+              {% elif session.rol_id == 2 %}
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
+              {% elif session.rol_id == 1 %}
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Subir Publicación</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Mis Publicaciones</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Ofertas Recibidas</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Ofertas Enviadas</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Notificaciones</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Mi Historial de Donaciones</a></li>
+                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Donar con Tarjeta</a></li>
+              {% endif %}
+              <li><a href="/profile" class="block px-4 py-2 hover:bg-gray-100  whitespace-nowrap">Ver Perfil</a></li>
+              <li><a href="/edit_profile" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Editar Perfil</a></li>
+              <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cerrar Sesión</a></li>
             {% else %}
-            <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100">Iniciar Sesión</a></li>
+              <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Iniciar Sesión</a></li>
+              <li><a href="/" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Usuario</a></li>
             {% endif %}
           </ul>
         </div>
@@ -46,30 +62,22 @@
   </div>
 </div>
 {% block body %}{% endblock %}
-
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const dropdownButton = document.getElementById('dropdownButton');
-      const dropdownMenu = document.getElementById('dropdownMenu');
-  
-      dropdownButton.addEventListener('click', function() {
-          dropdownMenu.classList.toggle('hidden');
-      });
-  
-      window.onclick = function(event) {
-          if (!event.target.matches('#dropdownButton')) {
-              var dropdowns = document.getElementsByClassName("dropdown-content");
-              for (var i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (!openDropdown.classList.contains('hidden')) {
-                      openDropdown.classList.add('hidden');
-                  }
-              }
-          }
-      }
-  });
-  </script>
-  
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
 
+    dropdownButton.addEventListener('click', function() {
+        dropdownMenu.classList.toggle('hidden');
+    });
+
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('#dropdownButton')) {
+            if (!dropdownMenu.classList.contains('hidden')) {
+                dropdownMenu.classList.add('hidden');
+            }
+        }
+    });
+});
+</script>
 {% endblock %}
-
