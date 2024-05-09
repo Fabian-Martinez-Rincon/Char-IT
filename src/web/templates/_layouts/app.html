@@ -4,7 +4,7 @@
 {% endblock %}
 {% block base_body %}
 <div class="relative bodyContainer h-full flex flex-col overflow-hidden">
-  <header class="flex-none flex justify-between p-2 md:px-3 border-b shadow border-zinc-900 bg-gray-800 text-white">
+  <header class="flex-none flex justify-between p-2 md:px-3 border-b shadow border-zinc-900 bg-cyan-700 text-white">
     <div class="ml-2 flex items-center gap-2">
       <a href="/">
         <img src="/static/img/Logo.png" alt="Hope Trade Logo" class='w-12 h-12' />
@@ -13,6 +13,7 @@
         <span class="text-xl font-medium">Hope Trade</span>
       </a>
     </div>
+    
     <nav class="flex md:mr-2">
       <div class="relative">
         <button id="dropdownButton" class="px-4 py-2 text-lg text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring ring-blue-300">
@@ -26,15 +27,15 @@
               <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
               <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
               <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Colaboradores</a></li>
+              <li><a href="/generales" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
+              <li><a href="/colaboradores" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Colaboradores</a></li>
               <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registar Colaborador</a></li>
               <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Historial de Donaciones</a></li>
               {% elif session.rol_id == 2 %}
                 <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
                 <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
                 <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
+                <li><a href="/generales" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
               {% elif session.rol_id == 1 %}
                 <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Subir Publicación</a></li>
                 <li><a href="/mispublicaciones" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Mis Publicaciones</a></li>
