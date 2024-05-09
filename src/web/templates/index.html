@@ -4,36 +4,26 @@
 <title>Hope Trade</title>
 {% endblock %} 
 {% block content %}
-<main class="flex flex-col min-h-screen">
-  <section class="text-center py-8 px-4 max-h-full">
-    <div class="">
-      <h1
-        class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade"
-      >
+<main class="flex flex-col min-h-screen items-center">
+  <section class="text-center py-8 px-4 w-full max-w-4xl">
+    <div>
+      <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
         HopeTrade
       </h1>
       <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
-        Que esperas para registrarte!!
+        Qué esperas para registrarte!!
       </p>
       <p class="mb-4 text-base md:text-lg text-zinc-500">
-        "HopeTrade" es una página web diseñada para facilitar y mejorar la
-        gestión de donaciones y promover el intercambio de productos entre los
-        usuarios en la red de filiales de la organización benéfica Cáritas.
+        "HopeTrade" es una página web diseñada para facilitar y mejorar la gestión de donaciones y promover el intercambio de productos entre los usuarios en la red de filiales de la organización benéfica Cáritas.
       </p>
     </div>
 
     <!-- Botón para desplegar filiales -->
-    <button
-      onclick="toggleFiliales()"
-      class="my-4 px-6 py-2 text-white bg-cyan-shade hover:bg-green-cyan-shade transition duration-300"
-    >
+    <button onclick="toggleFiliales()" class="my-4 px-6 py-2 text-white bg-cyan-shade hover:bg-green-cyan-shade transition duration-300">
       Ver Filiales
     </button>
     <!-- Contenedor de Filiales -->
-    <div
-      id="filialesContainer"
-      class="overflow-x-auto overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out "
-    >
+    <div id="filialesContainer" class="overflow-x-auto w-full overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out">
       <h2 class="text-2xl font-bold my-4">Nuestras Filiales</h2>        
         {% call Table.Table() %}
           {{ Table.TableHeader(("Nombre", "Dirección", "Horarios", "Días")) }}
@@ -48,24 +38,17 @@
             {% endfor %}
           </tbody>        
         {% endcall %}                
+    </div>
   </section>
 </main>
 <script>
   function toggleFiliales() {
     const container = document.getElementById("filialesContainer");
-    if (
-      container.style.maxHeight === "0px" ||
-      container.style.maxHeight === ""
-    ) {
+    if (container.style.maxHeight === "0px" || container.style.maxHeight === "") {
       container.style.maxHeight = container.scrollHeight + "px";
     } else {
       container.style.maxHeight = "0px";
     }
   }
 </script>
-<style>
-  .hidden {
-    display: none;
-  }
-</style>
 {% endblock %}
