@@ -1,12 +1,15 @@
 {% extends "_layouts/app.html" %}
 {% import "_macros/publicacion.html" as Publicacion %}
+{% block head %}
+<title>Mis Publicaciones</title>
+{% endblock %}
 
 {% block content %}
 <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
     <h1 class="text-3xl font-bold leading-tight text-gray-900">Mis Publicaciones</h1>
     <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for publicacion in publicaciones %}
-            {{ Publicacion.Publicacion(publicacion.titulo, publicacion.foto_path, publicacion.fecha_publicacion, root, publicacion.id) }}                  
+            {{ Publicacion.Publicacion(publicacion.titulo, publicacion.foto_path, publicacion.fecha_publicacion, root, publicacion.id, publicacion.id_visibilidad) }}                  
         {% endfor %}
     </div>
 </main>

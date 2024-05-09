@@ -1,6 +1,9 @@
 {% extends "_layouts/base.html" %}
+{% import "_macros/menu.html" as Menu %}
 {% block base_head %}
-{% block head %}{% endblock %}
+{% block head %}
+  
+{% endblock %}
 {% endblock %}
 {% block base_body %}
 <style>
@@ -31,7 +34,7 @@
     
     <nav class="flex md:mr-2">
       <div class="relative">
-        <button id="dropdownButton1" class="menu-button hidden md:block px-4 py-2 text-lg text-white bg-green-cyan-shade bg-opacity-80 rounded hover:bg-opacity-100 focus:outline-none focus:ring ring-blue-300">
+        <button id="dropdownButton1" class="menu-button hidden md:block px-4 py-2 text-lg text-white bg-green-cyan-shade bg-opacity-80 rounded hover:bg-opacity-100 transition duration-200   focus:outline-none focus:ring ring-blue-300">
           Menú
         </button>
 
@@ -41,34 +44,21 @@
           <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
         </button>
 
-        <div id="dropdownMenu" class="absolute right-0 mt-2 py-2 w-auto bg-white rounded-md shadow-lg hidden z-50">
+        <div id="dropdownMenu" class="absolute right-0 mt-3 w-auto bg-white rounded-md shadow-lg hidden z-50">
           <ul class="text-gray-700">
-            {% if session.logged_in %}
-              <li><a href="/publicaciones" class="block px-4 py-2 hover:bg-gray-100">Listar Publicaciones</a></li>
-              {% if session.rol_id == 3 %}
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
-              <li><a href="/generales" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
-              <li><a href="/colaboradores" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Colaboradores</a></li>
-              <li><a href="/registrarColaborador" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registar Colaborador</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Historial de Donaciones</a></li>
+            {% if session.logged_in %}              
+              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/profile"], ["Editar Perfil", "/edit_profile"]] %}                            
+                {{ Menu.Menu(informationComunLogged) }}              
+              {% if session.rol_id == 3 %} 
+                {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %}
+                {{ Menu.Menu(informationOwner) }}
               {% elif session.rol_id == 2 %}
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
-                <li><a href="/generales" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
-              {% elif session.rol_id == 1 %}
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Subir Publicación</a></li>
-                <li><a href="/mispublicaciones" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Mis Publicaciones</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Ofertas Recibidas</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Ofertas Enviadas</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Notificaciones</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Mi Historial de Donaciones</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Donar con Tarjeta</a></li>
-              {% endif %}
-              <li><a href="/profile" class="block px-4 py-2 hover:bg-gray-100  whitespace-nowrap">Ver Perfil</a></li>
-              <li><a href="/edit_profile" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Editar Perfil</a></li>
+                {% set informationColaborador = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"]] %}
+                {{ Menu.Menu(informationColaborador) }}
+               {% elif session.rol_id == 1 %}
+                {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %}
+                {{ Menu.Menu(informationGeneral) }}
+                {% endif %}
               <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cerrar Sesión</a></li>
             {% else %}
               <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Iniciar Sesión</a></li>
