@@ -24,6 +24,15 @@ class Config:
     # Flask-livetw config
     LIVETW_DEV: bool
     TESTING = False
+    # Configurar la extensión Flask-Mail
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = 'hopeTrade08@gmail.com'
+    MAIL_PASSWORD = 'hgju fnoc xpfg rrwp'  # para ingresar a GMAIL: 08_hopeTrade
+    MAIL_DEFAULT_SENDER = 'hopeTrade08@gmail.com'
+    
     @classmethod
     def load_env_config(cls) -> None:
         cls.LIVETW_DEV = env_or_error("LIVETW_ENV", "production").lower() == "development"
