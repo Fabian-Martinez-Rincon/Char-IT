@@ -4,14 +4,11 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8 bg-white shadow-xl rounded-lg overflow-hidden">
         <div class="lg:flex lg:items-center">
             <div class="lg:flex-shrink-0">
-                <!-- Ajustando el tamaño de la imagen para que sea más grande en pantallas grandes -->
                 <img src="{{ url_for('static', filename=publicacion.foto_path) }}" alt="{{ publicacion.titulo }}" class="h-64 w-full object-cover lg:w-96 lg:h-full">
             </div>
             <div class="p-8">
                 <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">Detalle de la Publicación</div>
-                <!-- Aumentando el tamaño del título para mayor impacto -->
                 <h1 class="block mt-1 text-2xl leading-tight font-bold text-black hover:underline">{{ publicacion.titulo }}</h1>
-                <!-- Descripción con un tamaño de texto mayor -->
                 <p class="mt-4 text-gray-700 text-lg">{{ publicacion.descripcion }}</p>
                 <div class="mt-6">
                     <div class="text-md text-gray-500">
@@ -20,6 +17,18 @@
                     <div class="text-md text-gray-500">
                        <b>Horarios de Preferencia:</b> {{ publicacion.filiales_horarios_dias }}
                     </div>
+                </div>
+                <!-- Botones de acción -->
+                <div class="mt-8 flex gap-4">
+                    <a href="/editarPubli/{{publicacion.id}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Editar Publicación
+                    </a>
+                    <a href="" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Eliminar
+                    </a>
+                    <a href="" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        Cambiar Visibilidad
+                    </a>
                 </div>
             </div>
         </div>

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-<main class="flex flex-col min-h-screen">
-    <section class="text-center py-8 px-4 max-h-full">
+<main class="flex flex-col min-h-screen items-center">
+    <section class="text-center py-8 px-4 w-full max-w-4xl">
         <div>
             <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-cyan-shade dark:text-cyan-shade">
                 Usuarios Generales
@@ -15,9 +15,7 @@
                 Lista completa de usuarios registrados.
             </h2>
         </div>
-        <div
-            class=" "    
-        >
+        <div class="overflow-x-auto w-full">
             {% call Table.Table() %}
                 {{ Table.TableHeader(("Nombre", "Apellido", "Email", "DNI", "Fecha de Nacimiento", "Teléfono")) }}
                 <tbody>
@@ -37,3 +35,4 @@
     </section>
 </main>
 {% endblock %}
+
