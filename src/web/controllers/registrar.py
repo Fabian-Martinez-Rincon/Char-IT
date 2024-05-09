@@ -14,7 +14,8 @@ def register():
     if form.validate_on_submit():
         try:
             existing_user = Usuario.query.filter_by(email=form.email.data).first()
-            if existing_user is None:
+            existing_user2 = Usuario.query.filter_by(dni=form.dni.data).first()
+            if existing_user is None and existing_user2 is None:
                 hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
                 new_user = Usuario(
                     nombre=form.nombre.data,
@@ -24,15 +25,15 @@ def register():
                     dni=form.dni.data,
                     fecha_nacimiento=form.fecha_nacimiento.data,
                     telefono=form.telefono.data,
-                    id_rol=form.id_rol.data 
+                    id_rol=1
                 )
                 db.session.add(new_user)
                 db.session.commit()
                 flash('Registration successful!', 'success')
                 print('no entiendo nada')
-                return redirect(url_for('index_get'))  # Asegúrate de que el nombre de la función es correcto
+                return redirect(url_for('root.index_get'))  # Asegúrate de que el nombre de la función es correcto
             else:
-                print('El mail ya esta registraado :c')
+                print('El dni ya esta registraado :c')
                 flash('Email already registered.', 'danger')
         except Exception as e:
             print(f"Se rompio todo {e}")

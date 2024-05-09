@@ -10,5 +10,4 @@ class RegisterForm(FlaskForm):
     dni = StringField('DNI', validators=[Optional(), Length(max=12)])
     fecha_nacimiento = DateField('Fecha de Nacimiento', validators=[DataRequired()], format='%Y-%m-%d')
     telefono = StringField('Teléfono', validators=[Optional(), Length(max=50)])
-    id_rol = IntegerField('ID de Rol', validators=[DataRequired()])
     submit = SubmitField('Registrar')
