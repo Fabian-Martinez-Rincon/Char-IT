@@ -1,0 +1,45 @@
+{% extends "_layouts/app.html" %}
+{% block content %}
+<main class="py-16 bg-gray-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 bg-white shadow-xl rounded-lg overflow-hidden">
+        <div class="lg:flex lg:items-center">
+            <div class="lg:flex-shrink-0">
+                <!-- Ajustando el tamaño de la imagen para que sea más grande en pantallas grandes -->
+                <img src="{{ url_for('static', filename=publicacion.foto_path) }}" alt="{{ publicacion.titulo }}" class="h-64 w-full object-cover lg:w-96 lg:h-full">
+            </div>
+            <div class="p-8">
+                <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">Detalle de la Publicación</div>
+                <!-- Aumentando el tamaño del título para mayor impacto -->
+                <h1 class="block mt-1 text-2xl leading-tight font-bold text-black hover:underline">{{ publicacion.titulo }}</h1>
+                <div class="mt-6">
+                    <div class="text-md text-gray-500">
+                        Publicado el: {{ publicacion.fecha_publicacion.strftime('%Y-%m-%d %H:%M:%S') }}
+                    </div>
+                    <div class="text-md text-gray-500">
+                       <b>Horarios de Preferencia:</b> {{ publicacion.filiales_horarios_dias }}
+                    </div>
+                </div>
+                <!-- Descripción con un tamaño de texto mayor -->
+                <p class="mt-4 text-gray-700 text-lg">{{ publicacion.descripcion }}</p>
+                <form method="POST" action="{{ url_for('editarPubli.editarPubli') }}">
+                    {{ form.csrf_token }}
+                    
+                    <div class="form-group">
+                        {{ form.descripcion.label }}
+                        {{ form.descripcion(class="form-control", value=publicacion.descripcion) }}
+                        {% for error in form.descripcion.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="producto_id" value="{{ publicacion.id }}">
+                    <div>
+                        {{ form.submit(class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade transition duration-150 ease-in-out") }}
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
