@@ -1,0 +1,36 @@
+{% extends "_layouts/app.html" %}
+{% block content %}
+     <h1>Registro de un nuevo usuario Colaborador</h1>
+     <h2>Por favor, complete el formulario</h2>
+     
+     <form method="POST" action="{{ url_for('registrarColaborador.registrarColaborador') }}" >
+         {{ form.csrf_token }}
+         <div>
+             {{ form.email.label }}
+             {{ form.email(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Email address") }}
+             {% for error in form.email.errors %}
+                 <span style="color: red;">{{ error }}</span>
+             {% endfor %}
+         </div>
+         
+         <div>
+             {{ form.nombre.label }}
+             {{ form.nombre(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Nombre") }}
+             {% for error in form.nombre.errors %}
+                 <span style="color: red;">{{ error }}</span>
+             {% endfor %}
+         </div>
+         
+         <div>
+             {{ form.apellido.label }}
+             {{ form.apellido(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Apellido") }}
+             {% for error in form.apellido.errors %}
+                 <span style="color: red;">{{ error }}</span>
+             {% endfor %}
+         </div>
+         
+         <div>
+             {{ form.submit(class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade transition duration-150 ease-in-out") }}
+         </div>
+     </form>
+{% endblock %}	
