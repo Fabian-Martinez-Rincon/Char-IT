@@ -1,8 +1,26 @@
 {% extends "_layouts/base.html" %}
+{% import "_macros/menu.html" as Menu %}
 {% block base_head %}
-{% block head %}{% endblock %}
+{% block head %}
+  
+{% endblock %}
 {% endblock %}
 {% block base_body %}
+<style>
+  #dropdownButton2 div {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  #dropdownButton2.clicked div:first-child {
+    transform: rotate(-30deg); 
+  }
+  #dropdownButton2.clicked div:nth-child(2) {
+    opacity: 0;
+  }
+  #dropdownButton2.clicked div:last-child {
+    transform: rotate(30deg);
+  }
+</style>
 <div class="relative bodyContainer h-full flex flex-col overflow-hidden">
   <header class="flex-none flex justify-between p-2 md:px-3 border-b shadow border-zinc-900 bg-cyan-700 text-white">
     <div class="ml-2 flex items-center gap-2">
@@ -16,37 +34,31 @@
     
     <nav class="flex md:mr-2">
       <div class="relative">
-        <button id="dropdownButton" class="px-4 py-2 text-lg text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring ring-blue-300">
+        <button id="dropdownButton1" class="menu-button hidden md:block px-4 py-2 text-lg text-white bg-green-cyan-shade bg-opacity-80 rounded hover:bg-opacity-100 transition duration-200   focus:outline-none focus:ring ring-blue-300">
           Menú
         </button>
-        <div id="dropdownMenu" class="absolute right-0 mt-2 py-2 w-auto bg-white rounded-md shadow-lg hidden z-50">
+
+        <button id="dropdownButton2" class="menu-button md:hidden py-2 flex flex-col gap-1 w-12 h-12 border-0 bg-transparent">
+          <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
+          <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
+          <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
+        </button>
+
+        <div id="dropdownMenu" class="absolute right-0 mt-3 w-auto bg-white rounded-md shadow-lg hidden z-50">
           <ul class="text-gray-700">
-            {% if session.logged_in %}
-              <li><a href="/publicaciones" class="block px-4 py-2 hover:bg-gray-100">Listar Publicaciones</a></li>
-              {% if session.rol_id == 3 %}
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
-              <li><a href="/generales" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
-              <li><a href="/colaboradores" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Colaboradores</a></li>
-              <li><a href="/registrarColaborador" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registar Colaborador</a></li>
-              <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Historial de Donaciones</a></li>
+            {% if session.logged_in %}              
+              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/profile"], ["Editar Perfil", "/edit_profile"]] %}                            
+                {{ Menu.Menu(informationComunLogged) }}              
+              {% if session.rol_id == 3 %} 
+                {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %}
+                {{ Menu.Menu(informationOwner) }}
               {% elif session.rol_id == 2 %}
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donación en efectivo</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Donacion  de Produto</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Intercambios Pendientes</a></li>
-                <li><a href="/generales" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Usuarios</a></li>
-              {% elif session.rol_id == 1 %}
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Subir Publicación</a></li>
-                <li><a href="/mispublicaciones" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Mis Publicaciones</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Ofertas Recibidas</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Ofertas Enviadas</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Notificaciones</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Listar Mi Historial de Donaciones</a></li>
-                <li><a href="" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Donar con Tarjeta</a></li>
-              {% endif %}
-              <li><a href="/profile" class="block px-4 py-2 hover:bg-gray-100  whitespace-nowrap">Ver Perfil</a></li>
-              <li><a href="/edit_profile" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Editar Perfil</a></li>
+                {% set informationColaborador = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"]] %}
+                {{ Menu.Menu(informationColaborador) }}
+               {% elif session.rol_id == 1 %}
+                {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %}
+                {{ Menu.Menu(informationGeneral) }}
+                {% endif %}
               <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cerrar Sesión</a></li>
             {% else %}
               <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Iniciar Sesión</a></li>
@@ -64,21 +76,26 @@
 </div>
 {% block body %}{% endblock %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdownButton = document.getElementById('dropdownButton');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    dropdownButton.addEventListener('click', function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var dropdownButtons = document.querySelectorAll('.menu-button');
+    var dropdownMenu = document.getElementById('dropdownMenu');
+  
+    dropdownButtons.forEach(function(button) {
+      button.addEventListener('click', function(event) {
+        event.stopPropagation();
+        this.classList.toggle('clicked');
         dropdownMenu.classList.toggle('hidden');
+      });
     });
-
+  
     window.addEventListener('click', function(event) {
-        if (!event.target.matches('#dropdownButton')) {
-            if (!dropdownMenu.classList.contains('hidden')) {
-                dropdownMenu.classList.add('hidden');
-            }
+      dropdownButtons.forEach(function(button) {
+        if (!button.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          button.classList.remove('clicked');
+          dropdownMenu.classList.add('hidden');
         }
+      });
     });
-});
+  });  
 </script>
 {% endblock %}
