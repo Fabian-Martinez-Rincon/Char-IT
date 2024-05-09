@@ -39,7 +39,7 @@ def usuarios_colaboradores_get():
 @bp.get("/publicaciones")
 def publicaciones_get():
     try:
-        todas_las_publicaciones = Publicacion.query.all()
+        todas_las_publicaciones = Publicacion.query.filter_by(id_visibilidad=1).all()
         return render_template("/owner/publicaciones.html", publicaciones=todas_las_publicaciones)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500

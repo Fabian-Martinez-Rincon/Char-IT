@@ -19,19 +19,28 @@
                     </div>
                 </div>
                 <!-- Botones de acción -->
-                <div class="mt-8 flex gap-4">
-                    <a href="/editarPubli/{{publicacion.id}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Editar Publicación
-                    </a>
-                    <a href="" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        Eliminar
-                    </a>
-                    <a href="" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        Cambiar Visibilidad
-                    </a>
-                </div>
+                {% if publicacion.id_usuario == session.get('user_id') %}
+                    <div class="mt-8 flex gap-4">
+                        <a href="/editarPubli/{{ publicacion.id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Editar Publicación
+                        </a>
+                        <a href="{{ url_for('eliminarPubli.eliminarPubli', publicacion_id=publicacion.id) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');">
+                            Eliminar
+                        </a>
+                        {% if publicacion.id_visibilidad == 1 %}
+                            <a href="{{ url_for('cambiarVisibilidad.cambiarVisibilidad', publicacion_id=publicacion.id) }}" class="bg-gray-500 text-white font-bold py-2 px-4 rounded">
+                                Archivar
+                            </a>
+                        {% elif publicacion.id_visibilidad == 2 %}
+                            <a href="{{ url_for('cambiarVisibilidad.cambiarVisibilidad', publicacion_id=publicacion.id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Publicar
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </main>
 {% endblock %}
+
