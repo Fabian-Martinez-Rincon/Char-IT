@@ -24,15 +24,15 @@ def index_get():
 def usuarios_generales_get():
     try:
         usuarios_rol_2 = Usuario.query.filter(Usuario.id_rol == 1).all()
-        return render_template("/owner/usuarios.html", usuarios=usuarios_rol_2)
+        return render_template("/owner/usuarios_generales.html", usuarios=usuarios_rol_2)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
-
+    
 @bp.get("/colaboradores")
 def usuarios_colaboradores_get():
     try:
         usuarios_rol_3 = Usuario.query.filter(Usuario.id_rol == 2).all()
-        return render_template("/owner/usuarios.html", usuarios=usuarios_rol_3)
+        return render_template("/owner/usuarios_colaboradores.html", usuarios=usuarios_rol_3)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
@@ -58,8 +58,6 @@ def publicacion_detalle(publicacion_id):
     return render_template("publicaciones/detalle.html", publicacion=publicacion)
 
 
-
-
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -82,3 +80,6 @@ def logout():
     session['logged_in'] = False
     flash('You have been logged out.', 'success')
     return redirect(url_for('root.index_get'))
+
+
+
