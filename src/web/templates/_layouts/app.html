@@ -50,13 +50,16 @@
               {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/profile"], ["Editar Perfil", "/edit_profile"]] %}                            
                 {{ Menu.Menu(informationComunLogged) }}              
               {% if session.rol_id == 3 %} 
-                {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %}
+                <!-- {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %} -->
+                {% set informationOwner =  [["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"]] %}
                 {{ Menu.Menu(informationOwner) }}
               {% elif session.rol_id == 2 %}
-                {% set informationColaborador = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"]] %}
+                <!-- {% set informationColaborador = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"]] %} -->
+                {% set informationColaborador =  [["Listar Usuarios", "/generales"]] %}
                 {{ Menu.Menu(informationColaborador) }}
                {% elif session.rol_id == 1 %}
-                {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %}
+                <!-- {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %} -->
+                {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"]] %}
                 {{ Menu.Menu(informationGeneral) }}
                 {% endif %}
               <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cerrar Sesión</a></li>
