@@ -22,26 +22,45 @@
   }
 </style>
 <div class="relative bodyContainer h-full flex flex-col overflow-hidden">
-  <header class="flex-none flex justify-between p-2 md:px-3 border-b shadow border-zinc-900 bg-cyan-700 text-white">
-    <div class="ml-2 flex items-center gap-2">
+  <header class="flex-none flex justify-between p-2 md:px-3   bg-cyan-shade text-white">
+    <div class="ml-2 flex items-center gap-2 group">
       <a href="/">
-        <img src="/static/img/Logo.png" alt="Hope Trade Logo" class='w-12 h-12' />
+          <img src="/static/img/Logo.png" alt="Hope Trade Logo" class="w-12 h-12" />
       </a>
-      <a href="/" class="hidden md:inline-block underline-offset-2 hover:underline">
-        <span class="text-xl font-medium">Hope Trade</span>
+      <!-- El texto no se muestra en pantallas pequeñas -->
+      <a href="/" class="relative overflow-hidden hidden md:inline-block">
+          <span class="inline-block text-xl font-medium transition-transform duration-500 transform md:-translate-x-full md:group-hover:translate-x-0">
+              HopeTrade
+          </span>
       </a>
     </div>
-    
+  
+
+    <!-- <div class="ml-2 flex items-center gap-2">
+      <a href="/">
+          <img src="/static/img/Logo.png" alt="Hope Trade Logo" class='w-12 h-12' />
+      </a>
+      <a href="/" class="relative group overflow-hidden inline-block">
+          <span class="absolute left-full group-hover:left-0 transition-all duration-500 text-xl font-medium">HopeTrade</span>
+      </a>
+    </div> -->
+  
     <nav class="flex md:mr-2">
       <div class="relative">
-        <button id="dropdownButton1" class="menu-button hidden md:block px-4 py-2 text-lg text-white bg-green-cyan-shade bg-opacity-80 rounded hover:bg-opacity-100 transition duration-200   focus:outline-none focus:ring ring-blue-300">
+        <!-- <button id="dropdownButton1" class="menu-button hidden md:block px-4 py-2 text-lg text-white bg-green-cyan-shade bg-opacity-80 rounded hover:bg-opacity-100 transition duration-200   focus:outline-none focus:ring ring-blue-300">
           Menú
-        </button>
+        </button> -->
 
-        <button id="dropdownButton2" class="menu-button md:hidden py-2 flex flex-col gap-1 w-12 h-12 border-0 bg-transparent">
+        <!-- <button id="dropdownButton2" class="menu-button md:hidden py-2 flex flex-col gap-1 w-12 h-12 border-0 bg-transparent">
           <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
           <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
           <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
+        </button> -->
+
+        <button id="dropdownButton2" class="menu-button py-2 flex flex-col gap-1 w-12 h-12 border-0 bg-transparent">
+          <div class="bg-yellow-green-shade h-2 w-full rounded-lg transition-all duration-1000 origin-right"></div>
+          <div class="bg-yellow-green-shade h-2 w-full rounded-lg transition-all duration-1000 origin-right"></div>
+          <div class="bg-yellow-green-shade h-2 w-full rounded-lg transition-all duration-1000 origin-right"></div>
         </button>
 
         <div id="dropdownMenu" class="absolute right-0 mt-3 w-auto bg-white rounded-md shadow-lg hidden z-50">
