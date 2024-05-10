@@ -10,7 +10,7 @@ class Usuario(db.Model):
     password = db.Column(db.String(255), nullable=False) 
     email = db.Column(db.String(255), nullable=False, unique=True)
     dni = db.Column(db.String(12), nullable=True, unique=True) 
-    fecha_nacimiento = db.Column(db.DateTime,nullable=True)
+    fecha_nacimiento = db.Column(db.Date, nullable=True)
     telefono = db.Column(db.String(50), nullable=True)
     id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=False)
     publicaciones = db.relationship('Publicacion', backref='publicaciones', cascade='all, delete-orphan')

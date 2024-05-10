@@ -1,15 +1,17 @@
 {% macro Publicacion(title,foto_path, fecha_publicacion, root, id, id_visibilidad) %}
 <a href="{{ url_for('root.publicacion_detalle', publicacion_id=id) }}" class="no-underline">
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
-        <img class="w-full h-48 object-cover" src="{{ url_for('static', filename=foto_path) }}" alt="{{ title }}">
-        <div class="px-6 py-4">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg" style="min-height: 350px;">
+        <div style="height: 200px; overflow: hidden; border: solid 1px #ccc; display: flex; align-items: center; justify-content: center;">
+            <img class="object-scale-down" src="{{ url_for('static', filename=foto_path) }}" alt="{{ title }}">
+        </div>
+        <div class="px-6 py-4 text-center" style="min-height: 150px; ">
             <div class="font-bold text-xl mb-2">{{ title }}</div>
-            <div class="flex items-center">
-                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ fecha_publicacion.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+            <div class="flex flex-col items-center justify-center">
+                <p class="inline-block bg-gray-200 rounded-full py-1 text-sm font-semibold text-gray-700 mb-2">{{ fecha_publicacion.strftime('%H:%M %d/%m/%Y ') }}</p>
                 {% if id_visibilidad == 1 %}
-                    <img class="h-4 mb-2 mr-2 self-center" src="/static/img/accesibilidad/publica.png" alt="">
+                    <img class="h-4 mb-2 mr-2 self-center ml-4" src="/static/img/accesibilidad/publica.png" alt="">
                 {% elif id_visibilidad == 2 %}                
-                    <img class="h-4 mb-2 mr-2 self-center" src="/static/img/accesibilidad/archivada.png" alt="">                
+                    <img class="h-4 mb-2 mr-2 self-center ml-4" src="/static/img/accesibilidad/archivada.png" alt="">                
                 {% endif %}
             </div>            
             
@@ -17,4 +19,3 @@
     </div>
 </a> 
 {% endmacro %}
-

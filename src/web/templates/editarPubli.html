@@ -1,7 +1,7 @@
 {% extends "_layouts/app.html" %}
 {% block content %}
 <main class="py-16 bg-gray-100 min-h-screen">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 bg-white shadow-xl rounded-lg overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8rounded-lg overflow-hidden">
         <div class="lg:flex lg:items-center">
             <div class="lg:flex-shrink-0">
                 <img src="{{ url_for('static', filename=publicacion.foto_path) }}" alt="{{ publicacion.titulo }}" class="h-64 w-full object-cover lg:w-96 lg:h-full">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             
-                <form method="POST" action="{{ url_for('editarPubli.editarPubli') }}">
+                <!-- <form method="POST" action="{{ url_for('editarPubli.editarPubli') }}">
                     {{ form.csrf_token }}
                     <div class="form-group">
                         {{ form.descripcion.label }}
@@ -30,6 +30,24 @@
                     <input type="hidden" name="producto_id" value="{{ publicacion.id }}">
                     <div class="mt-2 text-right">
                         {{ form.submit(class="group relative py-1 px-2 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade transition duration-150 ease-in-out") }}
+                    </div>
+                </form> -->
+                <form method="POST" action="{{ url_for('editarPubli.editarPubli') }}" class="space-y-4">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        <label for="descripcion" class="block text-sm font-medium text-gray-700">{{ form.descripcion.label }}</label>
+                        <div class="mt-1">
+                            <textarea class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full h-24 sm:text-sm border-gray-300 rounded-md" id="descripcion" name="descripcion" oninput="auto_grow(this)" style="overflow:hidden">{{ publicacion.descripcion }}</textarea>
+                        </div>
+                        {% for error in form.descripcion.errors %}
+                            <span class="text-sm text-red-600">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="producto_id" value="{{ publicacion.id }}">
+                    <div class="mt-2 text-right">
+                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Submit
+                        </button>
                     </div>
                 </form>
             </div>
