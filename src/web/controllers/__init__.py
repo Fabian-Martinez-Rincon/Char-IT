@@ -1,8 +1,8 @@
 import flask
-from src.web.controllers import root, registrar, registrarColaborador, editarPubli, eliminarPubli, cambiarVisibilidad
+from src.web.controllers import root, registrar, registrarColaborador, editarPubli, eliminarPubli, cambiarVisibilidad, subirPubli
 
 _blueprints = (
-    root.bp, registrar.bp, registrarColaborador.bp, editarPubli.bp, eliminarPubli.bp, cambiarVisibilidad.bp,
+    root.bp, registrar.bp, registrarColaborador.bp, editarPubli.bp, eliminarPubli.bp, cambiarVisibilidad.bp, subirPubli.bp
 )
 
 def init_app(app: flask.Flask):
