@@ -1,0 +1,66 @@
+{% extends "_layouts/app.html" %}
+{% block content %}
+<main class="py-16 bg-gray-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 bg-white shadow-xl rounded-lg overflow-hidden">
+        <div class="p-8">
+            <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">Subir Publicación</div>
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                <!-- Campo de selección de foto -->
+                <div class="mb-4">
+                    <label for="foto" class="block text-gray-700 font-bold mb-2">Foto</label>
+                    <input type="file" name="foto" id="foto" class="border border-gray-400 rounded w-full py-2 px-3" accept="image/jpeg, image/png">
+                </div>
+                <!-- Campo de título -->
+                <div class="mb-4">
+                    <label for="titulo" class="block text-gray-700 font-bold mb-2">Título</label>
+                    {{ form.titulo(class="border border-gray-400 rounded w-full py-2 px-3") }}
+                    {% if form.titulo.errors %}
+                        <div class="text-red-500 mt-1">
+                            {% for error in form.titulo.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- Campo de descripción -->
+                <div class="mb-4">
+                    <label for="descripcion" class="block text-gray-700 font-bold mb-2">Descripción</label>
+                    {{ form.descripcion(class="border border-gray-400 rounded w-full py-2 px-3") }}
+                    {% if form.descripcion.errors %}
+                        <div class="text-red-500 mt-1">
+                            {% for error in form.descripcion.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- Campo de horarios libres (opcional) -->
+                <div class="mb-4">
+                    <label for="horarios" class="block text-gray-700 font-bold mb-2">Horarios Libres (opcional)</label>
+                    {{ form.horarios(class="border border-gray-400 rounded w-full py-2 px-3") }}
+                    {% if form.horarios.errors %}
+                        <div class="text-red-500 mt-1">
+                            {% for error in form.horarios.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- Campo de selección de categoría -->
+                <div class="mb-4">
+                    <label for="categoria" class="block text-gray-700 font-bold mb-2">Categorías</label>
+                    <select name="categoria" id="categoria" class="border border-gray-400 rounded w-full py-2 px-3">
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <!-- Botón de enviar -->
+                {{ form.submit(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") }}
+                {{ form.submit_archivar(class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded") }}
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

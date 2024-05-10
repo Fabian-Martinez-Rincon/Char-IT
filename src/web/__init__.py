@@ -3,7 +3,7 @@ from src.core.config import config
 from src.core.models import database
 from src.web import controllers
 from datetime import timedelta
-
+import os
 def create_app(env: str = "development", static_folder: str = "../static"):
     app = Flask(
         __name__, static_folder=static_folder, template_folder="./templates"
@@ -13,8 +13,10 @@ def create_app(env: str = "development", static_folder: str = "../static"):
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_SECURE'] = True  # Si estás usando HTTPS
     app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=14) 
+    app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), "src", "static").replace(os.sep, "/") # Ruta de la carpeta para las imagenes
     database.init_app(app)
     controllers.init_app(app)
+    
     
     @app.cli.command(name="resetdb")
     def resetdb():
