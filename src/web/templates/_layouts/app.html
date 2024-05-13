@@ -20,53 +20,36 @@
   #dropdownButton2.clicked div:last-child {
     transform: rotate(30deg);
   }
+  img {
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+  }
 </style>
-<div class="relative bodyContainer h-full flex flex-col overflow-hidden">
-  <header class="flex-none flex justify-between p-2 md:px-3   bg-cyan-shade text-white">
-    <div class="ml-2 flex items-center gap-2 group">
+<div class="relative flex flex-col h-full overflow-hidden bodyContainer">
+  <header class="flex justify-between flex-none p-2 text-white md:px-3 bg-cyan-shade">
+    <div class="flex items-center gap-2 ml-2 group">
       <a href="/">
-          <img src="/static/img/Logo.png" alt="Hope Trade Logo" class="w-12 h-12" />
+          <img src="/static/img/Logo.png" alt="Hope Trade Logo" class=" w-12 h-12" />
       </a>
       <!-- El texto no se muestra en pantallas pequeñas -->
-      <a href="/" class="relative overflow-hidden hidden md:inline-block">
+      <a href="/" class="relative hidden overflow-hidden md:inline-block">
           <span class="inline-block text-xl font-medium transition-transform duration-500 transform md:-translate-x-full md:group-hover:translate-x-0">
               HopeTrade
           </span>
       </a>
     </div>
   
-
-    <!-- <div class="ml-2 flex items-center gap-2">
-      <a href="/">
-          <img src="/static/img/Logo.png" alt="Hope Trade Logo" class='w-12 h-12' />
-      </a>
-      <a href="/" class="relative group overflow-hidden inline-block">
-          <span class="absolute left-full group-hover:left-0 transition-all duration-500 text-xl font-medium">HopeTrade</span>
-      </a>
-    </div> -->
-  
     <nav class="flex md:mr-2">
       <div class="relative">
-        <!-- <button id="dropdownButton1" class="menu-button hidden md:block px-4 py-2 text-lg text-white bg-green-cyan-shade bg-opacity-80 rounded hover:bg-opacity-100 transition duration-200   focus:outline-none focus:ring ring-blue-300">
-          Menú
-        </button> -->
-
-        <!-- <button id="dropdownButton2" class="menu-button md:hidden py-2 flex flex-col gap-1 w-12 h-12 border-0 bg-transparent">
-          <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
-          <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
-          <div class="bg-green-cyan-shade h-2 w-full rounded-lg transition-all duration-500 origin-right"></div>
-        </button> -->
-
-        <button id="dropdownButton2" class="menu-button py-2 flex flex-col gap-1 w-12 h-12 border-0 bg-transparent">
-          <div class="bg-yellow-green-shade h-2 w-full rounded-lg transition-all duration-1000 origin-right"></div>
-          <div class="bg-yellow-green-shade h-2 w-full rounded-lg transition-all duration-1000 origin-right"></div>
-          <div class="bg-yellow-green-shade h-2 w-full rounded-lg transition-all duration-1000 origin-right"></div>
+        <button id="dropdownButton2" class="flex flex-col w-12 h-12 gap-1 py-2 bg-transparent border-0 menu-button">
+          <div class="w-full h-2 shadow transition-all duration-1000 origin-right rounded-lg bor bg-yellow-green-shade"></div>
+          <div class="w-full h-2 shadow transition-all duration-1000 origin-right rounded-lg bg-yellow-green-shade"></div>
+          <div class="w-full h-2 shadow transition-all duration-1000 origin-right rounded-lg bg-yellow-green-shade"></div>
         </button>
 
-        <div id="dropdownMenu" class="absolute right-0 mt-3 w-auto bg-white rounded-md shadow-lg hidden z-50">
+        <div id="dropdownMenu" class="absolute right-0 z-50 hidden w-auto mt-3 bg-white rounded-md shadow-lg">
           <ul class="text-gray-700">
             {% if session.logged_in %}              
-              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/profile"], ["Editar Perfil", "/edit_profile"]] %}                            
+              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/perfil"], ["Editar Perfil", "/editarPerfil"]] %}                            
                 {{ Menu.Menu(informationComunLogged) }}              
               {% if session.rol_id == 3 %} 
                 <!-- {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %} -->
@@ -78,7 +61,7 @@
                 {{ Menu.Menu(informationColaborador) }}
                {% elif session.rol_id == 1 %}
                 <!-- {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %} -->
-                {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"]] %}
+                {% set informationGeneral = [["Subir Publicación", "/subirPubli"], ["Listar Mis Publicaciones", "/mispublicaciones"]] %}
                 {{ Menu.Menu(informationGeneral) }}
                 {% endif %}
               <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cerrar Sesión</a></li>
@@ -92,7 +75,7 @@
     </nav>
   </header>
 
-  <div class="flex-1 flex flex-col overflow-x-hidden">
+  <div class="flex flex-col flex-1 overflow-x-hidden">
     {% block content %}Content placeholder{% endblock %}
   </div>
 </div>
