@@ -81,11 +81,11 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('root.index_get'))
 
-@bp.route('/profile')
-def profile():
+@bp.route('/perfil')
+def perfil():
     if session.get('user_id'):
         user = Usuario.query.get(session.get('user_id'))
-        return render_template('profile.html', user=user)
+        return render_template('perfil.html', user=user)
     else:
         flash('You must be logged in to view your profile.', 'warning')
         return redirect(url_for('root.index_get'))

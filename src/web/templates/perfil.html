@@ -3,14 +3,14 @@
     <title>{{ user.nombre }} {{ user.apellido }}</title>
 {% endblock %}
 {% block content %}
-<div class="flex flex-col justify-center items-center mt-10  text-center">
-    <img src="/static/img/accesibilidad/user.png" alt="User Profile" class="w-24 h-24 rounded-full border-4 border-gray-200 mb-6">
+<div class="flex flex-col items-center justify-center mt-10 text-center">
+    <img src="/static/img/accesibilidad/user.png" alt="User Profile" class="w-24 h-24 mb-6 rounded-full">
     
-    <h1 class="text-4xl font-semibold text-gray-900 mb-6">
+    <h1 class="mb-6 text-4xl font-semibold text-gray-900">
         {{ user.nombre }} {{ user.apellido }}
     </h1>
     
-    <div class="text-left text-xl text-gray-700 max-w-lg mx-auto">
+    <div class="max-w-lg mx-auto text-xl text-left text-gray-700">
         <p class="mb-2">
             <strong>Email:</strong> {{ user.email }}
         </p>
@@ -23,15 +23,16 @@
             <strong>Teléfono:</strong> {{ user.telefono }}
         </p>
         
-        <p>
+        <p class="mb-2">
             <strong>Fecha de nacimiento:</strong> {{ user.fecha_nacimiento.strftime('%d/%m/%Y') }}
         </p>
-    </div>
-    
-    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition mt-6">
+        
+        <p class="mb-2">             
+            <strong class="font-semibold mr-2">Contraseña: </strong> {{"•••••••••"}}         
+        </p>
+    </div>  
+    <button class="px-4 py-2 mt-6 text-white transition rounded bg-cyan-shade hover:bg-green-cyan-shade">
         Editar perfil
-    </button>
+    </button> 
 </div>
-
-
 {% endblock %}
