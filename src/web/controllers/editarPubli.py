@@ -1,6 +1,7 @@
 from src.core.models.database import db
 from datetime import datetime
 from src.core.models.publicacion import Publicacion
+from src.core.models.usuario import Usuario
 from src.web.formularios.editar_publi import EditarPubliForm
 from flask import request, flash, redirect, url_for, session, render_template, abort
 from flask import (
@@ -15,6 +16,10 @@ def editarPubliGo(producto_id: int):
     """
     Muestra el formulario para editar una publicación si el usuario es el propietario.
     """
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    return redirect(url_for('root.index_get'))
     producto = Publicacion.query.get_or_404(producto_id)
     
     # Verifica si el usuario actual es el propietario de la publicación

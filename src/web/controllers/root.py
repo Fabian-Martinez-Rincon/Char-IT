@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session, flash
+from flask import Blueprint, render_template, redirect, url_for, session, flash, request
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
 from src.core.models.publicacion import Publicacion
@@ -19,9 +19,12 @@ def index_get():
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
-
 @bp.get("/generales")
 def usuarios_generales_get():
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol == 1 :  
+                    return redirect(url_for('root.index_get'))
     try:
         usuarios_rol_2 = Usuario.query.filter(Usuario.id_rol == 1).all()
         return render_template("/owner/usuarios_generales.html", usuarios=usuarios_rol_2)
@@ -30,6 +33,10 @@ def usuarios_generales_get():
     
 @bp.get("/colaboradores")
 def usuarios_colaboradores_get():
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 3:  
+                return redirect(url_for('root.index_get'))
     try:
         usuarios_rol_3 = Usuario.query.filter(Usuario.id_rol == 2).all()
         return render_template("/owner/usuarios_colaboradores.html", usuarios=usuarios_rol_3)
@@ -46,6 +53,10 @@ def publicaciones_get():
 
 @bp.get("/mispublicaciones")
 def mis_publicaciones_get():
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    return redirect(url_for('root.index_get'))
     try:
         mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id']).all()
         return render_template("/owner/mis-publicaciones.html", publicaciones=mis_publicaciones)

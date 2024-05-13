@@ -1,5 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
+from src.core.models.usuario import Usuario
 from flask import render_template, request, flash, redirect, url_for, session, current_app
 from src.web.formularios.subir_publi import SubirPubliForm
 from src.core.models.publicacion import Publicacion
@@ -13,6 +14,10 @@ from flask import (
 bp = Blueprint("subirPubli", __name__)
 @bp.route("/subirPubli", methods=['GET'])
 def subirPubliGo():
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    return redirect(url_for('root.index_get'))
     form = SubirPubliForm()
     categorias = Categoria.query.all()  # Obtén todas las categorías disponibles
     form.categoria.choices = [(categoria.id, categoria.nombre) for categoria in Categoria.query.all()]  # Llena el campo de selección de categorías
@@ -21,6 +26,10 @@ def subirPubliGo():
 
 @bp.route("/subirPubli", methods=['POST'])
 def subirPubli():
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    return redirect(url_for('root.index_get'))
     form = SubirPubliForm() 
     form.categoria.choices = [(categoria.id, categoria.nombre) for categoria in Categoria.query.all()]  # Llena el campo de selección de categorías
     categorias = Categoria.query.all()  # Obtén todas las categorías disponibles

@@ -66,7 +66,7 @@
         <div id="dropdownMenu" class="absolute right-0 mt-3 w-auto bg-white rounded-md shadow-lg hidden z-50">
           <ul class="text-gray-700">
             {% if session.logged_in %}              
-              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/profile"], ["Editar Perfil", "/edit_profile"]] %}                            
+              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/profile"], ["Editar Perfil", ""]] %}                            
                 {{ Menu.Menu(informationComunLogged) }}              
               {% if session.rol_id == 3 %} 
                 <!-- {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %} -->
@@ -78,10 +78,10 @@
                 {{ Menu.Menu(informationColaborador) }}
                {% elif session.rol_id == 1 %}
                 <!-- {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %} -->
-                {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"]] %}
+                {% set informationGeneral = [["Subir Publicación", "/subirPubli"], ["Listar Mis Publicaciones", "/mispublicaciones"]] %}
                 {{ Menu.Menu(informationGeneral) }}
                 {% endif %}
-              <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cerrar Sesión</a></li>
+              <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap" onclick="return confirm('¿Estás seguro de que deseas cerrar sesion?');">Cerrar Sesión</a></li>
             {% else %}
               <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Iniciar Sesión</a></li>
               <li><a href="/registrar_usuario" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Usuario</a></li>
