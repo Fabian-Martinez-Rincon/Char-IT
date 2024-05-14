@@ -49,7 +49,7 @@
         <div id="dropdownMenu" class="absolute right-0 z-50 hidden w-auto mt-3 bg-white rounded-md shadow-lg">
           <ul class="text-gray-700">
             {% if session.logged_in %}              
-              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/perfil"], ["Editar Perfil", "/editarPerfil"]] %}                            
+              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/perfil"]] %}                            
                 {{ Menu.Menu(informationComunLogged) }}              
               {% if session.rol_id == 3 %} 
                 <!-- {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %} -->

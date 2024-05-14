@@ -4,5 +4,6 @@ from wtforms.validators import DataRequired, Length
 
 
 class EditarPerfilForm(FlaskForm): 
-    password = StringField('Nueva Contraseña', validators=[DataRequired(), Length(min=8, max=255)]); 
-    SubmitField = SubmitField('Actualizar');
+    password_actual = StringField('Contraseña Actual', validators=[DataRequired()])
+    nueva_password = StringField('Nueva Contraseña', validators=[DataRequired(), Length(min=8, max=255)]) 
+    submit = SubmitField('Actualizar')

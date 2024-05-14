@@ -31,8 +31,8 @@
             <strong class="font-semibold mr-2">Contraseña: </strong> {{"•••••••••"}}         
         </p>
     </div>  
-    <button class="px-4 py-2 mt-6 text-white transition rounded bg-cyan-shade hover:bg-green-cyan-shade">
+    <a href="{{ url_for('editarPerfil.editar_perfil', usuario_id=user.id) }}" class="px-4 py-2 mt-6 text-white transition rounded bg-cyan-shade hover:bg-green-cyan-shade">
         Editar perfil
-    </button> 
+    </a> 
 </div>
 {% endblock %}

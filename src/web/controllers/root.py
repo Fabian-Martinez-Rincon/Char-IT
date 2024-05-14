@@ -106,7 +106,8 @@ def login():
             session['user_id'] = user.id
             session['logged_in'] = True
             session['rol_id'] = user.id_rol
-            flash('You have successfully logged in!', 'success')
+            # flash('You have successfully logged in!', 'success')
+            flash('Se ha iniciado sesión correctamente.', 'success')
             return redirect(url_for('root.index_get'))
         else:
             flash('Invalid email or password.', 'danger')
@@ -120,7 +121,7 @@ def logout():
         return redirect(url_for('root.index_get'))
     session.pop('user_id', None)
     session['logged_in'] = False
-    flash('You have been logged out.', 'success')
+    flash('Se ha cerrado la sesión correctamente.', 'success')
     return redirect(url_for('root.index_get'))
 
 @bp.route('/perfil')
