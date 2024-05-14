@@ -12,7 +12,9 @@ def editarPerfilGo(usuario_id: int):
     Muestra el formulario para editar el perfil de un usuario.
     """
     usuario = Usuario.query.get_or_404(usuario_id)
-    
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
     if (usuario.id != session.get('user_id')):
         flash("No tienes permiso para editar este perfil.", "error"); 
         return redirect(url_for("root.perfil", usuario_id=usuario.id))

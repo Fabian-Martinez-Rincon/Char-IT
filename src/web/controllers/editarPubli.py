@@ -16,9 +16,13 @@ def editarPubliGo(producto_id: int):
     """
     Muestra el formulario para editar una publicación si el usuario es el propietario.
     """
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
     if session.get('user_id'):
         rol = Usuario.query.get(session.get('user_id')).id_rol
         if rol != 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
                     return redirect(url_for('root.index_get'))
     producto = Publicacion.query.get_or_404(producto_id)
     

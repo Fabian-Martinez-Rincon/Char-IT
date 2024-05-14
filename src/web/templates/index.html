@@ -10,9 +10,11 @@
       <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
         HopeTrade
       </h1>
-      <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
-        Qué esperas para registrarte!!
-      </p>
+      {% if not(session.logged_in) %}
+        <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
+          Qué esperas para registrarte!!
+        </p>
+      {% endif %}
       <p class="mb-4 text-base md:text-lg text-zinc-500">
         "HopeTrade" es una página web diseñada para facilitar y mejorar la gestión de donaciones y promover el intercambio de productos entre los usuarios en la red de filiales de la organización benéfica Cáritas.
       </p>

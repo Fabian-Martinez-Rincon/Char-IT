@@ -13,10 +13,14 @@ bp = Blueprint("registrarColaborador", __name__)
 
 @bp.route("/registrarColaborador", methods=['GET','POST'])
 def registrarColaborador():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
     form = RegistrarColbForm()
     if session.get('user_id'):
         rol = Usuario.query.get(session.get('user_id')).id_rol
         if rol != 3:  
+                flash('No tienes permiso para realizar esta operacion.', 'error')
                 return redirect(url_for('root.index_get'))
     if form.validate_on_submit():
         nombre = form.nombre.data
