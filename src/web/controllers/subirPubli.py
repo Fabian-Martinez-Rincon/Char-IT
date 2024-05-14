@@ -1,5 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
+from src.core.models.usuario import Usuario
 from flask import render_template, request, flash, redirect, url_for, session, current_app
 from src.web.formularios.subir_publi import SubirPubliForm
 from src.core.models.publicacion import Publicacion
@@ -13,6 +14,14 @@ from flask import (
 bp = Blueprint("subirPubli", __name__)
 @bp.route("/subirPubli", methods=['GET'])
 def subirPubliGo():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
+                    return redirect(url_for('root.index_get'))
     form = SubirPubliForm()
     categorias = Categoria.query.all()  # Obtén todas las categorías disponibles
     form.categoria.choices = [(categoria.id, categoria.nombre) for categoria in Categoria.query.all()]  # Llena el campo de selección de categorías
@@ -21,6 +30,10 @@ def subirPubliGo():
 
 @bp.route("/subirPubli", methods=['POST'])
 def subirPubli():
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    return redirect(url_for('root.index_get'))
     form = SubirPubliForm() 
     form.categoria.choices = [(categoria.id, categoria.nombre) for categoria in Categoria.query.all()]  # Llena el campo de selección de categorías
     categorias = Categoria.query.all()  # Obtén todas las categorías disponibles
@@ -39,14 +52,18 @@ def subirPubli():
         # Obtén la foto cargada en el formulario
         foto = request.files['foto']
         if foto:
-            # Guarda la foto en el sistema de archivos
             nombre_archivo = secure_filename(foto.filename)
-            ruta_foto = os.path.join(categoria_nombre, nombre_archivo)
-            ruta_completa = os.path.join(current_app.config['UPLOAD_FOLDER'],"img", ruta_foto).replace(os.sep, "/")
-            ruta_foto2 = os.path.join("img",categoria_nombre, nombre_archivo).replace(os.sep, "/")
-            # Crea la carpeta si no existe
-            os.makedirs(os.path.dirname(ruta_completa), exist_ok=True)
-            foto.save(ruta_completa)
+            # Guarda la foto en el sistema de archivos
+            if nombre_archivo.endswith('.jpg') or nombre_archivo.endswith('.png'):  
+                ruta_foto = os.path.join(categoria_nombre, nombre_archivo)
+                ruta_completa = os.path.join(current_app.config['UPLOAD_FOLDER'],"img", ruta_foto).replace(os.sep, "/")
+                ruta_foto2 = os.path.join("img",categoria_nombre, nombre_archivo).replace(os.sep, "/")
+                # Crea la carpeta si no existe
+                os.makedirs(os.path.dirname(ruta_completa), exist_ok=True)
+                foto.save(ruta_completa)
+            else:
+                flash('El archivo debe ser una imagen en formato JPG o PNG.', 'error')
+                return redirect(url_for('subirPubli.subirPubli'))
         #Verifica si se presionó el botón de publicar o archivar
         if 'submit' in request.form:
             id_visibilidad = 1  # Publicar

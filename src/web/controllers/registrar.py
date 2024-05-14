@@ -10,6 +10,9 @@ bp = Blueprint("registrar", __name__)
 
 @bp.route('/registrar_usuario', methods=['GET', 'POST'])
 def register():
+    if (session.get('user_id')):
+        flash('No puede realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
     form = RegisterForm()
     if form.validate_on_submit():
         try:

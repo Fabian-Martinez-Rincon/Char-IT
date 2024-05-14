@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for
+from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for, session
 from flask_mail import Mail, Message
 from src.core.models.database import db
 from src.web.formularios.registrar_colaborador import RegistrarColbForm
@@ -13,7 +13,15 @@ bp = Blueprint("registrarColaborador", __name__)
 
 @bp.route("/registrarColaborador", methods=['GET','POST'])
 def registrarColaborador():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
     form = RegistrarColbForm()
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 3:  
+                flash('No tienes permiso para realizar esta operacion.', 'error')
+                return redirect(url_for('root.index_get'))
     if form.validate_on_submit():
         nombre = form.nombre.data
         apellido = form.apellido.data

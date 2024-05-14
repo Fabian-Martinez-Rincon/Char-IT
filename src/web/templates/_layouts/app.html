@@ -64,7 +64,7 @@
                 {% set informationGeneral = [["Subir Publicación", "/subirPubli"], ["Listar Mis Publicaciones", "/mispublicaciones"]] %}
                 {{ Menu.Menu(informationGeneral) }}
                 {% endif %}
-              <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cerrar Sesión</a></li>
+              <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap" onclick="return confirm('¿Estás seguro de que deseas cerrar sesion?');">Cerrar Sesión</a></li>
             {% else %}
               <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Iniciar Sesión</a></li>
               <li><a href="/registrar_usuario" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Usuario</a></li>
