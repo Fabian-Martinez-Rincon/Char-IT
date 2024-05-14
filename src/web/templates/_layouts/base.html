@@ -45,6 +45,9 @@
       0% {
         opacity: 1;
       }
+      80% {
+        opacity: 0.8;
+      }
       100% {
         opacity: 0;
       }
@@ -58,7 +61,7 @@
         if (flashMessages) {
           flashMessages.innerHTML = ''; // Elimina los mensajes después de 3 segundos
         }
-      }, 3000); // 3000 milisegundos = 3 segundos
+      }, 10000); // 3000 milisegundos = 3 segundos
     });
   </script>
 </head>
@@ -74,9 +77,9 @@
         <ul class="flash-messages">
           {% for category, message in messages %}
             {% if category == 'success' %}
-              <li class="flash-message bg-green-shade rounded">{{ message }}</li>
+              <li class="flash-message rounded" style="background-color: green;">{{ message }}</li>
             {% elif category == 'error' %}
-              <li class="flash-message rounded" style="background-color: rgb(248, 48, 48);">{{ message }}</li>
+              <li class="flash-message rounded" style="background-color: red;">{{ message }}</li>
             {% else %}
               <li class="flash-message">{{ message }}</li>
             {% endif %}

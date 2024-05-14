@@ -1,21 +1,42 @@
 {% extends "_layouts/app.html" %}
 {% block content %}
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Registra tu cuenta</h2>
-        <form class="mt-8 space-y-6" action="{{ url_for('registrar.register') }}" method="POST">
+<div class="flex flex-col items-center justify-center bg-very-light-yellow-green py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full">
+        <h2 class=" text-center text-4xl font-extrabold text-green-shade mb-6">Registrá tu cuenta</h2>
+        <form action="{{ url_for('registrar.register') }}" method="POST">
             {{ form.hidden_tag() }}
-            <div class="rounded-md shadow-sm -space-y-px">
-                {{ form.nombre(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Nombre") }}
-                {{ form.apellido(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Apellido") }}
-                {{ form.email(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Email") }}
-                {{ form.password(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Contraseña") }}
-                {{ form.dni(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="DNI") }}
-                {{ form.telefono(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Teléfono") }}
-                {{ form.fecha_nacimiento(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Fecha de Nacimiento") }}
+            <div class="rounded-md shadow-sm">
+                <div class="mb-2">
+                    <label for="nombre" class="block text-gray-700 font-bold">Nombre</label>
+                    {{ form.nombre(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+                </div>
+                <div class="mb-2">
+                    <label for="apellido" class="block text-gray-700 font-bold">Apellido</label>
+                    {{ form.apellido(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+                </div>
+                <div class="mb-2">
+                    <label for="email" class="block text-gray-700 font-bold">Email</label>
+                    {{ form.email(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+                </div>
+                <div class="mb-2">
+                    <label for="password" class="block text-gray-700 font-bold">Contraseña</label>
+                    {{ form.password(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+                </div>
+                <div class="mb-2">
+                    <label for="dni" class="block text-gray-700 font-bold">DNI</label>
+                    {{ form.dni(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+                </div>
+                <div class="mb-2">
+                    <label for="telefono" class="block text-gray-700 font-bold">Teléfono</label>
+                    {{ form.telefono(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+                </div>
+                <div class="mb-2">
+                    <label for="fecha_nacimiento" class="block text-gray-700 font-bold mb-2">Fecha de Nacimiento</label>
+                    {{ form.fecha_nacimiento(class="rounded w-full border border-gray-300 text-gray-900  focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+                </div>
             </div>
             <div>
-                {{ form.submit(class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade transition duration-150 ease-in-out") }}
+                {{ form.submit(class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-cyan-shade hover:bg-green-cyan-shade transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade ease-in-out") }}
             </div>
         </form>
     </div>
