@@ -3,6 +3,22 @@
     <title>Editar perfil</title>
 {% endblock %}
 {% block content %}
-    
-
+    <div class="flex flex-col items-center justify-center mt-10 text-center">
+        <h1 class="mb-6 text-4xl font-semibold text-gray-900">Editar Perfil</h1>
+        <form method="POST" action="{{ url_for('editarPerfil.editar_perfil', usuario_id=user.id) }}" class="max-w-lg mx-auto">
+            {{ form.hidden_tag() }}
+            <div class="mb-4">
+                <label for="password_actual" class="block text-gray-700 font-bold mb-2">Contraseña Actual:</label>
+                {{ form.password_actual(id="password_actual", class="form-input mt-1 block w-full") }}
+            </div>
+            <div class="mb-4">
+                <label for="nueva_password" class="block text-gray-700 font-bold mb-2">Nueva Contraseña:</label>
+                {{ form.nueva_password(id="nueva_password", class="form-input mt-1 block w-full") }}
+            </div>
+            <div class="mb-6">
+                {{ form.submit(class="bg-cyan-shade hover:bg-green-cyan-shade text-white font-bold py-2 px-4 rounded") }}
+                <a href="{{ url_for('root.perfil', usuario_id=user.id) }}" class="bg-cyan-shade hover:bg-green-cyan-shade text-white font-bold py-2 px-4 rounded">Cancelar</a>
+            </div>       
+        </form>
+    </div>
 {% endblock %}

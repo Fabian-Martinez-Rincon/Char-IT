@@ -1,43 +1,31 @@
 from src.core.models.database import db
 from src.core.models.usuario import Usuario
 from src.web.formularios.editar_perfil import EditarPerfilForm
-from flask import (session, Blueprint, flash, redirect, url_for, request, render_template)
-
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask import session, Blueprint, flash, redirect, url_for, render_template
 
 bp = Blueprint("editarPerfil", __name__)
 
-@bp.route("/editarPerfil/<int:usuario_id>", methods=['GET'])
-def editarPerfilGo(usuario_id: int):
-    """
-    Muestra el formulario para editar el perfil de un usuario.
-    """
-    usuario = Usuario.query.get_or_404(usuario_id)
-    if not(session.get('user_id')):
-        flash('Debes iniciar sesión para realizar esta operación.', 'error')
-        return redirect(url_for('root.index_get'))
-    if (usuario.id != session.get('user_id')):
-        flash("No tienes permiso para editar este perfil.", "error"); 
-        return redirect(url_for("root.perfil", usuario_id=usuario.id))
-    
-    form = EditarPerfilForm()
-    form.password.data = usuario.password
-    return render_template("editarPerfil.html", form=form, usuario_id=usuario.id, usuario=usuario)
+@bp.route('/editarPerfil/<int:usuario_id>', methods=['GET', 'POST'])
+def editar_perfil(usuario_id):
+    form = EditarPerfilForm()  # Asegúrate de crear este formulario en tu aplicación
 
-@bp.route("/editarPerfil", methods=['POST'])
-def editarPerfil():
-    form = EditarPerfilForm()
+    usuario_actual = Usuario.query.get(usuario_id)
+
+    if usuario_actual is None:
+        flash('No se encontró al usuario. Por favor, vuelve a iniciar sesión.', 'danger')
+        # Puedes redirigir al usuario a una página de inicio de sesión o a cualquier otra página de tu elección
+        return redirect(url_for('auth.login'))
+
     if form.validate_on_submit():
-        password = form.password.data
-        id = request.form['usuario_id']
-        usuario = Usuario.query.get(id)
-        
-        if (usuario.id != session.get('user_id')):
-            flash("No tienes permiso para editar este perfil.", "error")
-            return redirect(url_for("root.perfil", usuario_id=usuario.id))
-        
-        usuario.password = password
-        db.session.commit()
-        flash("El perfil se ha actualizado correctamente.", "success")
-        return redirect(url_for("root.perfil", usuario_id=usuario.id))
-    return render_template("editarPerfil.html", form=form)
-
+        if check_password_hash(usuario_actual.password, form.password_actual.data):
+            # La contraseña actual es correcta, procede a actualizar la contraseña
+            hashed_password = generate_password_hash(form.nueva_password.data, method='pbkdf2:sha256')
+            usuario_actual.password = hashed_password
+            db.session.commit()
+            flash('¡Perfil actualizado correctamente!', 'success')
+            return redirect(url_for('root.perfil', usuario_id=usuario_id))
+        else:
+            flash('Contraseña actual incorrecta. Inténtalo de nuevo.', 'error')
+    
+    return render_template('editarPerfil.html', form=form, user=usuario_actual)
