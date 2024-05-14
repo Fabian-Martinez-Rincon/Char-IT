@@ -107,10 +107,10 @@ def login():
             session['logged_in'] = True
             session['rol_id'] = user.id_rol
             # flash('You have successfully logged in!', 'success')
-            flash('Se ha iniciado sesión correctamente.', 'success')
+            flash('Inicio de sesión Exitoso', 'success')
             return redirect(url_for('root.index_get'))
         else:
-            flash('Invalid email or password.', 'danger')
+            flash('El mail o contraseña son incorrectos.', 'error')
     return render_template('login.html', form=form)
 
 

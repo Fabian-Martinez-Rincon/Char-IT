@@ -13,7 +13,7 @@ def editar_perfil(usuario_id):
     usuario_actual = Usuario.query.get(usuario_id)
 
     if usuario_actual is None:
-        flash('No se encontró al usuario. Por favor, vuelve a iniciar sesión.', 'danger')
+        flash('No se encontró al usuario. Por favor, vuelve a iniciar sesión.', 'error')
         # Puedes redirigir al usuario a una página de inicio de sesión o a cualquier otra página de tu elección
         return redirect(url_for('auth.login'))
 

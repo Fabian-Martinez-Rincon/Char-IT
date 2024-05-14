@@ -23,10 +23,10 @@ def register():
     if form.validate_on_submit():
         existing_user = Usuario.query.filter_by(email=form.email.data).first()
         if existing_user:
-            flash('Ya existe un usuario registrado con ese mail', 'danger')
+            flash('Ya existe un usuario registrado con ese mail', 'error')
             return redirect(url_for('registrar.register'))  # Asegúrate de que el nombre de la función es correcto
         if len(form.password.data) < 8:
-            flash('La contraseña debe tener mínimo 8 caracteres', 'danger')
+            flash('La contraseña debe tener mínimo 8 caracteres', 'error')
             return render_template('owner/registrar.html', form=form)
         
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
@@ -47,10 +47,10 @@ def register():
             return redirect(url_for('root.login'))
         except Exception as e:
             db.session.rollback()
-            flash(f'ups ocurrio un error: {e}', 'danger')
+            flash(f'ups ocurrio un error: {e}', 'error')
     else:
         for fieldName, errorMessages in form.errors.items():
             for err in errorMessages:
-                flash(f'{err}', 'danger')
+                flash(f'{err}', 'error')
     return render_template('owner/registrar.html', form=form)
 
