@@ -1,18 +1,18 @@
 [
     {
         "nombre": "Juan",
-        "apellido": "Pérez",
-        "password": "contrageneral", 
+        "apellido": "P\u00e9rez",
+        "password": "pbkdf2:sha256:600000$JSiH5kjFfJGWnjnE$f55058cb83c459fac6073d28e078ade99ef24174cf7fc4a92901d2ed6fede40f",
         "email": "usuario.general@gmail.com",
         "dni": "12345678",
         "fecha_nacimiento": "1990-05-24",
         "telefono": "1122334455",
-        "id_rol": 1  
+        "id_rol": 1
     },
     {
-        "nombre": "María",
-        "apellido": "González",
-        "password": "contrageneral2",
+        "nombre": "Mar\u00eda",
+        "apellido": "Gonz\u00e1lez",
+        "password": "pbkdf2:sha256:600000$KnJr1WcwcVsUlMD1$bacac8250396cc85cba9e0f847ccbfc3f6875c3cf4b7f754cdfa8d8704e821ff",
         "email": "usuario.general2@gmail.com",
         "dni": "87654321",
         "fecha_nacimiento": "1985-08-15",
@@ -21,8 +21,8 @@
     },
     {
         "nombre": "Carlos",
-        "apellido": "Rodríguez",
-        "password": "contrageneral3",
+        "apellido": "Rodr\u00edguez",
+        "password": "pbkdf2:sha256:600000$THNfR8z3njWo0XAM$92e867cc84ddde32dd1d540e33359b503104e76ac4e390c34fbe463703c8bbe1",
         "email": "usuario.general3@gmail.com",
         "dni": "34567890",
         "fecha_nacimiento": "1992-07-10",
@@ -30,33 +30,33 @@
         "id_rol": 1
     },
     {
-    "nombre": "Luis",
-    "apellido": "Martinez",
-    "password": "contracolaborador",
-    "email": "usuario.colaborador@gmail.com",
-    "dni": "45678901",
-    "fecha_nacimiento": "1988-09-12",
-    "telefono": "4455667788",
-    "id_rol": 2
-},
-{
-    "nombre": "Sofia",
-    "apellido": "Fernandez",
-    "password": "contracolaborador2",
-    "email": "usuario.colaborador2@gmail.com",
-    "dni": "56789012",
-    "fecha_nacimiento": "1993-10-15",
-    "telefono": "5566778899",
-    "id_rol": 2
-},
-{
-    "nombre": "Pedro",
-    "apellido": "Garcia",
-    "password": "contraowner",
-    "email": "usuario.owner@gmail.com",
-    "dni": "67890123",
-    "fecha_nacimiento": "1990-11-20",
-    "telefono": "6677889900",
-    "id_rol": 3
-}
+        "nombre": "Luis",
+        "apellido": "Martinez",
+        "password": "pbkdf2:sha256:600000$WpuVurTMu2T6YHWW$8f9f3e0c723f629c92bfdf85ee868d7e56e66f2c6ecb503ff2850280bf988a3b",
+        "email": "usuario.colaborador@gmail.com",
+        "dni": "45678901",
+        "fecha_nacimiento": "1988-09-12",
+        "telefono": "4455667788",
+        "id_rol": 2
+    },
+    {
+        "nombre": "Sofia",
+        "apellido": "Fernandez",
+        "password": "pbkdf2:sha256:600000$FWwjxHOQ7EXRmSy6$09f5db15af0dbb227b28ab163a24815b2306f62e061c8ffb195f507ebbcf8b69",
+        "email": "usuario.colaborador2@gmail.com",
+        "dni": "56789012",
+        "fecha_nacimiento": "1993-10-15",
+        "telefono": "5566778899",
+        "id_rol": 2
+    },
+    {
+        "nombre": "Pedro",
+        "apellido": "Garcia",
+        "password": "pbkdf2:sha256:600000$oPSNLVAB74mVWDPO$2db90d2093e17556ff7f1252c3ea37d7c45046952dff724256635a1f15eb47d8",
+        "email": "usuario.owner@gmail.com",
+        "dni": "67890123",
+        "fecha_nacimiento": "1990-11-20",
+        "telefono": "6677889900",
+        "id_rol": 3
+    }
 ]
