@@ -94,13 +94,15 @@ def publicacion_detalle(publicacion_id):
     return render_template("publicaciones/detalle.html", publicacion=publicacion)
 
 
+from werkzeug.security import check_password_hash
+
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        # Simulación de búsqueda de usuario y verificación de contraseña
         user = Usuario.query.filter_by(email=form.email.data).first()
-        if user and user.password == form.password.data:  # Esto debería usar hashing en un caso real
+        # Usar check_password_hash para verificar la contraseña
+        if user and check_password_hash(user.password, form.password.data):
             session['user_id'] = user.id
             session['logged_in'] = True
             session['rol_id'] = user.id_rol
@@ -109,6 +111,7 @@ def login():
         else:
             flash('Invalid email or password.', 'danger')
     return render_template('login.html', form=form)
+
 
 @bp.route('/logout')
 def logout():
