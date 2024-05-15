@@ -1,22 +1,29 @@
 {% extends "_layouts/app.html" %} 
+{% block head %}
+    <title>Iniciar sesión</title>
+{% endblock %}
 {% block content %}
-<div class="flex flex-col items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col items-center justify-center bg-very-light-yellow-green py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-lg w-full space-y-8">
-        <div>
-            <h2 class="mt-6 text-center text-4xl font-extrabold text-green-shade">
+        <div class="flex justify-center">
+            <!-- <h2 class="mt-6 text-center text-4xl font-extrabold text-green-shade">
                 Inicia sesión en tu cuenta
             </h2>
+            <h1 class=" text-center mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
+                Iniciar sesión en tu cuenta
+            </h1>               -->
+            <img src="/static/img/nombre-logo.png" alt="Hope Trade Logo"/>            
         </div>
         <form class="mt-8 space-y-6" action="{{ url_for('root.login') }}" method="POST">
             {{ form.hidden_tag() }}
             <div class="rounded-md shadow-sm -space-y-px">
-                <div>
+                <div class="mb-2">
                     {{ form.email.label(class="sr-only") }}
-                    {{ form.email(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Email address") }}
+                    {{ form.email(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Direccion de email") }}
                 </div>
-                <div>
+                <div class="mb-2">
                     {{ form.password.label(class="sr-only") }}
-                    {{ form.password(class="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Password") }}
+                    {{ form.password(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Contraseña") }}
                 </div>
             </div>
 
