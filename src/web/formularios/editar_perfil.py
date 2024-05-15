@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField,PasswordField
 from wtforms.validators import DataRequired, Length
 
 
 class EditarPerfilForm(FlaskForm): 
-    password_actual = StringField('Contraseña Actual', validators=[DataRequired()])
-    nueva_password = StringField('Nueva Contraseña', validators=[DataRequired(), Length(min=8, max=255)]) 
+    password_actual = PasswordField('Contraseña Actual', validators=[DataRequired()])
+    nueva_password = PasswordField('Nueva Contraseña', validators=[DataRequired()]) 
     submit = SubmitField('Actualizar')

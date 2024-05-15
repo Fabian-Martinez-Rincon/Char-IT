@@ -18,6 +18,9 @@ def editar_perfil(usuario_id):
         return redirect(url_for('auth.login'))
 
     if form.validate_on_submit():
+        if len(form.nueva_password.data) < 8:
+            flash('La contraseña debe tener mínimo 8 caracteres', 'error')
+            return render_template('editarPerfil.html', form=form, user=usuario_actual)
         if check_password_hash(usuario_actual.password, form.password_actual.data):
             # La contraseña actual es correcta, procede a actualizar la contraseña
             hashed_password = generate_password_hash(form.nueva_password.data, method='pbkdf2:sha256')
@@ -27,5 +30,5 @@ def editar_perfil(usuario_id):
             return redirect(url_for('root.perfil', usuario_id=usuario_id))
         else:
             flash('Contraseña actual incorrecta. Inténtalo de nuevo.', 'error')
-    
+        
     return render_template('editarPerfil.html', form=form, user=usuario_actual)

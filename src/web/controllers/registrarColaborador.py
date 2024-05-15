@@ -8,6 +8,7 @@ from flask import (
     Blueprint,
     render_template
 )
+from werkzeug.security import generate_password_hash
 
 bp = Blueprint("registrarColaborador", __name__)
 
@@ -33,16 +34,17 @@ def registrarColaborador():
         else:
             flash_message='Usuario registrado Correctamente!. Se ha enviado un correo electrónico con la contraseña.'
             contraseña = secrets.token_urlsafe(8)
-            new_user = Usuario(nombre=nombre, apellido=apellido, email=email, password=contraseña, id_rol=2)
+            hashed_password = generate_password_hash(contraseña, method='pbkdf2:sha256')
+            new_user = Usuario(nombre=nombre, apellido=apellido, email=email, password=hashed_password, id_rol=2)
             db.session.add(new_user)
             db.session.commit()
-            send_mail(new_user.id)
+            send_mail(new_user.id, contraseña)
         flash(flash_message, 'success')              
         return redirect(url_for('root.usuarios_colaboradores_get'))  # Redirige a la página correspondiente
     return render_template("owner/registrarColaborador.html", form=form)
 
 
-def send_mail(userId: int)->None:
+def send_mail(userId: int, contrasenia)->None:
     """
     Send the confirmation email to the user.
     """
@@ -52,7 +54,7 @@ def send_mail(userId: int)->None:
     subject = 'Confirmación de Registro'
     sender = app.config['MAIL_DEFAULT_SENDER']
     recipients = [usuario.email]
-    message = f'¡Felicidades! Tu registro ha sido exitoso. La contraseña para ingresar es:\n\n {usuario.password} \n\n Recorda Cambiar tu contraseña en tu primer ingreso. '
+    message = f'¡Felicidades! Tu registro ha sido exitoso. La contraseña para ingresar es:\n\n {contrasenia} \n\n Recorda Cambiar tu contraseña en tu primer ingreso. '
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = message
 

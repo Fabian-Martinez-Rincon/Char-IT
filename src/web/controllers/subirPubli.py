@@ -43,7 +43,7 @@ def subirPubli():
         mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id'])
         existing_public = mis_publicaciones.filter(Publicacion.titulo == titulo).first()
         if existing_public:
-            flash('Ya tienes una publicación con el mismo título.', 'warning')
+            flash('Ya tienes una publicación con el mismo título.', 'error')
             return redirect(url_for('subirPubli.subirPubli'))
         descripcion = form.descripcion.data
         horarios = form.horarios.data
@@ -54,7 +54,7 @@ def subirPubli():
         if foto:
             nombre_archivo = secure_filename(foto.filename)
             # Guarda la foto en el sistema de archivos
-            if nombre_archivo.endswith('.jpg') or nombre_archivo.endswith('.png'):  
+            if nombre_archivo.endswith('.jpg') or nombre_archivo.endswith('.png') or nombre_archivo.endswith('.JPG') or nombre_archivo.endswith('.PNG'):  
                 ruta_foto = os.path.join(categoria_nombre, nombre_archivo)
                 ruta_completa = os.path.join(current_app.config['UPLOAD_FOLDER'],"img", ruta_foto).replace(os.sep, "/")
                 ruta_foto2 = os.path.join("img",categoria_nombre, nombre_archivo).replace(os.sep, "/")

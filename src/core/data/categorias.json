@@ -1,4 +1,5 @@
 [
+    {"id": 11, "nombre": "Comida"},
     {"id": 1, "nombre": "Electrodomésticos"},
     {"id": 2, "nombre": "Electrónica"},
     {"id": 3, "nombre": "Muebles"},

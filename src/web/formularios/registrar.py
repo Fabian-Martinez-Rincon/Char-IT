@@ -15,7 +15,7 @@ class RegisterForm(FlaskForm):
     apellido = StringField('Apellido', validators=[DataRequired(), Length(max=50)])
     password = PasswordField('Contraseña', validators=[DataRequired(), Length(max=50)])
     email = StringField('Email', validators=[DataRequired(), Length(max=255)])
-    dni = StringField('DNI', validators=[Optional(), Length(max=12)])
+    dni = StringField('DNI', validators=[Optional(), Length(min=8)])
     fecha_nacimiento = DateField('Fecha de Nacimiento', validators=[DataRequired(), validate_fecha_nacimiento], format='%Y-%m-%d')
     telefono = StringField('Teléfono', validators=[Optional(), Length(max=50)])
     submit = SubmitField('Registrarme')

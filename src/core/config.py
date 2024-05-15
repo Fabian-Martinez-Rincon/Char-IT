@@ -26,7 +26,7 @@ class Config:
     TESTING = False
     #Configurar la carga de imagenes
     UPLOAD_FOLDER = 'Char-IT/static/'
-    ALLOWED_EXTENSIONS = {'png', 'jpg'}
+    ALLOWED_EXTENSIONS = {'png', 'PNG', 'jpg', 'JPG'}
     # Configurar la extensión Flask-Mail
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465

@@ -3,5 +3,5 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 
 class EditarPubliForm(FlaskForm):
-    descripcion = StringField('Nueva Descripcion', validators=[DataRequired(), Length(max=255)])
+    descripcion = StringField('Nueva Descripción', validators=[DataRequired(), Length(max=255)])
     submit = SubmitField('Actualizar')
