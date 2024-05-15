@@ -54,4 +54,3 @@ def editarPubli():
         flash('La publicación se ha actualizado correctamente.', 'success')
         return redirect(url_for('root.publicacion_detalle', publicacion_id=producto.id))
     return render_template("editarPubli.html", form=form)
-

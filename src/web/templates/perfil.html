@@ -13,23 +13,23 @@
     <div class="max-w-lg mx-auto text-xl text-left text-gray-700">
         <p class="mb-2">
             <strong>Email:</strong> {{ user.email }}
-        </p>
-        
-        <p class="mb-2">
-            <strong>DNI:</strong> {{ user.dni }}
-        </p>
-        
+        </p>        
+        {% if user.id_rol == 1 %}
+            <p class="mb-2">
+                <strong>DNI:</strong> {{ user.dni }}
+            </p>
+        {% endif %}
+        {% if user.id_rol == 1 or user.id_rol == 3 %}        
         <p class="mb-2">
             <strong>Teléfono:</strong> {{ user.telefono }}
-        </p>
-        
+        </p>        
         <p class="mb-2">
             <strong>Fecha de nacimiento:</strong> {{ user.fecha_nacimiento.strftime('%d/%m/%Y') }}
         </p>
-        
-        <p class="mb-2">             
+        {% endif %}
+        <!-- <p class="mb-2">             
             <strong class="font-semibold mr-2">Contraseña: </strong> {{"•••••••••"}}         
-        </p>
+        </p> -->
     </div>  
     <a href="{{ url_for('editarPerfil.editar_perfil', usuario_id=user.id) }}" class="px-4 py-2 mt-6 text-white transition rounded bg-cyan-shade hover:bg-green-cyan-shade">
         Editar perfil

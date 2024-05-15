@@ -24,4 +24,3 @@ def eliminarPubli(publicacion_id):
     db.session.commit()
     flash('La publicación ha sido eliminada correctamente.', 'success')
     return redirect(url_for('root.mis_publicaciones_get'))
-

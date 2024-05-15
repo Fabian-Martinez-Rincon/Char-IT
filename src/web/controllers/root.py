@@ -133,7 +133,7 @@ def perfil():
         user = Usuario.query.get(session.get('user_id'))
         return render_template('perfil.html', user=user)
     else:
-        flash('You must be logged in to view your profile.', 'warning')
+        flash('You must be logged in to view your profile.', 'error')
         return redirect(url_for('root.index_get'))
 
 @bp.route("/eliminar_publicaciones")
