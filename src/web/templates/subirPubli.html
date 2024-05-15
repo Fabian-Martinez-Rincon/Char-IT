@@ -1,20 +1,24 @@
 {% extends "_layouts/app.html" %}
 {% block content %}
-<main class="py-16 bg-gray-100 min-h-screen">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 bg-white shadow-xl rounded-lg overflow-hidden">
-        <div class="p-8">
-            <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">Subir Publicación</div>
+<main class="bg-very-light-yellow-green min-h-screen">
+    <div class="flex flex-col items-center justify-center py-12 px-6 lg:px-8 rounded-lg overflow-hidden">
+        <div>
+            <h1 class=" text-center mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
+                Subir publicación
+            </h1> 
+            <!-- <h2 class=" text-center text-4xl font-extrabold text-green-shade mb-2">Subir Publicación</h2> -->
+            <!-- <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">Subir Publicación</div> -->
             <form method="POST" enctype="multipart/form-data">
                 {{ form.csrf_token }}
                 <!-- Campo de selección de foto -->
                 <div class="mb-4">
-                    <label for="foto" class="block text-gray-700 font-bold mb-2">Foto</label>
-                    <input type="file" name="foto" id="foto" class="border border-gray-400 rounded w-full py-2 px-3" accept="image/jpeg, image/png">
+                    <label for="foto" class="block text-gray-700 font-bold ">Foto</label>
+                    <input type="file" name="foto" id="foto" class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" accept="image/jpeg, image/png">
                 </div>
                 <!-- Campo de título -->
                 <div class="mb-4">
-                    <label for="titulo" class="block text-gray-700 font-bold mb-2">Título</label>
-                    {{ form.titulo(class="border border-gray-400 rounded w-full py-2 px-3") }}
+                    <label for="titulo" class="block text-gray-700 font-bold ">Título</label>
+                    {{ form.titulo(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
                     {% if form.titulo.errors %}
                         <div class="text-red-500 mt-1">
                             {% for error in form.titulo.errors %}
@@ -25,8 +29,8 @@
                 </div>
                 <!-- Campo de descripción -->
                 <div class="mb-4">
-                    <label for="descripcion" class="block text-gray-700 font-bold mb-2">Descripción</label>
-                    {{ form.descripcion(class="border border-gray-400 rounded w-full py-2 px-3") }}
+                    <label for="descripcion" class="block text-gray-700 font-bold ">Descripción</label>
+                    {{ form.descripcion(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
                     {% if form.descripcion.errors %}
                         <div class="text-red-500 mt-1">
                             {% for error in form.descripcion.errors %}
@@ -37,8 +41,8 @@
                 </div>
                 <!-- Campo de horarios libres (opcional) -->
                 <div class="mb-4">
-                    <label for="horarios" class="block text-gray-700 font-bold mb-2">Horarios Libres (opcional)</label>
-                    {{ form.horarios(class="border border-gray-400 rounded w-full py-2 px-3") }}
+                    <label for="horarios" class="block text-gray-700 font-bold ">Horarios Libres (opcional)</label>
+                    {{ form.horarios(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
                     {% if form.horarios.errors %}
                         <div class="text-red-500 mt-1">
                             {% for error in form.horarios.errors %}
@@ -49,16 +53,18 @@
                 </div>
                 <!-- Campo de selección de categoría -->
                 <div class="mb-4">
-                    <label for="categoria" class="block text-gray-700 font-bold mb-2">Categorías</label>
-                    <select name="categoria" id="categoria" class="border border-gray-400 rounded w-full py-2 px-3">
+                    <label for="categoria" class="block text-gray-700 font-bold ">Categorías</label>
+                    <select name="categoria" id="categoria" class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
                         {% for categoria in categorias %}
                             <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <!-- Botón de enviar -->
-                {{ form.submit(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") }}
-                {{ form.submit_archivar(class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded") }}
+                <div class="flex justify-center gap-10">
+                    {{ form.submit(class="bg-cyan-shade hover:bg-green-cyan-shade text-white font-bold py-2 px-4 rounded transition duration-300") }}
+                    {{ form.submit_archivar(class="bg-cyan-shade hover:bg-green-cyan-shade text-white font-bold py-2 px-4 rounded transition duration-300") }}
+                </div>
             </form>
         </div>
     </div>
