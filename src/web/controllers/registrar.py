@@ -49,4 +49,3 @@ def register():
             for err in errorMessages:
                 flash(f'{err}', 'error')
     return render_template('owner/registrar.html', form=form)
-

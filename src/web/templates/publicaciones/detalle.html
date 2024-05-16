@@ -1,4 +1,7 @@
 {% extends "_layouts/app.html" %}
+{% block head %}
+    <title>{{publicacion.titulo}}</title>
+{% endblock %} 
 {% block content %}
 <main class="py-16 bg-gray-100 min-h-screen bg-very-light-yellow-green">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 rounded-lg overflow-hidden">
@@ -50,4 +53,3 @@
     </div>
 </main>
 {% endblock %}
-

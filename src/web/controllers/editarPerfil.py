@@ -6,11 +6,10 @@ from flask import session, Blueprint, flash, redirect, url_for, render_template
 
 bp = Blueprint("editarPerfil", __name__)
 
-@bp.route('/editarPerfil/<int:usuario_id>', methods=['GET', 'POST'])
-def editar_perfil(usuario_id):
+@bp.route('/editarPerfil', methods=['GET', 'POST'])
+def editar_perfil():
     form = EditarPerfilForm()  # Asegúrate de crear este formulario en tu aplicación
-
-    usuario_actual = Usuario.query.get(usuario_id)
+    usuario_actual = Usuario.query.get(session.get('user_id'))
 
     if usuario_actual is None:
         flash('No se encontró al usuario. Por favor, vuelve a iniciar sesión.', 'error')
@@ -27,7 +26,7 @@ def editar_perfil(usuario_id):
             usuario_actual.password = hashed_password
             db.session.commit()
             flash('¡Perfil actualizado correctamente!', 'success')
-            return redirect(url_for('root.perfil', usuario_id=usuario_id))
+            return redirect(url_for('root.perfil', usuario_id=usuario_actual.id))
         else:
             flash('Contraseña actual incorrecta. Inténtalo de nuevo.', 'error')
         

@@ -57,5 +57,4 @@ def send_mail(userId: int, contrasenia)->None:
     message = f'¡Felicidades! Tu registro ha sido exitoso. La contraseña para ingresar es:\n\n {contrasenia} \n\n Recorda Cambiar tu contraseña en tu primer ingreso. '
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = message
-
     mail.send(msg)

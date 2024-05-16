@@ -19,5 +19,4 @@ class RegisterForm(FlaskForm):
     fecha_nacimiento = DateField('Fecha de Nacimiento', validators=[DataRequired(), validate_fecha_nacimiento], format='%Y-%m-%d')
     telefono = StringField('Teléfono', validators=[Optional(), Length(max=50)])
     submit = SubmitField('Registrarme')
-
-
+    
