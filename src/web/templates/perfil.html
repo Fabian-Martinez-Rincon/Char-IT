@@ -15,11 +15,9 @@
             <strong>Email:</strong> {{ user.email }}
         </p>        
         {% if user.id_rol == 1 %}
-            <p class="mb-2">
-                <strong>DNI:</strong> {{ user.dni }}
-            </p>
-        {% endif %}
-        {% if user.id_rol == 1 or user.id_rol == 3 %}        
+        <p class="mb-2">
+            <strong>DNI:</strong> {{ user.dni }}
+        </p>                  
         <p class="mb-2">
             <strong>Teléfono:</strong> {{ user.telefono }}
         </p>        
