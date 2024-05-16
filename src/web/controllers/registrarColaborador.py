@@ -30,7 +30,8 @@ def registrarColaborador():
         # Verifica si el correo electrónico ya está registrado
         existing_user = Usuario.query.filter_by(email=email).first()
         if existing_user:
-            flash_message='Usted ya se encuentra registrado.'
+            flash_message='El mail ingresado ya se encuentra registrado.'
+            flash(flash_message, 'error')    
         else:
             flash_message='Usuario registrado Correctamente!. Se ha enviado un correo electrónico con la contraseña.'
             contraseña = secrets.token_urlsafe(8)
@@ -39,7 +40,7 @@ def registrarColaborador():
             db.session.add(new_user)
             db.session.commit()
             send_mail(new_user.id, contraseña)
-        flash(flash_message, 'success')              
+            flash(flash_message, 'success')              
         return redirect(url_for('root.usuarios_colaboradores_get'))  # Redirige a la página correspondiente
     return render_template("owner/registrarColaborador.html", form=form)
 
