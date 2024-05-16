@@ -1,7 +1,7 @@
 {% extends "_layouts/app.html" %}
 {% import "_macros/table.html" as Table %}
 {% block head %}
-<title>Generales</title>
+    <title>Generales</title>
 {% endblock %}
 
 {% block content %}
@@ -15,23 +15,29 @@
                 Lista completa de usuarios registrados.
             </h2> -->
         </div>
-        <div class="overflow-x-auto w-full">
-            {% call Table.Table() %}
-                {{ Table.TableHeader(("Nombre", "Apellido", "Email", "DNI", "Fecha de Nacimiento", "Teléfono")) }}
-                <tbody>
-                    {% for usuario in usuarios %}
-                    <tr class="bg-very-light-yellow-green text-black">
-                        <td class="py-4 break-words">{{ usuario.nombre }}</td>
-                        <td class="py-4 break-words">{{ usuario.apellido }}</td>
-                        <td class="py-4 break-words">{{ usuario.email }}</td>
-                        <td class="py-4 break-words">{{ usuario.dni }}</td>
-                        <td class="py-4 break-words">{{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}</td>
-                        <td class="py-4 break-words">{{ usuario.telefono }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            {% endcall %}
-        </div>
+        {% if mensaje %}    
+            <div>
+                <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
+            </div>        
+        {% else %}
+            <div class="overflow-x-auto w-full">
+                {% call Table.Table() %}
+                    {{ Table.TableHeader(("Nombre", "Apellido", "Email", "DNI", "Fecha de Nacimiento", "Teléfono")) }}
+                    <tbody>
+                        {% for usuario in usuarios %}
+                        <tr class="bg-very-light-yellow-green text-black">
+                            <td class="py-4 break-words">{{ usuario.nombre }}</td>
+                            <td class="py-4 break-words">{{ usuario.apellido }}</td>
+                            <td class="py-4 break-words">{{ usuario.email }}</td>
+                            <td class="py-4 break-words">{{ usuario.dni }}</td>
+                            <td class="py-4 break-words">{{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}</td>
+                            <td class="py-4 break-words">{{ usuario.telefono }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                {% endcall %}
+            </div>
+        {% endif %}
     </section>
 </main>
 {% endblock %}
