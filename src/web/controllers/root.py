@@ -32,6 +32,9 @@ def usuarios_generales_get():
                     return redirect(url_for('root.index_get'))
     try:
         usuarios_rol_2 = Usuario.query.filter(Usuario.id_rol == 1).all()
+        if not usuarios_rol_2:
+            mensaje = "No existen usuarios generales cargados en el sistema"
+            return render_template("/owner/usuarios_generales.html", mensaje=mensaje)
         return render_template("/owner/usuarios_generales.html", usuarios=usuarios_rol_2)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
@@ -48,6 +51,9 @@ def usuarios_colaboradores_get():
                 return redirect(url_for('root.index_get'))
     try:
         usuarios_rol_3 = Usuario.query.filter(Usuario.id_rol == 2).all()
+        if not usuarios_rol_3:
+            mensaje = "No existen usuarios colaboradores cargados en el sistema"
+            return render_template("/owner/usuarios_colaboradores.html", mensaje=mensaje)
         return render_template("/owner/usuarios_colaboradores.html", usuarios=usuarios_rol_3)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
@@ -152,6 +158,40 @@ def eliminar_publicaciones():
         flash(f"No se pudieron eliminar las publicaciones. Error: {str(e)}", 'error')
         return redirect(url_for('root.publicaciones_get'))  # Cambia 'ruta_a_tu_pagina_de_error' por la ruta adecuada
 
+@bp.route("/eliminar_colaboradores")
+def eliminar_colaboradores():
+    try: 
+        # Eliminar todos los colaboradores
+        Usuario.query.filter(Usuario.id_rol == 2).delete()
+        # Confirmar los cambios en la base de datos
+        db.session.commit()
+        # Redirigir a alguna página de confirmación o mostrar un mensaje de éxito
+        flash('Todos los colaboradores han sido eliminados correctamente.', 'success')
+        return redirect(url_for('root.usuarios_colaboradores_get'))  # Cambia 'ruta_a_tu_pagina_de_confirmacion' por la ruta adecuada
+    except Exception as e:
+        # En caso de error, deshacer cualquier cambio en la base de datos y mostrar un mensaje de error
+        db.session.rollback()
+        flash(f"No se pudieron eliminar los colaboradores. Error: {str(e)}", 'error')
+        return redirect(url_for('root.usuarios_colaboradores_get'))
+    
+@bp.route("/eliminar_generales")
+def eliminar_generales():
+    try: 
+        # Eliminar todos los usuarios generales        
+        Publicacion.query.delete()
+        db.session.commit()
+        Usuario.query.filter(Usuario.id_rol == 1).delete()
+        # Confirmar los cambios en la base de datos
+        db.session.commit()
+        # Redirigir a alguna página de confirmación o mostrar un mensaje de éxito
+        flash('Todos los usuarios generales han sido eliminados correctamente.', 'success')
+        return redirect(url_for('root.usuarios_generales_get'))  # Cambia 'ruta_a_tu_pagina_de_confirmacion' por la ruta adecuada
+    except Exception as e:
+        # En caso de error, deshacer cualquier cambio en la base de datos y mostrar un mensaje de error
+        db.session.rollback()
+        flash(f"No se pudieron eliminar los usuarios generales. Error: {str(e)}", 'error')
+        return redirect(url_for('root.usuarios_generales_get'))
+    
 @bp.route('/resetdb')
 def reset_db():
     subprocess.call(["flask", "seeddb"])  # Llama al comando CLI desde la vista
