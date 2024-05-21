@@ -2,7 +2,6 @@
 <title>Editar perfil</title>
 {% endblock %} {% block content %}
 <div class="flex flex-col items-center justify-center mt-10">
-  <!-- <h1 class="mb-6 text-4xl font-semibold text-gray-900 text-green-shade">Editar Perfil</h1> -->
   <h1
     class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade"
   >
@@ -18,7 +17,6 @@
       <label for="password_actual" class="block mb-2 font-bold text-gray-700"
         >Contraseña Actual:</label
       >
-      <!-- {{ form.password_actual(id="password_actual", class="block w-full mt-1 form-input") }} -->
       {{ form.password_actual(id="password_actual", class="w-full text-gray-900
       border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade
       focus:border-cyan-shade focus:z-10 sm:text-lg")}}
@@ -34,7 +32,6 @@
     <div class="flex justify-center gap-4 mb-6">
       {{ form.submit(class="px-4 py-2 font-bold text-white transition
       duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade ") }}
-      <!-- <a href="{{ url_for('root.perfil', usuario_id=user.id) }}" class="px-4 py-2 font-bold text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">Cancelar</a> -->
     </div>
   </form>
 </div>

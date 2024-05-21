@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "heybourn.headwind",
+        "usernamehw.errorlens",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "kisstkondoros.vscode-gutter-preview"
+    ]
+}

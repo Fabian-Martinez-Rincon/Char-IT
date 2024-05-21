@@ -1,39 +1,38 @@
-{% extends "_layouts/app.html" %}
-{% import "_macros/table.html" as Table %}
-{% block head %}
+{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {%
+block head %}
 <title>Lista de Usuarios - Hope Trade</title>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <main class="flex flex-col min-h-screen">
-    <section class="text-center py-8 px-4 max-h-full">
-        <div>
-            <de class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-cyan-shade dark:text-cyan-shade">
-                Usuarios {{'colaboradores' if(rol == 3) else 'generales'}} de Hope Trade
-            </h1>
-            <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
-                Lista completa de usuarios registrados.
-            </p>
-        </div>
-        <div
-            class=" "    
-        >
-            {% call Table.Table() %}
-                {{ Table.TableHeader(("Nombre", "Apellido", "Email", "DNI", "Fecha de Nacimiento", "Teléfono")) }}
-                <tbody>
-                    {% for usuario in usuarios %}
-                    <tr class="bg-very-light-yellow-green text-black">
-                        <td class="py-4 break-words">{{ usuario.nombre }}</td>
-                        <td class="py-4 break-words">{{ usuario.apellido }}</td>
-                        <td class="py-4 break-words">{{ usuario.email }}</td>
-                        <td class="py-4 break-words">{{ usuario.dni }}</td>
-                        <td class="py-4 break-words">{{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}</td>
-                        <td class="py-4 break-words">{{ usuario.telefono }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            {% endcall %}
-        </div>
-    </section>
+  <section class="max-h-full px-4 py-8 text-center">
+    <div>
+      <h1
+        class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-cyan-shade dark:text-cyan-shade"
+      >
+        Usuarios {{'colaboradores' if(rol == 3) else 'generales'}} de Hope Trade
+      </h1>
+      <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
+        Lista completa de usuarios registrados.
+      </p>
+    </div>
+    <div>
+      {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido",
+      "Email", "DNI", "Fecha de Nacimiento", "Teléfono")) }}
+      <tbody>
+        {% for usuario in usuarios %}
+        <tr class="text-black bg-very-light-yellow-green">
+          <td class="py-4 break-words">{{ usuario.nombre }}</td>
+          <td class="py-4 break-words">{{ usuario.apellido }}</td>
+          <td class="py-4 break-words">{{ usuario.email }}</td>
+          <td class="py-4 break-words">{{ usuario.dni }}</td>
+          <td class="py-4 break-words">
+            {{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}
+          </td>
+          <td class="py-4 break-words">{{ usuario.telefono }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endcall %}
+    </div>
+  </section>
 </main>
 {% endblock %}

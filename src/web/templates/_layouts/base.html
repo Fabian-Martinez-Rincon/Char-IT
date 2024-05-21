@@ -1,93 +1,107 @@
 <!DOCTYPE html>
 <html lang="es-AR" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/static/img/Logo.png" />
+    {% block base_head %}{% endblock %}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    {% if config.LIVETW_DEV %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='.dev/tailwind_development.css') }}"
+    />
+    <script
+      src="{{ url_for('static', filename='.dev/live_reload.js') }}"
+      defer
+    ></script>
+    {% else %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='tailwind_production.css') }}"
+    />
+    {% endif %}
+    <style>
+      .flash-container {
+        color: white;
+        display: flex;
+        justify-content: center;
+        background-color: #e8e8e7;
+      }
+      .flash-messages {
+        list-style-type: none;
+        padding: 0;
+        animation: slideUp 0.5s ease-in-out forwards, fadeOut 5s 9.5s forwards;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="/static/img/Logo.png">
-  {% block base_head %}{% endblock %}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-  {% if config.LIVETW_DEV %}
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='.dev/tailwind_development.css') }}">
-  <script src="{{ url_for('static', filename='.dev/live_reload.js') }}" defer></script>
-  {% else %}
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tailwind_production.css') }}">
-  {% endif %}
-  <style>
-    .flash-container {      
-      color: white;
-      display: flex;
-      justify-content: center;
-      background-color: #e8e8e7;
-    }
-    .flash-messages {
-      list-style-type: none;
-      padding: 0;
-      animation: slideUp 0.5s ease-in-out forwards, fadeOut 5s 9.5s forwards; 
-    }
-  
-    @keyframes slideUp {
-      0% {
-        opacity: 0;
-        transform: translateY(100%);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  
-    @keyframes fadeOut {
-      0% {
-        opacity: 1;
-      }
-      80% {
-        opacity: 0.8;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-  </style>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        var flashMessages = document.querySelector('.flash-messages');
-        if (flashMessages) {
-          flashMessages.innerHTML = ''; // Elimina los mensajes después de 3 segundos
+      @keyframes slideUp {
+        0% {
+          opacity: 0;
+          transform: translateY(100%);
         }
-      }, 15000); // 3000 milisegundos = 3 segundos
-    });
-  </script>
-</head>
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-<body class="flex flex-col overflow-hidden h-full mx-auto max-w-8xl xl:border-l xl:border-r
-  font-[Poppins] bg-orange-50/30 text-zinc-800 border-zinc-950 bg-very-light-yellow-green">
-  <div class="flex flex-col overflow-hidden h-full bg-very-light-yellow-green">
-    {% block base_body %}{% endblock %}
-  </div>
-  <div class="flash-container">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flash-messages">
-          {% for category, message in messages %}
-            {% if category == 'success' %}
-              <li class="flash-message rounded" style="background-color: green;">{{ message }}</li>
-            {% elif category == 'error' %}
-              <li class="flash-message rounded" style="background-color: red;">{{ message }}</li>
-            {% else %}
-              <li class="flash-message">{{ message }}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-  </div>
-</body>
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          var flashMessages = document.querySelector(".flash-messages");
+          if (flashMessages) {
+            flashMessages.innerHTML = ""; 
+          }
+        }, 15000);
+      });
+    </script>
+  </head>
+
+  <body
+    class="flex flex-col overflow-hidden h-full mx-auto max-w-8xl xl:border-l xl:border-r font-[Poppins] bg-orange-50/30 text-zinc-800 border-zinc-950 bg-very-light-yellow-green"
+  >
+    <div
+      class="flex flex-col h-full overflow-hidden bg-very-light-yellow-green"
+    >
+      {% block base_body %}{% endblock %}
+    </div>
+    <div class="flash-container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <ul class="flash-messages">
+        {% for category, message in messages %} {% if category == 'success' %}
+        <li class="rounded flash-message" style="background-color: green">
+          {{ message }}
+        </li>
+        {% elif category == 'error' %}
+        <li class="rounded flash-message" style="background-color: red">
+          {{ message }}
+        </li>
+        {% else %}
+        <li class="flash-message">{{ message }}</li>
+        {% endif %} {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+    </div>
+  </body>
 </html>

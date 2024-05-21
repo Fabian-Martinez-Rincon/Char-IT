@@ -99,6 +99,15 @@ DB_HOST = "host_example"
 
 ---
 
+## Extensiones recomendadas para Visual Studio Code en el desarrollo del proyecto
+
+- Pretier - Code formatter
+- Headwind
+- Error Lens
+- Auto Close Tag
+- Auto Rename Tag
+- Image preview
+
 #### Rutas para la primera demo
 
 - `/eliminar_publicaciones`
