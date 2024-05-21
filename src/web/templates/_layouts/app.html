@@ -1,18 +1,13 @@
-{% extends "_layouts/base.html" %}
-{% import "_macros/menu.html" as Menu %}
-{% block base_head %}
-{% block head %}
-  
-{% endblock %}
-{% endblock %}
-{% block base_body %}
+{% extends "_layouts/base.html" %} {% import "_macros/menu.html" as Menu %} {%
+block base_head %} {% block head %} {% endblock %} {% endblock %} {% block
+base_body %}
 <style>
   #dropdownButton2 div {
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
-  
+
   #dropdownButton2.clicked div:first-child {
-    transform: rotate(-30deg); 
+    transform: rotate(-30deg);
   }
   #dropdownButton2.clicked div:nth-child(2) {
     opacity: 0;
@@ -25,49 +20,87 @@
   }
 </style>
 <div class="relative flex flex-col h-full overflow-hidden bodyContainer">
-  <header class="flex justify-between flex-none p-2 text-white md:px-3 bg-cyan-shade">
+  <header
+    class="flex justify-between flex-none p-2 text-white md:px-3 bg-cyan-shade"
+  >
     <div class="flex items-center gap-2 ml-2 group">
       <a href="/">
-          <img src="/static/img/Logo.png" alt="Hope Trade Logo" class="w-12 h-12" />
+        <img
+          src="/static/img/Logo.png"
+          alt="Hope Trade Logo"
+          class="w-12 h-12"
+        />
       </a>
-      <!-- El texto no se muestra en pantallas pequeñas -->
       <a href="/" class="relative hidden overflow-hidden md:inline-block">
-          <span class="inline-block text-xl font-medium transition-transform duration-500 transform md:-translate-x-full md:group-hover:translate-x-0">
-              HopeTrade
-          </span>
+        <span
+          class="inline-block text-xl font-medium transition-transform duration-500 transform md:-translate-x-full md:group-hover:translate-x-0"
+        >
+          HopeTrade
+        </span>
       </a>
     </div>
-  
+
     <nav class="flex md:mr-2">
       <div class="relative">
-        <button id="dropdownButton2" class="flex flex-col w-12 h-12 gap-1 py-2 bg-transparent border-0 menu-button">
-          <div class="w-full h-2 shadow transition-all duration-1000 origin-right rounded-lg bor bg-yellow-green-shade"></div>
-          <div class="w-full h-2 shadow transition-all duration-1000 origin-right rounded-lg bg-yellow-green-shade"></div>
-          <div class="w-full h-2 shadow transition-all duration-1000 origin-right rounded-lg bg-yellow-green-shade"></div>
+        <button
+          id="dropdownButton2"
+          class="flex flex-col w-12 h-12 gap-1 py-2 bg-transparent border-0 menu-button"
+        >
+          <div
+            class="w-full h-2 transition-all duration-1000 origin-right rounded-lg shadow bor bg-yellow-green-shade"
+          ></div>
+          <div
+            class="w-full h-2 transition-all duration-1000 origin-right rounded-lg shadow bg-yellow-green-shade"
+          ></div>
+          <div
+            class="w-full h-2 transition-all duration-1000 origin-right rounded-lg shadow bg-yellow-green-shade"
+          ></div>
         </button>
 
-        <div id="dropdownMenu" class="absolute right-0 z-50 hidden w-auto mt-3 bg-white rounded-md shadow-lg overflow-hidden">
-          <ul class="text-gray-700 ">
-            {% if session.logged_in %}              
-              {% set informationComunLogged = [["Listar publicaciones", "/publicaciones"], ["Ver Perfil", "/perfil"]] %}                            
-                {{ Menu.Menu(informationComunLogged) }}              
-              {% if session.rol_id == 3 %} 
-                <!-- {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %} -->
-                {% set informationOwner =  [["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"]] %}
-                {{ Menu.Menu(informationOwner) }}
-              {% elif session.rol_id == 2 %}
-                <!-- {% set informationColaborador = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"]] %} -->
-                {% set informationColaborador =  [["Listar Usuarios", "/generales"]] %}
-                {{ Menu.Menu(informationColaborador) }}
-              {% elif session.rol_id == 1 %}
-                <!-- {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %} -->
-                {% set informationGeneral = [["Subir Publicación", "/subirPubli"], ["Listar Mis Publicaciones", "/mispublicaciones"]] %}
-                {{ Menu.Menu(informationGeneral) }}
-              {% endif %}
-              <li><a href="{{ url_for('root.logout') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap" onclick="return confirm('¿Estás seguro de que deseas cerrar sesion?');">Cerrar Sesión</a></li>
+        <div
+          id="dropdownMenu"
+          class="absolute right-0 z-50 hidden w-auto mt-3 overflow-hidden bg-white rounded-md shadow-lg"
+        >
+          <ul class="text-gray-700">
+            {% if session.logged_in %} {% set informationComunLogged = [["Listar
+            publicaciones", "/publicaciones"], ["Ver Perfil", "/perfil"]] %} {{
+            Menu.Menu(informationComunLogged) }} {% if session.rol_id == 3 %}
+            <!-- {% set informationOwner = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"], ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador", "/registrarColaborador"], ["Listar Historial de Donaciones", ""]] %} -->
+            {% set informationOwner = [["Listar Usuarios", "/generales"],
+            ["Listar Colaboradores", "/colaboradores"], ["Registar Colaborador",
+            "/registrarColaborador"]] %} {{ Menu.Menu(informationOwner) }} {%
+            elif session.rol_id == 2 %}
+            <!-- {% set informationColaborador = [["Registrar Donación en efectivo", ""], ["Registrar Donacion  de Produto", ""], ["Listar Intercambios Pendientes", ""], ["Listar Usuarios", "/generales"]] %} -->
+            {% set informationColaborador = [["Listar Usuarios", "/generales"]]
+            %} {{ Menu.Menu(informationColaborador) }} {% elif session.rol_id ==
+            1 %}
+            <!-- {% set informationGeneral = [["Subir Publicación", ""], ["Listar Mis Publicaciones", "/mispublicaciones"], ["Listar Ofertas Recibidas", ""], ["Listar Ofertas Enviadas", ""], ["Listar Notificaciones", ""], ["Listar Mi Historial de Donaciones", ""], ["Donar con Tarjeta", ""]] %} -->
+            {% set informationGeneral = [["Subir Publicación", "/subirPubli"],
+            ["Listar Mis Publicaciones", "/mispublicaciones"]] %} {{
+            Menu.Menu(informationGeneral) }} {% endif %}
+            <li>
+              <a
+                href="{{ url_for('root.logout') }}"
+                class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
+                onclick="return confirm('¿Estás seguro de que deseas cerrar sesion?');"
+                >Cerrar Sesión</a
+              >
+            </li>
             {% else %}
-              <li><a href="{{ url_for('root.login') }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Iniciar Sesión</a></li>
-              <li><a href="/registrar_usuario" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Registrar Usuario</a></li>
+            <li>
+              <a
+                href="{{ url_for('root.login') }}"
+                class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
+                >Iniciar Sesión</a
+              >
+            </li>
+            <li>
+              <a
+                href="/registrar_usuario"
+                class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
+                >Registrar Usuario</a
+              >
+            </li>
             {% endif %}
           </ul>
         </div>
@@ -78,30 +111,32 @@
   <div class="flex flex-col flex-1 overflow-x-hidden">
     {% block content %}Content placeholder{% endblock %}
   </div>
-
 </div>
 {% block body %}{% endblock %}
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var dropdownButtons = document.querySelectorAll('.menu-button');
-    var dropdownMenu = document.getElementById('dropdownMenu');
-  
-    dropdownButtons.forEach(function(button) {
-      button.addEventListener('click', function(event) {
+  document.addEventListener("DOMContentLoaded", function () {
+    var dropdownButtons = document.querySelectorAll(".menu-button");
+    var dropdownMenu = document.getElementById("dropdownMenu");
+
+    dropdownButtons.forEach(function (button) {
+      button.addEventListener("click", function (event) {
         event.stopPropagation();
-        this.classList.toggle('clicked');
-        dropdownMenu.classList.toggle('hidden');
+        this.classList.toggle("clicked");
+        dropdownMenu.classList.toggle("hidden");
       });
     });
-  
-    window.addEventListener('click', function(event) {
-      dropdownButtons.forEach(function(button) {
-        if (!button.contains(event.target) && !dropdownMenu.contains(event.target)) {
-          button.classList.remove('clicked');
-          dropdownMenu.classList.add('hidden');
+
+    window.addEventListener("click", function (event) {
+      dropdownButtons.forEach(function (button) {
+        if (
+          !button.contains(event.target) &&
+          !dropdownMenu.contains(event.target)
+        ) {
+          button.classList.remove("clicked");
+          dropdownMenu.classList.add("hidden");
         }
       });
     });
-  });  
+  });
 </script>
 {% endblock %}

@@ -1,40 +1,36 @@
-{% extends "_layouts/app.html" %}
-{% import "_macros/table.html" as Table %}
-{% block head %}
+{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {%
+block head %}
 <title>Colaboradores</title>
-{% endblock %}
-
-{% block content %}
-<main class="flex flex-col min-h-screen items-center">
-    <section class="text-center py-12 px-4 w-full max-w-4xl">
-        <div>
-            <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
-                Usuarios Colaboradores
-            </h1>  
-            <!-- <h2 class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
-                Lista completa de usuarios registrados.
-            </h2> -->
-        </div>
-        {% if mensaje %}    
-            <div>
-                <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
-            </div>        
-        {% else %}
-            <div class="overflow-x-auto w-full">
-                {% call Table.Table() %}
-                    {{ Table.TableHeader(("Nombre", "Apellido", "Email")) }}
-                    <tbody>
-                        {% for usuario in usuarios %}
-                        <tr class="bg-very-light-yellow-green text-black">
-                            <td class="py-4 break-words">{{ usuario.nombre }}</td>
-                            <td class="py-4 break-words">{{ usuario.apellido }}</td>
-                            <td class="py-4 break-words">{{ usuario.email }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                {% endcall %}
-            </div>
-        {% endif %}
-    </section>
+{% endblock %} {% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <div>
+      <h1
+        class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade"
+      >
+        Usuarios Colaboradores
+      </h1>
+    </div>
+    {% if mensaje %}
+    <div>
+      <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
+    </div>
+    {% else %}
+    <div class="w-full overflow-x-auto">
+      {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido",
+      "Email")) }}
+      <tbody>
+        {% for usuario in usuarios %}
+        <tr class="text-black bg-very-light-yellow-green">
+          <td class="py-4 break-words">{{ usuario.nombre }}</td>
+          <td class="py-4 break-words">{{ usuario.apellido }}</td>
+          <td class="py-4 break-words">{{ usuario.email }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endcall %}
+    </div>
+    {% endif %}
+  </section>
 </main>
 {% endblock %}

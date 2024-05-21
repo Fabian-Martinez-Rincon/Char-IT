@@ -1,75 +1,96 @@
-{% extends "_layouts/app.html" %}
-{% block head %}
-    <title>Subir publicación</title>
-{% endblock %} 
-{% block content %}
-<main class="bg-very-light-yellow-green min-h-screen">
-    <div class="flex flex-col items-center justify-center py-12 px-6 lg:px-8 rounded-lg overflow-hidden">
-        <div>
-            <h1 class="text-center mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
-                Subir publicación
-            </h1> 
-            <!-- <h2 class=" text-center text-4xl font-extrabold text-green-shade mb-2">Subir Publicación</h2> -->
-            <!-- <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">Subir Publicación</div> -->
-            <form method="POST" enctype="multipart/form-data">
-                {{ form.csrf_token }}
-                <!-- Campo de selección de foto -->
-                <div class="mb-4">
-                    <label for="foto" class="block text-gray-700 font-bold ">Foto</label>
-                    <input type="file" name="foto" id="foto" class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" accept="image/jpeg, image/png">
-                </div>
-                <!-- Campo de título -->
-                <div class="mb-4">
-                    <label for="titulo" class="block text-gray-700 font-bold ">Título</label>
-                    {{ form.titulo(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
-                    {% if form.titulo.errors %}
-                        <div class="text-red-500 mt-1">
-                            {% for error in form.titulo.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <!-- Campo de descripción -->
-                <div class="mb-4">
-                    <label for="descripcion" class="block text-gray-700 font-bold ">Descripción</label>
-                    {{ form.descripcion(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
-                    {% if form.descripcion.errors %}
-                        <div class="text-red-500 mt-1">
-                            {% for error in form.descripcion.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <!-- Campo de horarios libres (opcional) -->
-                <div class="mb-4">
-                    <label for="horarios" class="block text-gray-700 font-bold ">Horarios Libres (opcional)</label>
-                    {{ form.horarios(class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
-                    {% if form.horarios.errors %}
-                        <div class="text-red-500 mt-1">
-                            {% for error in form.horarios.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <!-- Campo de selección de categoría -->
-                <div class="mb-4">
-                    <label for="categoria" class="block text-gray-700 font-bold ">Categorías</label>
-                    <select name="categoria" id="categoria" class="rounded w-full border border-gray-300 text-gray-900 focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
-                        {% for categoria in categorias %}
-                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <!-- Botón de enviar -->
-                <div class="flex justify-center gap-10">
-                    {{ form.submit(class="bg-cyan-shade hover:bg-green-cyan-shade text-white font-bold py-2 px-4 rounded transition duration-300") }}
-                    {{ form.submit_archivar(class="bg-cyan-shade hover:bg-green-cyan-shade text-white font-bold py-2 px-4 rounded transition duration-300") }}
-                </div>
-            </form>
+{% extends "_layouts/app.html" %} {% block head %}
+<title>Subir publicación</title>
+{% endblock %} {% block content %}
+<main class="min-h-screen bg-very-light-yellow-green">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-12 overflow-hidden rounded-lg lg:px-8"
+  >
+    <div>
+      <h1
+        class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade"
+      >
+        Subir publicación
+      </h1>
+      <form method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="mb-4">
+          <label for="foto" class="block font-bold text-gray-700">Foto</label>
+          <input
+            type="file"
+            name="foto"
+            id="foto"
+            class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg"
+            accept="image/jpeg, image/png"
+          />
         </div>
+        <div class="mb-4">
+          <label for="titulo" class="block font-bold text-gray-700"
+            >Título</label
+          >
+          {{ form.titulo(class="w-full text-gray-900 border border-gray-300
+          rounded focus:outline-none focus:ring-cyan-shade
+          focus:border-cyan-shade focus:z-10 sm:text-lg") }} {% if
+          form.titulo.errors %}
+          <div class="mt-1 text-red-500">
+            {% for error in form.titulo.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="mb-4">
+          <label for="descripcion" class="block font-bold text-gray-700"
+            >Descripción</label
+          >
+          {{ form.descripcion(class="w-full text-gray-900 border border-gray-300
+          rounded focus:outline-none focus:ring-cyan-shade
+          focus:border-cyan-shade focus:z-10 sm:text-lg") }} {% if
+          form.descripcion.errors %}
+          <div class="mt-1 text-red-500">
+            {% for error in form.descripcion.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="mb-4">
+          <label for="horarios" class="block font-bold text-gray-700"
+            >Horarios Libres (opcional)</label
+          >
+          {{ form.horarios(class="w-full text-gray-900 border border-gray-300
+          rounded focus:outline-none focus:ring-cyan-shade
+          focus:border-cyan-shade focus:z-10 sm:text-lg") }} {% if
+          form.horarios.errors %}
+          <div class="mt-1 text-red-500">
+            {% for error in form.horarios.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="mb-4">
+          <label for="categoria" class="block font-bold text-gray-700"
+            >Categorías</label
+          >
+          <select
+            name="categoria"
+            id="categoria"
+            class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg"
+          >
+            {% for categoria in categorias %}
+            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <!-- Botón de enviar -->
+        <div class="flex justify-center gap-10">
+          {{ form.submit(class="px-4 py-2 font-bold text-white transition
+          duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade") }} {{
+          form.submit_archivar(class="px-4 py-2 font-bold text-white transition
+          duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade") }}
+        </div>
+      </form>
     </div>
+  </div>
 </main>
 {% endblock %}

@@ -1,52 +1,66 @@
-{% extends "_layouts/app.html" %} 
-{% import "_macros/table.html" as Table %}
-{% block head %}
-  <title>HopeTrade</title>
-{% endblock %} 
-{% block content %}
-<main class="flex flex-col min-h-screen items-center">
-  <section class="text-center py-12 px-4 w-full max-w-4xl">
+{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {%
+block head %}
+<title>HopeTrade</title>
+{% endblock %} {% block content %}
+<main class="flex flex-col items-center min-h-screen">
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
     <div>
-      <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
+      <h1
+        class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade"
+      >
         HopeTrade
       </h1>
       {% if not(session.logged_in) %}
-        <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
-          Qué esperas para registrarte!!
-        </p>
+      <p class="mb-4 text-xl font-bold text-zinc-700 md:text-2xl">
+        Qué esperas para registrarte!!
+      </p>
       {% endif %}
       <p class="mb-4 text-base md:text-lg text-zinc-500">
-        "HopeTrade" es una página web diseñada para facilitar y mejorar la gestión de donaciones y promover el intercambio de productos entre los usuarios en la red de filiales de la organización benéfica Cáritas.
+        "HopeTrade" es una página web diseñada para facilitar y mejorar la
+        gestión de donaciones y promover el intercambio de productos entre los
+        usuarios en la red de filiales de la organización benéfica Cáritas.
       </p>
     </div>
-
-    <!-- Botón para desplegar filiales -->
-    <button onclick="toggleFiliales()" class="my-4 px-6 py-2 text-white bg-cyan-shade hover:bg-green-cyan-shade rounded transition duration-300">
+    <button
+      onclick="toggleFiliales()"
+      class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
+    >
       Ver Filiales
     </button>
-    <!-- Contenedor de Filiales -->
-    <div id="filialesContainer" class="overflow-x-auto w-full overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out">
-      <h2 class="text-2xl font-bold my-4">Nuestras Filiales</h2>        
-        {% call Table.Table() %}
-          {{ Table.TableHeader(("Nombre", "Dirección", "Horarios", "Días")) }}
-          <tbody>
-            {% for filial in filiales %}
-            <tr class="bg-very-light-yellow-green text-black">
-              <td class="py-4 break-words whitespace-normal">{{ filial.nombre }}</td>
-              <td class="py-4 break-words whitespace-normal">{{ filial.direccion }}</td>
-              <td class="py-4 break-words whitespace-normal">{{ filial.horarios }}</td>
-              <td class="py-4 break-words whitespace-normal">{{ filial.dias }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>        
-        {% endcall %}                
+    <div
+      id="filialesContainer"
+      class="overflow-x-auto w-full overflow-y-hidden max-h-0 transition-[max-height] duration-700 ease-in-out"
+    >
+      <h2 class="my-4 text-2xl font-bold">Nuestras Filiales</h2>
+      {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Dirección",
+      "Horarios", "Días")) }}
+      <tbody>
+        {% for filial in filiales %}
+        <tr class="text-black bg-very-light-yellow-green">
+          <td class="py-4 break-words whitespace-normal">
+            {{ filial.nombre }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ filial.direccion }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">
+            {{ filial.horarios }}
+          </td>
+          <td class="py-4 break-words whitespace-normal">{{ filial.dias }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endcall %}
     </div>
   </section>
 </main>
 <script>
   function toggleFiliales() {
     const container = document.getElementById("filialesContainer");
-    if (container.style.maxHeight === "0px" || container.style.maxHeight === "") {
+    if (
+      container.style.maxHeight === "0px" ||
+      container.style.maxHeight === ""
+    ) {
       container.style.maxHeight = container.scrollHeight + "px";
     } else {
       container.style.maxHeight = "0px";
