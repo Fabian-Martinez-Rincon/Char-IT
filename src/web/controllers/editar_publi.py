@@ -9,10 +9,10 @@ from flask import (
     render_template
 )
 
-bp = Blueprint("editarPubli", __name__)
+bp = Blueprint("editar_publi", __name__)
 
-@bp.route("/editarPubli/<int:producto_id>", methods=['GET'])
-def editarPubliGo(producto_id: int):
+@bp.route("/editar_publi/<int:producto_id>", methods=['GET'])
+def editar_publi_go(producto_id: int):
     """
     Muestra el formulario para editar una publicación si el usuario es el propietario.
     """
@@ -34,10 +34,10 @@ def editarPubliGo(producto_id: int):
     # Si el usuario es el propietario, muestra el formulario de edición
     form = EditarPubliForm()
     form.descripcion.data = producto.descripcion
-    return render_template('editarPubli.html', form=form, producto_id=producto_id, publicacion=producto)
+    return render_template('/general/editar_publi.html', form=form, producto_id=producto_id, publicacion=producto)
 
-@bp.route("/editarPubli", methods=['POST'])
-def editarPubli():
+@bp.route("/editar_publi", methods=['POST'])
+def editar_publi():
     form = EditarPubliForm()
     if form.validate_on_submit():
         descripcion = form.descripcion.data
@@ -53,4 +53,4 @@ def editarPubli():
         db.session.commit()
         flash('La publicación se ha actualizado correctamente.', 'success')
         return redirect(url_for('root.publicacion_detalle', publicacion_id=producto.id))
-    return render_template("editarPubli.html", form=form)
+    return render_template("/general/editar_publi.html", form=form)

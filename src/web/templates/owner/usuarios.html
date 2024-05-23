@@ -1,5 +1,4 @@
-{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {%
-block head %}
+{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {% block head %}
 <title>Lista de Usuarios - Hope Trade</title>
 {% endblock %} {% block content %}
 <main class="flex flex-col min-h-screen">
@@ -15,8 +14,8 @@ block head %}
       </p>
     </div>
     <div>
-      {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido",
-      "Email", "DNI", "Fecha de Nacimiento", "Teléfono")) }}
+      {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido", "Email", "DNI", "Fecha de
+      Nacimiento", "Teléfono")) }}
       <tbody>
         {% for usuario in usuarios %}
         <tr class="text-black bg-very-light-yellow-green">
@@ -24,9 +23,7 @@ block head %}
           <td class="py-4 break-words">{{ usuario.apellido }}</td>
           <td class="py-4 break-words">{{ usuario.email }}</td>
           <td class="py-4 break-words">{{ usuario.dni }}</td>
-          <td class="py-4 break-words">
-            {{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}
-          </td>
+          <td class="py-4 break-words">{{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}</td>
           <td class="py-4 break-words">{{ usuario.telefono }}</td>
         </tr>
         {% endfor %}

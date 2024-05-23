@@ -1,9 +1,5 @@
-{% macro Publicacion(title,foto_path, fecha_publicacion, root, id,
-id_visibilidad) %}
-<a
-  href="{{ url_for('root.publicacion_detalle', publicacion_id=id) }}"
-  class="no-underline"
->
+{% macro Publicacion(title,foto_path, fecha_publicacion, root, id, id_visibilidad) %}
+<a href="{{ url_for('root.publicacion_detalle', publicacion_id=id) }}" class="no-underline">
   <div class="relative max-w-sm overflow-hidden rounded shadow-lg">
     <div
       style="

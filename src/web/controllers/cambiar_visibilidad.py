@@ -3,10 +3,10 @@ from src.core.models.publicacion import Publicacion
 from src.core.models.database import db
 from src.core.models.usuario import Usuario
 
-bp = Blueprint("cambiarVisibilidad", __name__)
+bp = Blueprint("cambiar_visibilidad", __name__)
 
-@bp.route("/cambiarVisibilidad/<int:publicacion_id>", methods=['GET'])
-def cambiarVisibilidad(publicacion_id):
+@bp.route("/cambiar_visibilidad/<int:publicacion_id>", methods=['GET'])
+def cambiar_visibilidad(publicacion_id):
     if not(session.get('user_id')):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))

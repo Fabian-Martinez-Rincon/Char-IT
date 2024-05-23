@@ -5,75 +5,61 @@
   class="flex flex-col items-center justify-center px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8"
 >
   <div class="w-full max-w-md">
-    <h1
-      class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade"
-    >
+    <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
       Registrá tu cuenta
     </h1>
     <form action="{{ url_for('registrar.register') }}" method="POST">
       {{ form.hidden_tag() }}
       <div class="rounded-md shadow-sm">
         <div class="mb-2">
-          <label for="nombre" class="block font-bold text-gray-700"
-            >Nombre</label
-          >
-          {{ form.nombre(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+          <label for="nombre" class="block font-bold text-gray-700">Nombre</label>
+          {{ form.nombre(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }}
         </div>
         <div class="mb-2">
-          <label for="apellido" class="block font-bold text-gray-700"
-            >Apellido</label
-          >
-          {{ form.apellido(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+          <label for="apellido" class="block font-bold text-gray-700">Apellido</label>
+          {{ form.apellido(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }}
         </div>
         <div class="mb-2">
           <label for="email" class="block font-bold text-gray-700">Email</label>
-          {{ form.email(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+          {{ form.email(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }}
         </div>
         <div class="mb-2">
-          <label for="password" class="block font-bold text-gray-700"
-            >Contraseña</label
-          >
-          {{ form.password(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+          <label for="password" class="block font-bold text-gray-700">Contraseña</label>
+          {{ form.password(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }}
         </div>
         <div class="mb-2">
           <label for="dni" class="block font-bold text-gray-700">DNI</label>
-          {{ form.dni(class="w-full text-gray-900 border border-gray-300 rounded
-          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade
-          focus:z-10 sm:text-lg") }}
+          {{ form.dni(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
         </div>
         <div class="mb-2">
-          <label for="telefono" class="block font-bold text-gray-700"
-            >Teléfono</label
-          >
-          {{ form.telefono(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+          <label for="telefono" class="block font-bold text-gray-700">Teléfono</label>
+          {{ form.telefono(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }}
         </div>
         <div class="mb-2">
-          <label
-            for="fecha_nacimiento"
-            class="block mb-2 font-bold text-gray-700"
-            >Fecha de Nacimiento</label
-          >
-          {{ form.fecha_nacimiento(class="w-full text-gray-900 border
-          border-gray-300 rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+          <label for="fecha_nacimiento" class="block mb-2 font-bold text-gray-700">
+            Fecha de Nacimiento
+          </label>
+          {{ form.fecha_nacimiento(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }}
         </div>
       </div>
       <div>
-        {{ form.submit(class="relative flex justify-center w-full px-4 py-3
-        text-base font-medium text-white transition duration-300 ease-in-out
-        border border-transparent rounded-md group bg-cyan-shade
-        hover:bg-green-cyan-shade focus:outline-none focus:ring-2
-        focus:ring-offset-2 focus:ring-cyan-shade") }}
+        {{ form.submit(class="relative flex justify-center w-full px-4 py-3 text-base font-medium
+        text-white transition duration-300 ease-in-out border border-transparent rounded-md group
+        bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2
+        focus:ring-cyan-shade") }}
       </div>
     </form>
   </div>

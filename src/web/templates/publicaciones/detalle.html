@@ -27,14 +27,14 @@
             {% if publicacion.id_usuario == session.get('user_id') %} {% if
             publicacion.id_visibilidad == 1 %}
             <a
-              href="{{ url_for('cambiarVisibilidad.cambiarVisibilidad', publicacion_id=publicacion.id) }}"
+              href="{{ url_for('cambiar_visibilidad.cambiar_visibilidad', publicacion_id=publicacion.id) }}"
               class="px-2 py-2 ml-2 font-bold text-center text-white bg-gray-500 rounded"
             >
               Archivar
             </a>
             {% elif publicacion.id_visibilidad == 2 %}
             <a
-              href="{{ url_for('cambiarVisibilidad.cambiarVisibilidad', publicacion_id=publicacion.id) }}"
+              href="{{ url_for('cambiar_visibilidad.cambiar_visibilidad', publicacion_id=publicacion.id) }}"
               class="px-2 py-2 ml-2 font-bold text-center text-white bg-green-500 rounded hover:bg-green-700"
             >
               Publicar
@@ -45,27 +45,28 @@
         <p class="mt-4 text-lg text-gray-700">{{ publicacion.descripcion }}</p>
         <div class="mt-6">
           <div class="text-gray-500 text-md">
-            <b>Categoría:</b> {{ publicacion.categoria.nombre }}
+            <b>Categoría:</b>
+            {{ publicacion.categoria.nombre }}
           </div>
           <div class="text-gray-500 text-md">
-            <b>Publicado el:</b> {{
-            publicacion.fecha_publicacion.strftime('%Y-%m-%d %H:%M') }}
+            <b>Publicado el:</b>
+            {{ publicacion.fecha_publicacion.strftime('%Y-%m-%d %H:%M') }}
           </div>
           <div class="text-gray-500 text-md">
-            <b>Horarios de Preferencia:</b> {{
-            publicacion.filiales_horarios_dias }}
+            <b>Horarios de Preferencia:</b>
+            {{ publicacion.filiales_horarios_dias }}
           </div>
         </div>
         {% if publicacion.id_usuario == session.get('user_id') %}
         <div class="flex flex-row items-center gap-4 mt-8">
           <a
-            href="/editarPubli/{{ publicacion.id }}"
+            href="/editar_publi/{{ publicacion.id }}"
             class="px-4 py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700"
           >
             Editar Publicación
           </a>
           <a
-            href="{{ url_for('eliminarPubli.eliminarPubli', publicacion_id=publicacion.id) }}"
+            href="{{ url_for('eliminar_publi.eliminar_publi', publicacion_id=publicacion.id) }}"
             class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
             onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
           >

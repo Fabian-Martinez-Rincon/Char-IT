@@ -6,9 +6,7 @@
     class="flex flex-col items-center justify-center px-6 py-12 overflow-hidden rounded-lg lg:px-8"
   >
     <div>
-      <h1
-        class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade"
-      >
+      <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
         Subir publicación
       </h1>
       <form method="POST" enctype="multipart/form-data">
@@ -24,13 +22,10 @@
           />
         </div>
         <div class="mb-4">
-          <label for="titulo" class="block font-bold text-gray-700"
-            >Título</label
-          >
-          {{ form.titulo(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }} {% if
-          form.titulo.errors %}
+          <label for="titulo" class="block font-bold text-gray-700">Título</label>
+          {{ form.titulo(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }} {% if form.titulo.errors %}
           <div class="mt-1 text-red-500">
             {% for error in form.titulo.errors %}
             <span>{{ error }}</span>
@@ -39,13 +34,10 @@
           {% endif %}
         </div>
         <div class="mb-4">
-          <label for="descripcion" class="block font-bold text-gray-700"
-            >Descripción</label
-          >
-          {{ form.descripcion(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }} {% if
-          form.descripcion.errors %}
+          <label for="descripcion" class="block font-bold text-gray-700">Descripción</label>
+          {{ form.descripcion(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }} {% if form.descripcion.errors %}
           <div class="mt-1 text-red-500">
             {% for error in form.descripcion.errors %}
             <span>{{ error }}</span>
@@ -54,13 +46,12 @@
           {% endif %}
         </div>
         <div class="mb-4">
-          <label for="horarios" class="block font-bold text-gray-700"
-            >Horarios Libres (opcional)</label
-          >
-          {{ form.horarios(class="w-full text-gray-900 border border-gray-300
-          rounded focus:outline-none focus:ring-cyan-shade
-          focus:border-cyan-shade focus:z-10 sm:text-lg") }} {% if
-          form.horarios.errors %}
+          <label for="horarios" class="block font-bold text-gray-700">
+            Horarios Libres (opcional)
+          </label>
+          {{ form.horarios(class="w-full text-gray-900 border border-gray-300 rounded
+          focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+          }} {% if form.horarios.errors %}
           <div class="mt-1 text-red-500">
             {% for error in form.horarios.errors %}
             <span>{{ error }}</span>
@@ -69,9 +60,7 @@
           {% endif %}
         </div>
         <div class="mb-4">
-          <label for="categoria" class="block font-bold text-gray-700"
-            >Categorías</label
-          >
+          <label for="categoria" class="block font-bold text-gray-700">Categorías</label>
           <select
             name="categoria"
             id="categoria"
@@ -84,10 +73,10 @@
         </div>
         <!-- Botón de enviar -->
         <div class="flex justify-center gap-10">
-          {{ form.submit(class="px-4 py-2 font-bold text-white transition
-          duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade") }} {{
-          form.submit_archivar(class="px-4 py-2 font-bold text-white transition
-          duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade") }}
+          {{ form.submit(class="px-4 py-2 font-bold text-white transition duration-300 rounded
+          bg-cyan-shade hover:bg-green-cyan-shade") }} {{ form.submit_archivar(class="px-4 py-2
+          font-bold text-white transition duration-300 rounded bg-cyan-shade
+          hover:bg-green-cyan-shade") }}
         </div>
       </form>
     </div>

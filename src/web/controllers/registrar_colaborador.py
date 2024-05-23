@@ -10,10 +10,10 @@ from flask import (
 )
 from werkzeug.security import generate_password_hash
 
-bp = Blueprint("registrarColaborador", __name__)
+bp = Blueprint("registrar_colaborador", __name__)
 
-@bp.route("/registrarColaborador", methods=['GET','POST'])
-def registrarColaborador():
+@bp.route("/registrar_colaborador", methods=['GET','POST'])
+def registrar_colaborador():
     if not(session.get('user_id')):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
@@ -42,7 +42,7 @@ def registrarColaborador():
             send_mail(new_user.id, contraseña)
             flash(flash_message, 'success')              
         return redirect(url_for('root.usuarios_colaboradores_get'))  # Redirige a la página correspondiente
-    return render_template("owner/registrarColaborador.html", form=form)
+    return render_template("/owner/registrar_colaborador.html", form=form)
 
 
 def send_mail(userId: int, contrasenia)->None:

@@ -10,38 +10,27 @@
         />
       </div>
       <div class="p-4 lg:p-8">
-        <div
-          class="text-sm font-semibold tracking-wide text-indigo-600 uppercase"
-        >
+        <div class="text-sm font-semibold tracking-wide text-indigo-600 uppercase">
           Detalle de la Publicación
         </div>
-        <h1
-          class="block mt-1 text-2xl font-bold leading-tight text-black hover:underline"
-        >
+        <h1 class="block mt-1 text-2xl font-bold leading-tight text-black hover:underline">
           {{ publicacion.titulo }}
         </h1>
         <div class="mt-6">
           <div class="text-gray-500 text-md">
-            Publicado el: {{ publicacion.fecha_publicacion.strftime('%Y-%m-%d
-            %H:%M:%S') }}
+            Publicado el: {{ publicacion.fecha_publicacion.strftime('%Y-%m-%d %H:%M:%S') }}
           </div>
           <div class="text-gray-500 text-md">
-            <b>Horarios de Preferencia:</b> {{
-            publicacion.filiales_horarios_dias }}
+            <b>Horarios de Preferencia:</b>
+            {{ publicacion.filiales_horarios_dias }}
           </div>
         </div>
-        <form
-          method="POST"
-          action="{{ url_for('editarPubli.editarPubli') }}"
-          class="space-y-4"
-        >
+        <form method="POST" action="{{ url_for('editar_publi.editar_publi') }}" class="space-y-4">
           {{ form.csrf_token }}
           <div class="form-group">
-            <label
-              for="descripcion"
-              class="block text-sm font-medium text-gray-700"
-              >{{ form.descripcion.label }}</label
-            >
+            <label for="descripcion" class="block text-sm font-medium text-gray-700">
+              {{ form.descripcion.label }}
+            </label>
             <div class="mt-1">
               <textarea
                 class="block w-full h-24 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -57,11 +46,7 @@
             <span class="text-sm text-red-600">{{ error }}</span>
             {% endfor %}
           </div>
-          <input
-            type="hidden"
-            name="producto_id"
-            value="{{ publicacion.id }}"
-          />
+          <input type="hidden" name="producto_id" value="{{ publicacion.id }}" />
           <div class="mt-2 text-right">
             <button
               type="submit"
@@ -77,8 +62,8 @@
 </main>
 <script>
   function auto_grow(element) {
-    element.style.height = "5px";
-    element.style.height = element.scrollHeight + "px";
+    element.style.height = '5px';
+    element.style.height = element.scrollHeight + 'px';
   }
 </script>
 {% endblock %}
