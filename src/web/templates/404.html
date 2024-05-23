@@ -1,0 +1,37 @@
+{% extends "_layouts/app.html" %} {% block base_head %}
+<title>Pagina no encontrada</title>
+{% endblock %} {% block base_body %}
+<main class="flex items-center justify-center h-full flex-coll">
+  <section>
+    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+      <div class="max-w-screen-sm mx-auto text-center">
+        <h1
+          class="mb-4 font-extrabold tracking-tight text-green-cyan-shade text-7xl md:text-8xl lg:text-9xl"
+        >
+          404
+        </h1>
+        <p
+          class="mb-4 text-3xl font-bold tracking-tight text-cyan-shade md:text-4xl"
+        >
+          Página no encontrada
+        </p>
+        <p class="mb-4 text-base font-light md:text-lg text-zinc-500">
+          Lo sentimos, la página
+          <span class="font-medium text-black">"{{ request.path }}"</span>
+          no existe o no esta disponible
+          <br />
+          Por favor, revisa que la
+          <span class="font-medium">URL</span>
+          este bien escrita o regresa al inicio
+        </p>
+        <a
+          href="/"
+          class="inline-flex text-white bg-cyan-shade hover:bg-green-cyan-shade focus:ring-4 focus:outline-none duration-300 font-medium rounded text-sm px-5 py-2.5 text-center my-4"
+        >
+          Volver al inicio
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

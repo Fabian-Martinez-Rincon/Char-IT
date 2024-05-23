@@ -117,7 +117,7 @@ def login():
             return redirect(url_for('root.index_get'))
         else:
             flash('El mail o contraseña son incorrectos.', 'error')
-    return render_template('./comunes/login.html', form=form)
+    return render_template('/comunes/login.html', form=form)
 
 
 @bp.route('/logout')
@@ -196,3 +196,7 @@ def eliminar_generales():
 def reset_db():
     subprocess.call(["flask", "seeddb"])  # Llama al comando CLI desde la vista
     return redirect(url_for('root.index_get'))  # Redirige a alguna página después de ejecutar el comando
+
+@bp.app_errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
