@@ -15,3 +15,4 @@ class Publicacion(db.Model):
     id_categoria = db.Column(db.Integer, db.ForeignKey("categorias.id"), nullable=False)
     id_visibilidad = db.Column(db.Integer, db.ForeignKey("visibilidades.id"), nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
+    comentarios = db.relationship('Comentario', backref='comentarios', cascade='all, delete-orphan')
