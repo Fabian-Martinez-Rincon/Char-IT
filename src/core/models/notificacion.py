@@ -1,6 +1,7 @@
 from src.core.models.database import db
 from src.core.models.oferta import Oferta
 from src.core.models.publicacion import Publicacion
+from src.core.models.usuario import Usuario
 
 class Notificacion(db.Model):
     __tablename__="notificaciones"
@@ -8,6 +9,7 @@ class Notificacion(db.Model):
     oferta = db.Column(db.Integer, db.ForeignKey("ofertas.id"), nullable=True)
     publicacion = db.Column(db.Integer, db.ForeignKey("publicaciones.id"), nullable=True)
     descripcion = db.Column(db.String(255), nullable=False)
+    id_usuario = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
     
     @classmethod
     def enviarOferta(cls, id_oferta: int)->None:
