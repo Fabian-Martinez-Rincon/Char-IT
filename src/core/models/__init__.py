@@ -7,3 +7,8 @@ from src.core.models.publicacion import Publicacion
 from src.core.models.visibilidad import Visibilidad
 from src.core.models.filial import Filial
 from src.core.models.permisos_rol import Permisos_Rol
+from src.core.models.estado import Estado
+from src.core.models.comentario import Comentario
+from src.core.models.oferta import Oferta
+from src.core.models.notificacion import Notificacion
+from src.core.models.respuesta import Respuesta

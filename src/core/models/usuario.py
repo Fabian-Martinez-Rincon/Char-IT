@@ -13,4 +13,7 @@ class Usuario(db.Model):
     fecha_nacimiento = db.Column(db.Date, nullable=True)
     telefono = db.Column(db.String(50), nullable=True)
     id_rol = db.Column(db.Integer, db.ForeignKey("roles.id"), nullable=False)
+    penaltis = db.Column(db.Integer, default=0, nullable=False)
     publicaciones = db.relationship('Publicacion', backref='publicaciones', cascade='all, delete-orphan')
+    notificaciones = db.relationship('Notificacion', backref='notificaciones', cascade='all, delete-orphan')
+    ofertas = db.relationship('Oferta', backref='ofertas', cascade='all, delete-orphan')
