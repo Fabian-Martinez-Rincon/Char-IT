@@ -67,12 +67,12 @@ def publicaciones_get():
         todas_las_publicaciones = Publicacion.query.filter_by(id_visibilidad=1).filter(Publicacion.id_usuario != session.get('user_id')).all()
         if not todas_las_publicaciones:
             mensaje = "No hay Publicaciones disponibles"
-            return render_template("/owner/publicaciones.html", mensaje=mensaje)
-        return render_template("/owner/publicaciones.html", publicaciones=todas_las_publicaciones)
+            return render_template("/comunes/publicaciones.html", mensaje=mensaje)
+        return render_template("/comunes/publicaciones.html", publicaciones=todas_las_publicaciones)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
-@bp.get("/mispublicaciones")
+@bp.get("/mis_publicaciones")
 def mis_publicaciones_get():
     if not(session.get('user_id')):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
@@ -86,8 +86,8 @@ def mis_publicaciones_get():
         mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id']).all()
         if not mis_publicaciones:
             mensaje = "No hay Publicaciones disponibles"
-            return render_template("/owner/mis-publicaciones.html", mensaje=mensaje)
-        return render_template("/owner/mis-publicaciones.html", publicaciones=mis_publicaciones)
+            return render_template("/general/mis_publicaciones.html", mensaje=mensaje)
+        return render_template("/general/mis_publicaciones.html", publicaciones=mis_publicaciones)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
@@ -97,7 +97,7 @@ def publicacion_detalle(publicacion_id):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
     publicacion = Publicacion.query.get_or_404(publicacion_id)
-    return render_template("publicaciones/detalle.html", publicacion=publicacion)
+    return render_template("/publicaciones/detalle.html", publicacion=publicacion)
 
 
 from werkzeug.security import check_password_hash
@@ -117,7 +117,7 @@ def login():
             return redirect(url_for('root.index_get'))
         else:
             flash('El mail o contraseña son incorrectos.', 'error')
-    return render_template('login.html', form=form)
+    return render_template('./comunes/login.html', form=form)
 
 
 @bp.route('/logout')
@@ -137,7 +137,7 @@ def perfil():
         return redirect(url_for('root.index_get'))
     if session.get('user_id'):
         user = Usuario.query.get(session.get('user_id'))
-        return render_template('perfil.html', user=user)
+        return render_template('/comunes/perfil.html', user=user)
     else:
         flash('You must be logged in to view your profile.', 'error')
         return redirect(url_for('root.index_get'))

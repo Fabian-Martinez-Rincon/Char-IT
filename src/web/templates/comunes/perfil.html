@@ -8,23 +8,30 @@
     class="w-24 h-24 mb-6 rounded-full"
   />
 
-  <h1 class="mb-6 text-4xl font-semibold text-gray-900">
-    {{ user.nombre }} {{ user.apellido }}
-  </h1>
+  <h1 class="mb-6 text-4xl font-semibold text-gray-900">{{ user.nombre }} {{ user.apellido }}</h1>
 
   <div class="max-w-lg mx-auto text-xl text-left text-gray-700">
-    <p class="mb-2"><strong>Email:</strong> {{ user.email }}</p>
-    {% if user.id_rol == 1 %}
-    <p class="mb-2"><strong>DNI:</strong> {{ user.dni }}</p>
-    <p class="mb-2"><strong>Teléfono:</strong> {{ user.telefono }}</p>
     <p class="mb-2">
-      <strong>Fecha de nacimiento:</strong> {{
-      user.fecha_nacimiento.strftime('%d/%m/%Y') }}
+      <strong>Email:</strong>
+      {{ user.email }}
+    </p>
+    {% if user.id_rol == 1 %}
+    <p class="mb-2">
+      <strong>DNI:</strong>
+      {{ user.dni }}
+    </p>
+    <p class="mb-2">
+      <strong>Teléfono:</strong>
+      {{ user.telefono }}
+    </p>
+    <p class="mb-2">
+      <strong>Fecha de nacimiento:</strong>
+      {{ user.fecha_nacimiento.strftime('%d/%m/%Y') }}
     </p>
     {% endif %}
   </div>
   <a
-    href="{{ url_for('editarPerfil.editar_perfil', usuario_id=user.id) }}"
+    href="{{ url_for('editar_perfil.editar_perfil', usuario_id=user.id) }}"
     class="px-4 py-2 mt-6 text-white transition rounded bg-cyan-shade hover:bg-green-cyan-shade"
   >
     Editar perfil

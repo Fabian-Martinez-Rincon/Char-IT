@@ -11,9 +11,9 @@ from flask import (
     render_template
 )
 
-bp = Blueprint("subirPubli", __name__)
-@bp.route("/subirPubli", methods=['GET'])
-def subirPubliGo():
+bp = Blueprint("subir_publi", __name__)
+@bp.route("/subir_publi", methods=['GET'])
+def subir_publi_go():
     if not(session.get('user_id')):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
@@ -25,11 +25,11 @@ def subirPubliGo():
     form = SubirPubliForm()
     categorias = Categoria.query.all()  # Obtén todas las categorías disponibles
     form.categoria.choices = [(categoria.id, categoria.nombre) for categoria in Categoria.query.all()]  # Llena el campo de selección de categorías
-    return render_template('subirPubli.html', form=form ,categorias=categorias)
+    return render_template('/general/subir_publi.html', form=form ,categorias=categorias)
 
 
-@bp.route("/subirPubli", methods=['POST'])
-def subirPubli():
+@bp.route("/subir_publi", methods=['POST'])
+def subir_publi():
     if session.get('user_id'):
         rol = Usuario.query.get(session.get('user_id')).id_rol
         if rol != 1 :  
@@ -44,7 +44,7 @@ def subirPubli():
         existing_public = mis_publicaciones.filter(Publicacion.titulo == titulo).first()
         if existing_public:
             flash('Ya tienes una publicación con el mismo título.', 'error')
-            return redirect(url_for('subirPubli.subirPubli'))
+            return redirect(url_for('subir_publi.subir_publi'))
         descripcion = form.descripcion.data
         horarios = form.horarios.data
         categoria_id = form.categoria.data  # Obtiene el ID de la categoría seleccionada
@@ -63,7 +63,7 @@ def subirPubli():
                 foto.save(ruta_completa)
             else:
                 flash('El archivo debe ser una imagen en formato JPG o PNG.', 'error')
-                return redirect(url_for('subirPubli.subirPubli'))
+                return redirect(url_for('subir_publi.subir_publi'))
         #Verifica si se presionó el botón de publicar o archivar
         if 'submit' in request.form:
             id_visibilidad = 1  # Publicar
@@ -85,4 +85,4 @@ def subirPubli():
         db.session.commit()
         flash('La publicación se ha subido correctamente.', 'success')
         return redirect(url_for('root.mis_publicaciones_get'))
-    return render_template('subirPubli.html', form=form,categorias=categorias)
+    return render_template('/general/subir_publi.html', form=form,categorias=categorias)

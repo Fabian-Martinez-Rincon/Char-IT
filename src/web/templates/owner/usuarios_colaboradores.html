@@ -1,13 +1,10 @@
-{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {%
-block head %}
+{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {% block head %}
 <title>Colaboradores</title>
 {% endblock %} {% block content %}
 <main class="flex flex-col items-center min-h-screen">
   <section class="w-full max-w-4xl px-4 py-12 text-center">
     <div>
-      <h1
-        class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade"
-      >
+      <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
         Usuarios Colaboradores
       </h1>
     </div>
@@ -17,8 +14,7 @@ block head %}
     </div>
     {% else %}
     <div class="w-full overflow-x-auto">
-      {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido",
-      "Email")) }}
+      {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido", "Email")) }}
       <tbody>
         {% for usuario in usuarios %}
         <tr class="text-black bg-very-light-yellow-green">

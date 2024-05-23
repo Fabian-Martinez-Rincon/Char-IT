@@ -1,0 +1,35 @@
+{% extends "_layouts/app.html" %} {% block head %}
+<title>Iniciar sesión</title>
+{% endblock %} {% block content %}
+<div
+  class="flex flex-col items-center justify-center px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8"
+>
+  <div class="w-full max-w-lg space-y-8">
+    <div class="flex justify-center">
+      <img src="/static/img/nombre-logo.png" alt="Hope Trade Logo" />
+    </div>
+    <form class="mt-8 space-y-6" action="{{ url_for('root.login') }}" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="-space-y-px rounded-md shadow-sm">
+        <div class="mb-2">
+          {{ form.email.label(class="sr-only") }} {{ form.email(class="w-full text-gray-900 border
+          border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade
+          focus:z-10 sm:text-lg", placeholder="Direccion de email") }}
+        </div>
+        <div class="mb-2">
+          {{ form.password.label(class="sr-only") }} {{ form.password(class="w-full text-gray-900
+          border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade
+          focus:border-cyan-shade focus:z-10 sm:text-lg", placeholder="Contraseña") }}
+        </div>
+      </div>
+
+      <div>
+        {{ form.submit(class="relative flex justify-center w-full px-4 py-3 text-base font-medium
+        text-white transition duration-150 ease-in-out border border-transparent rounded-md group
+        bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2
+        focus:ring-cyan-shade") }}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

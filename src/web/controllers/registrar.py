@@ -23,7 +23,7 @@ def register():
 
         if len(form.password.data) < 8:
             flash('La contraseña debe tener mínimo 8 caracteres', 'error')
-            return render_template('owner/registrar.html', form=form)
+            return render_template('/comunes/registrar.html', form=form)
         
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
         new_user = Usuario(
@@ -48,4 +48,4 @@ def register():
         for fieldName, errorMessages in form.errors.items():
             for err in errorMessages:
                 flash(f'{err}', 'error')
-    return render_template('owner/registrar.html', form=form)
+    return render_template('/comunes/registrar.html', form=form)
