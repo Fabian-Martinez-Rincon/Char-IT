@@ -1,0 +1,44 @@
+{% extends "_layouts/app.html" %} {% block
+    head %}
+    <title>Realizar oferta</title>
+    {% endblock %} {% block content %}
+    <main class="min-h-screen bg-very-light-yellow-green">
+      <div class="flex flex-col items-center justify-center px-6 py-12 overflow-hidden rounded-lg lg:px-8">
+        <div>
+          <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
+            Ofertar publicación
+          </h1>
+          <form method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div class="mb-4">
+              <label for="publicación" class="block font-bold text-gray-700">Publicación</label>
+              {{ form.publicacion(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+            </div>
+            <div class="mb-4">
+              <label for="horarios" class="block font-bold text-gray-700">
+                Horarios Libres (opcional)
+              </label>
+              {{ form.horarios(class="w-full text-gray-900 border border-gray-300 rounded
+              focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+              }} {% if form.horarios.errors %}
+              <div class="mt-1 text-red-500">
+                {% for error in form.horarios.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+            <div class="mb-4">
+              <label for="publicación" class="block font-bold text-gray-700">Publicación</label>
+              {{ form.filial(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+            </div>
+            <div class="flex justify-center gap-10">
+              {{ form.submit(class="px-4 py-2 font-bold text-white transition duration-300 rounded
+              bg-cyan-shade hover:bg-green-cyan-shade") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    {% endblock %}
+    

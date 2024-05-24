@@ -73,6 +73,14 @@
             Eliminar
           </a>
         </div>
+        {% elif session.rol_id == 1 %}
+        <div class="flex flex-row items-center gap-4 mt-8">
+          <a
+            href="{{ url_for('ofertar_publi.ofertar_publi_go', publicacion_id=publicacion.id) }}"
+            class="px-4 py-2 font-bold text-center text-white bg-cyan-shade rounded hover:bg-green-cyan-shade"
+          >
+            Ofertar
+          </a>
         {% endif %}
       </div>
     </div>
