@@ -77,11 +77,24 @@
         <div class="flex flex-row items-center gap-4 mt-8">
           <a
             href="{{ url_for('ofertar_publi.ofertar_publi_go', publicacion_id=publicacion.id) }}"
-            class="px-4 py-2 font-bold text-center text-white bg-cyan-shade rounded hover:bg-green-cyan-shade"
+            class="px-4 py-2 font-bold text-center text-white rounded bg-cyan-shade hover:bg-green-cyan-shade"
           >
             Ofertar
           </a>
         {% endif %}
+        <div class="mt-8">
+          {% if session.rol_id == 3 %}
+            {% if publicacion.id_visibilidad != 3%}
+            <a
+              href=""
+              class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
+              onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
+            >
+              Eliminar
+            </a>
+            {% endif %}
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
