@@ -83,7 +83,10 @@ def mis_publicaciones_get():
                     flash('No tienes permiso para realizar esta operacion.', 'error')
                     return redirect(url_for('root.index_get'))
     try:
-        mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id']).all()
+        mis_publicaciones = Publicacion.query.filter(
+            Publicacion.id_usuario == session['user_id'],
+            Publicacion.id_visibilidad != 3
+        ).all()
         if not mis_publicaciones:
             mensaje = "No hay Publicaciones disponibles"
             return render_template("/general/mis_publicaciones.html", mensaje=mensaje)
