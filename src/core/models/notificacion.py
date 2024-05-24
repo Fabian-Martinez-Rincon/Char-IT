@@ -8,7 +8,7 @@ class Notificacion(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique= True)
     oferta = db.Column(db.Integer, db.ForeignKey("ofertas.id"), nullable=True)
     publicacion = db.Column(db.Integer, db.ForeignKey("publicaciones.id"), nullable=True)
-    descripcion = db.Column(db.String(255), nullable=False)
+    descripcion = db.Column(db.String(255), nullable=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
     
     @classmethod
@@ -31,6 +31,18 @@ class Notificacion(db.Model):
         nombrePubli  = Publicacion.query.filter_by(id=oferta.solicitado).first().titulo
         new_notificacion = Notificacion(oferta=id_oferta, descripcion="Tu Oferta para la Publicacion "+nombrePubli+" fue respondida")
         db.session.add(new_notificacion)
+        db.session.commit()
+    
+    @classmethod
+    def cancelarOferta(self,id_oferta: int)->None:
+        """
+        envia la notificacion cuando se responde una Oferta
+        """
+        oferta= Oferta.query.filter_by(id=id_oferta).first()
+        nombrePubli  = Publicacion.query.filter_by(id=oferta.solicitado).first().titulo
+        nombrePubli2  = Publicacion.query.filter_by(id=oferta.ofrecido).first().titulo
+        self.oferta = id_oferta
+        self.descripcion = "La Oferta de "+nombrePubli+" para intercambiar por "+nombrePubli2+" fue cancelada"
         db.session.commit()
     
     @classmethod

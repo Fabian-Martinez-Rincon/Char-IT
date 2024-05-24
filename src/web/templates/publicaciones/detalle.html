@@ -57,23 +57,38 @@
             {{ publicacion.filiales_horarios_dias }}
           </div>
         </div>
-        {% if publicacion.id_usuario == session.get('user_id') %}
-        <div class="flex flex-row items-center gap-4 mt-8">
-          <a
-            href="/editar_publi/{{ publicacion.id }}"
-            class="px-4 py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700"
-          >
-            Editar Publicación
-          </a>
-          <a
-            href="{{ url_for('eliminar_publi.eliminar_publi', publicacion_id=publicacion.id) }}"
-            class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
-            onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
-          >
-            Eliminar
-          </a>
-        </div>
+        {% if publicacion.id_usuario == session.get('user_id') %} 
+          {% if publicacion.id_visibilidad != 3%}
+          <div class="flex flex-row items-center gap-4 mt-8">
+            <a
+              href="/editar_publi/{{ publicacion.id }}"
+              class="px-4 py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700"
+            >
+              Editar Publicación
+            </a>
+            <a
+              href="{{ url_for('eliminar_publi.eliminar_publi', publicacion_id=publicacion.id) }}"
+              class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
+              onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
+            >
+              Eliminar
+            </a>
+          </div>
+          {% endif %}
         {% endif %}
+        <div class="mt-8">
+          {% if session.rol_id == 3 %}
+            {% if publicacion.id_visibilidad != 3%}
+            <a
+              href=""
+              class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
+              onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
+            >
+              Eliminar
+            </a>
+            {% endif %}
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
