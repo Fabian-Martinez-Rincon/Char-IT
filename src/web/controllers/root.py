@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, session, flash,
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
 from src.core.models.publicacion import Publicacion
+from src.core.models.oferta import Oferta
 from src.core.models.database import db
 from src.web.formularios.inicio_sesion import LoginForm  # Asegúrate que esta es la ruta correcta
 import subprocess
@@ -102,6 +103,65 @@ def publicacion_detalle(publicacion_id):
     publicacion = Publicacion.query.get_or_404(publicacion_id)
     return render_template("/publicaciones/detalle.html", publicacion=publicacion)
 
+@bp.get("/ofertas_enviadas")
+def ofertas_enviadas_get():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
+                    return redirect(url_for('root.index_get'))
+    try:
+        mis_publicaciones = Publicacion.query.filter(
+            Publicacion.id_usuario == session['user_id'],
+            Publicacion.id_visibilidad != 3
+        ).all()
+
+        ofertas_enviadas_get = []
+        for publicacion in mis_publicaciones:
+            ofertas_enviadas = Oferta.query.filter(
+                Oferta.ofrecido == publicacion.id,
+            ).all()
+            ofertas_enviadas_get.extend(ofertas_enviadas)
+
+        if not ofertas_enviadas_get:
+            mensaje = "No hay Ofertas de intercambios"
+            return render_template("/ofertas/ofertas_enviadas.html", mensaje=mensaje)
+        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_enviadas_get)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500
+
+@bp.get("/ofertas_recibidas")
+def ofertas_recibidas_get():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
+                    return redirect(url_for('root.index_get'))
+    try:
+        mis_publicaciones = Publicacion.query.filter(
+            Publicacion.id_usuario == session['user_id'],
+            Publicacion.id_visibilidad != 3
+        ).all()
+
+        ofertas_recibidas_get = []
+        for publicacion in mis_publicaciones:
+            ofertas_recibidas = Oferta.query.filter(
+                Oferta.solicitado == publicacion.id,
+            ).all()
+            ofertas_recibidas_get.extend(ofertas_recibidas)
+
+        if not ofertas_recibidas_get:
+            mensaje = "No hay Ofertas de intercambios"
+            return render_template("/ofertas/ofertas_enviadas.html", mensaje=mensaje)
+        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_recibidas_get)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500
 
 from werkzeug.security import check_password_hash
 

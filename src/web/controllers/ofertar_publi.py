@@ -2,12 +2,15 @@ import os
 from src.core.models.usuario import Usuario
 from flask import render_template, request, flash, redirect, url_for, session, current_app
 from src.web.formularios.ofertar_publi import OfertarPubli
+from src.core.models.oferta import Oferta
 from src.core.models.publicacion import Publicacion
 from src.core.models.database import db
+from datetime import time
 from flask import (
     Blueprint,
     render_template
 )
+
 
 bp = Blueprint("ofertar_publi", __name__)
 
@@ -42,13 +45,16 @@ def subir_oferta(publicacion_id):
     form.publicacion.choices = lista_publi
     if form.validate_on_submit():
         # Obtiene los datos del formulario
-        id_publicacion = form.publicacion.data
+        ofrecido_id = form.publicacion.data
+        solicitado_id = publicacion_id
         horarios = form.horarios.data
+        fecha = form.fecha.data
         filial = form.filial.data
+        estado = 1
         # Crea la nueva oferta
-        #nueva_oferta = Oferta(id_publicacion=id_publicacion, id_usuario=session['user_id'], precio=precio, descripcion=descripcion)
-        #db.session.add(nueva_oferta)
-        #db.session.commit()
+        nueva_oferta = Oferta(ofrecido=ofrecido_id, solicitado=solicitado_id, horaIntercambio=horarios, fechaIntercambio=fecha, filial=filial, estado=estado)
+        db.session.add(nueva_oferta)
+        db.session.commit()
         flash('Oferta realizada con éxito.', 'success')
         return redirect(url_for('root.publicaciones_get'))
     return render_template('/general/ofertar.html', form=form)

@@ -10,7 +10,7 @@ class Oferta(db.Model):
     ofrecido = db.Column(db.Integer, db.ForeignKey("publicaciones.id"), nullable=False)
     solicitado = db.Column(db.Integer, db.ForeignKey("publicaciones.id"), nullable=False)
     fechaIntercambio = db.Column(db.Date, nullable=False)
-    horaIntercambio = db.Column(db.Time, nullable=False)
+    horaIntercambio = db.Column(db.String(255), nullable=False)
     filial = db.Column(db.Integer, db.ForeignKey("filiales.id"), nullable=False)
     estado = db.Column(db.Integer, db.ForeignKey("estados.id"), nullable=False)
     # Relación con Publicacion para la clave foránea 'ofrecido'

@@ -15,11 +15,14 @@
               {{ form.publicacion(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
             </div>
             <div class="mb-4">
+              <label for="filial" class="block font-bold text-gray-700">Filial a escoger</label>
+              {{ form.filial(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+            </div>
+            <div class="mb-4">
               <label for="horarios" class="block font-bold text-gray-700">
                 Horarios Libres (opcional)
               </label>
-              {{ form.horarios(class="w-full text-gray-900 border border-gray-300 rounded
-              focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+              {{ form.horarios(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
               }} {% if form.horarios.errors %}
               <div class="mt-1 text-red-500">
                 {% for error in form.horarios.errors %}
@@ -28,13 +31,22 @@
               </div>
               {% endif %}
             </div>
-            <div class="mb-4">
-              <label for="publicación" class="block font-bold text-gray-700">Publicación</label>
-              {{ form.filial(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+            <div class="mb-2">
+              <label for="fecha" class="block mb-2 font-bold text-gray-700">
+                Fecha deseada
+              </label>
+              {{ form.fecha(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
+              }}
+              {% if form.fecha.errors %}
+              <div class="mt-1 text-red-500">
+                {% for error in form.fecha.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
             </div>
             <div class="flex justify-center gap-10">
-              {{ form.submit(class="px-4 py-2 font-bold text-white transition duration-300 rounded
-              bg-cyan-shade hover:bg-green-cyan-shade") }}
+              {{ form.submit(class="px-4 py-2 font-bold text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade") }}
             </div>
           </form>
         </div>

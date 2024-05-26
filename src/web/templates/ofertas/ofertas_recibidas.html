@@ -1,0 +1,29 @@
+{% extends "_layouts/app.html" %} {% block
+  head %}
+  <title>Intercambios recibidos</title>
+  {% endblock %} {% block content %}
+  <main class="max-w-6xl px-4 mx-auto my-12 text-center sm:px-6 lg:px-8 bg-very-light-yellow-green">
+    <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
+      Mis ofertas de intercambios recibidas
+    </h1>
+    {% if mensaje %}
+    <div>
+      <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
+    </div>
+    {% else %}
+    <div class="grid gap-6 mt-6 md:grid-cols-2 lg:grid-cols-3">
+      {% for intercambio in intercambios %}  
+      {{ 
+          intercambio.ofrecido, 
+          intercambio.solicitado, 
+          intercambio.fechaIntercambio,  
+          intercambio.horaIntercambio, 
+          intercambio.filial,
+          intercambio.estado,
+      }} 
+      {% endfor %} 
+    {% endif %}
+    </div>
+  </main>
+  {% endblock %}
+  
