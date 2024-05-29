@@ -1,0 +1,32 @@
+{% extends "_layouts/app.html" %}
+{% block head %}
+    <title>Intercambios Pendientes</title>
+{% endblock %}
+{% block content %}
+<div class="flex flex-col items-center min-h-screen px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8">
+  <div class="w-full max-w-md">
+    <h2 class="text-4xl font-extrabold text-center text-green-shade">
+      Intercambios Pendientes del Dia
+    </h2>
+    <ul>
+        {% if ofertas %}
+            {% for oferta in ofertas %}
+                <li>
+                    <a href=""> <!-- Agregar Enlace a los detalles de la oferta para aceptar o rechazar -->
+                        Productos a intercambiar:<br> 
+                        - {{ oferta.publicacion_solicitado.titulo }}<br> 
+                        - {{ oferta.publicacion_ofrecido.titulo }}<br>
+                        Hora Intercambio:<br> 
+                        - {{ oferta.horaIntercambio }}<br> 
+                        Filial:<br> 
+                        - {{ oferta.filial_relacion.nombre }}<br> 
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No hay intercambios pendientes para el día de hoy.</li>
+        {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
