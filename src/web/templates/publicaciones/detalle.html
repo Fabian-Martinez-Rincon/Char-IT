@@ -86,7 +86,7 @@
           {% if session.rol_id == 3 %}
             {% if publicacion.id_visibilidad != 3%}
             <a
-              href=""
+            href="{{ url_for('eliminar_publi.eliminar_publi_own', publicacion_id=publicacion.id) }}"
               class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
               onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
             >

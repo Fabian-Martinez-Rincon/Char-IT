@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, session, flash, request
+from src.core.models.estado import Estado
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
 from src.core.models.publicacion import Publicacion
+from src.core.models.oferta_detalle import OfertaDetalle
 from src.core.models.oferta import Oferta
 from src.core.models.database import db
 from src.web.formularios.inicio_sesion import LoginForm  # Asegúrate que esta es la ruta correcta
@@ -120,16 +122,36 @@ def ofertas_enviadas_get():
         ).all()
 
         ofertas_enviadas_get = []
+
         for publicacion in mis_publicaciones:
             ofertas_enviadas = Oferta.query.filter(
                 Oferta.ofrecido == publicacion.id,
             ).all()
             ofertas_enviadas_get.extend(ofertas_enviadas)
-
+            
         if not ofertas_enviadas_get:
             mensaje = "No hay Ofertas de intercambios"
             return render_template("/ofertas/ofertas_enviadas.html", mensaje=mensaje)
-        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_enviadas_get)
+        
+        ofertas_param = []
+
+        for oferta in ofertas_enviadas_get:
+            ofrecido = Publicacion.query.get(oferta.ofrecido).titulo
+            solicitado = Publicacion.query.get(oferta.solicitado).titulo
+            filial = Filial.query.get(oferta.filial).nombre
+            estado = Estado.query.get(oferta.estado).nombre
+            
+            oferta_detalle = OfertaDetalle(
+                ofrecido=ofrecido,
+                solicitado=solicitado,
+                fecha=oferta.fechaIntercambio,
+                hora=oferta.horaIntercambio,
+                filial=filial,
+                estado=estado
+            )
+            ofertas_param.append(oferta_detalle)
+
+        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_param)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
@@ -159,7 +181,26 @@ def ofertas_recibidas_get():
         if not ofertas_recibidas_get:
             mensaje = "No hay Ofertas de intercambios"
             return render_template("/ofertas/ofertas_enviadas.html", mensaje=mensaje)
-        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_recibidas_get)
+        
+        ofertas_param = []
+
+        for oferta in ofertas_recibidas_get:
+            ofrecido = Publicacion.query.get(oferta.ofrecido).titulo
+            solicitado = Publicacion.query.get(oferta.solicitado).titulo
+            filial = Filial.query.get(oferta.filial).nombre
+            estado = Estado.query.get(oferta.estado).nombre
+            
+            oferta_detalle = OfertaDetalle(
+                ofrecido=ofrecido,
+                solicitado=solicitado,
+                fecha=oferta.fechaIntercambio,
+                hora=oferta.horaIntercambio,
+                filial=filial,
+                estado=estado
+            )
+            ofertas_param.append(oferta_detalle)
+
+        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_param)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 

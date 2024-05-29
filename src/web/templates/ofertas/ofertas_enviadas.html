@@ -1,4 +1,4 @@
-{% extends "_layouts/app.html" %} {% block
+{% extends "_layouts/app.html" %} {% import "_macros/oferta.html" as Oferta %} {% block
 head %}
 <title>Intercambios enviados</title>
 {% endblock %} {% block content %}
@@ -13,14 +13,10 @@ head %}
   {% else %}
   <div class="grid gap-6 mt-6 md:grid-cols-2 lg:grid-cols-3">
     {% for intercambio in intercambios %}  
-    {{ 
-        intercambio.ofrecido, 
-        intercambio.solicitado, 
-        intercambio.fechaIntercambio,  
-        intercambio.horaIntercambio, 
-        intercambio.filial,
-        intercambio.estado,
-    }} 
+    {{ Oferta.OfertaDetalle(
+        intercambio.ofrecido, intercambio.solicitado, 
+        intercambio.fechaIntercambio, intercambio.horaIntercambio, 
+        intercambio.filial, intercambio.estado) }} 
     {% endfor %} 
   {% endif %}
   </div>

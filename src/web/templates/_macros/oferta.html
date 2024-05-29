@@ -1,0 +1,45 @@
+{% macro OfertaDetalle(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado) %}
+<div class="relative max-w-sm rounded shadow-lg">
+    <div class="flex items-center justify-center h-52">
+        <div class="flex flex-col items-center justify-center">
+        <p class="inline-block py-1 mb-2 text-sm font-semibold bg-gray-200 rounded-full text-green-shade">
+            {{ ofrecido }}
+        </p>
+        <p class="inline-block py-1 mb-2 text-sm font-semibold bg-gray-200 rounded-full text-cyan-shade">
+            {{ solicitado }}
+        </p>
+        </div>
+    </div>
+    <div class="px-6 py-4 text-center">
+        <p class="inline-block py-1 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+            {{ fechaIntercambio.strftime('%d/%m/%Y ') }}
+        </p>
+        <p class="inline-block py-1 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+            {{ horaIntercambio }}
+        </p>
+        <br>
+        <p class="inline-block py-1 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+            {{ filial }}
+        </p>
+        <div>
+            {% if estado == 'Pendiente' %}
+                <p class="inline-block py-1 mb-2 text-sm font-semibold text-yellow-500 bg-gray-200 rounded-full">
+                    {{ estado }}
+                </p>
+            {% elif estado == 'Aceptado' %}
+                <p class="inline-block py-1 mb-2 text-sm font-semibold text-green-500 bg-gray-200 rounded-full">
+                    {{ estado }}
+                </p>
+            {% elif estado == 'Rechazado' %}
+                <p class="inline-block py-1 mb-2 text-sm font-semibold text-red-700 bg-gray-200 rounded-full">
+                    {{ estado }}
+                </p>
+            {% else %}
+                <p class="inline-block py-1 mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+                    {{ estado }}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endmacro %}

@@ -1,0 +1,6 @@
+[
+    {"nombre": "Pendiente"},
+    {"nombre": "Aceptado"},
+    {"nombre": "Rechazado"},
+    {"nombre": "Cancelado"}
+]

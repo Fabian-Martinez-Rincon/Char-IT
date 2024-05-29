@@ -28,6 +28,11 @@ def ofertar_publi_go(publicacion_id):
     # Obtén todas las publicaciones del usuario
     mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id']).all()
     lista_publi=[(i.id, i.titulo) for i in mis_publicaciones]
+
+    if(len(lista_publi)==0):
+        flash('No tienes publicaciones para ofertar.', 'error')
+        return redirect(url_for('root.publicaciones_get'))
+    
     form = OfertarPubli()
     # Llena el campo de selección de publicaciones
     form.publicacion.choices = lista_publi

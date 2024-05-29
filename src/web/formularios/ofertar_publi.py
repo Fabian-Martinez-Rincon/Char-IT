@@ -9,20 +9,20 @@ def validate_date(form, field):
         raise ValidationError('La fecha no puede ser anterior a la actual.')
     if field.data.weekday() >= 5:
         raise ValidationError('No se permiten fechas en sábado o domingo.')
+    
 
-"""
+
 def validate_hours(form, field):
-    start_time = datetime.time(hour=8, minute=0, second=0)
-    end_time = datetime.time(hour=16, minute=0, second=0)
-
+    start_time = datetime.strptime('08:00', '%H:%M').time()
+    end_time = datetime.strptime('16:00', '%H:%M').time()
     if field.data < start_time or field.data > end_time:
-        raise ValidationError('El horario debe estar entre las 8 AM y las 4 PM.')"""
+        raise ValidationError('El horario debe estar entre las 8 AM y las 4 PM.')
 
 class OfertarPubli(FlaskForm):
     publicacion = SelectField('Seleccione una publicación', coerce=int, validators=[DataRequired()])
     filial = SelectField('Filial a escoger', coerce=int, validators=[DataRequired()])
     fecha = DateField('Fecha propuesta', validators=[DataRequired(),validate_date], format='%Y-%m-%d')
-    horarios = StringField('Horarios', validators=[DataRequired(), Length(max=255)])
+    horarios = TimeField('Horarios', validators=[DataRequired(), validate_hours])
     submit = SubmitField('Enviar oferta')
 
     def __init__(self, *args, **kwargs):
