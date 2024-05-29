@@ -17,4 +17,4 @@ class Oferta(db.Model):
     publicacion_ofrecido = db.relationship('Publicacion', foreign_keys=[ofrecido], backref='ofertas_ofrecidas')
     # Relación con Publicacion para la clave foránea 'solicitado'
     publicacion_solicitado = db.relationship('Publicacion', foreign_keys=[solicitado], backref='ofertas_solicitadas')
-    
+    filial_relacion = db.relationship('Filial', backref='ofertas')
