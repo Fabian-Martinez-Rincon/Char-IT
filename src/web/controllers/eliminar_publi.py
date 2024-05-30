@@ -50,11 +50,8 @@ def eliminar_publi(publicacion_id):
         otra_publicacion = Publicacion.query.get(otra_publicacion_id)
         if otra_publicacion.id_usuario != session.get('user_id'):
             # Crear notificación solo si el usuario dueño de la otra publicación no es el mismo que elimina la publicación
-            nueva_notificacion = Notificacion(
-                id_usuario=otra_publicacion.id_usuario
-            )
-            nueva_notificacion.cancelarOferta(oferta.id)
-            db.session.add(nueva_notificacion)
+            Notificacion.cancelarOferta(oferta.id, otra_publicacion.id_usuario)
+
     
     Publi.id_visibilidad = 3 # Cambiar la visibilidad de la publicación a "eliminada"
     db.session.add(Publi)

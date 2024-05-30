@@ -38,16 +38,16 @@ class Notificacion(db.Model):
         db.session.commit()
     
     @classmethod
-    def cancelarOferta(self,id_oferta: int)->None:
+    def cancelarOferta(self,id_oferta: int, id_usuario:int )->None:
         """
         envia la notificacion cuando se cancela una Oferta
         """
         oferta= Oferta.query.filter_by(id=id_oferta).first()
         nombrePubli  = Publicacion.query.filter_by(id=oferta.solicitado).first().titulo
         nombrePubli2  = Publicacion.query.filter_by(id=oferta.ofrecido).first().titulo
-        self.oferta = id_oferta
-        self.descripcion = "La Oferta de "+nombrePubli+" para intercambiar por "+nombrePubli2+" fue cancelada"
-        self.send_mail(self.id_usuario, self.descripcion)
+        new_notificacion = Notificacion(id_usuario= id_usuario ,oferta=id_oferta, descripcion="La Oferta de "+nombrePubli+" para intercambiar por "+nombrePubli2+" fue cancelada")
+        self.send_mail(id_usuario, new_notificacion.descripcion)
+        db.session.add(new_notificacion)
         db.session.commit()
     
     @classmethod
