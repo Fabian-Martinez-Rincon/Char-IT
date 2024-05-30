@@ -1,8 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, session, flash, request
+from src.core.models.estado import Estado
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
 from src.core.models.publicacion import Publicacion
 from src.core.models.comentario import Comentario
+from src.core.models.oferta_detalle import OfertaDetalle
+from src.core.models.oferta import Oferta
 from src.core.models.database import db
 from src.web.formularios.inicio_sesion import LoginForm  # Asegúrate que esta es la ruta correcta
 from src.web.formularios.comentar import ComentarForm
@@ -165,8 +168,106 @@ def publicacion_detalle(publicacion_id):
             return redirect(url_for('root.publicacion_detalle', publicacion_id=publicacion_id))            
     return render_template("/publicaciones/detalle.html", publicacion=publicacion, comentarios=comentarios_con_autores, form=form, formAnswer=formAnswer)
 
-
 from werkzeug.security import check_password_hash
+
+@bp.get("/ofertas_enviadas")
+def ofertas_enviadas_get():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
+                    return redirect(url_for('root.index_get'))
+    try:
+        mis_publicaciones = Publicacion.query.filter(
+            Publicacion.id_usuario == session['user_id'],
+            Publicacion.id_visibilidad != 3
+        ).all()
+
+        ofertas_enviadas_get = []
+
+        for publicacion in mis_publicaciones:
+            ofertas_enviadas = Oferta.query.filter(
+                Oferta.ofrecido == publicacion.id,
+            ).all()
+            ofertas_enviadas_get.extend(ofertas_enviadas)
+            
+        if not ofertas_enviadas_get:
+            mensaje = "No hay Ofertas de intercambios"
+            return render_template("/ofertas/ofertas_enviadas.html", mensaje=mensaje)
+        
+        ofertas_param = []
+
+        for oferta in ofertas_enviadas_get:
+            ofrecido = Publicacion.query.get(oferta.ofrecido).titulo
+            solicitado = Publicacion.query.get(oferta.solicitado).titulo
+            filial = Filial.query.get(oferta.filial).nombre
+            estado = Estado.query.get(oferta.estado).nombre
+            
+            oferta_detalle = OfertaDetalle(
+                ofrecido=ofrecido,
+                solicitado=solicitado,
+                fecha=oferta.fechaIntercambio,
+                hora=oferta.horaIntercambio,
+                filial=filial,
+                estado=estado
+            )
+            ofertas_param.append(oferta_detalle)
+
+        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_param)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500
+
+@bp.get("/ofertas_recibidas")
+def ofertas_recibidas_get():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol != 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
+                    return redirect(url_for('root.index_get'))
+    try:
+        mis_publicaciones = Publicacion.query.filter(
+            Publicacion.id_usuario == session['user_id'],
+            Publicacion.id_visibilidad != 3
+        ).all()
+
+        ofertas_recibidas_get = []
+        for publicacion in mis_publicaciones:
+            ofertas_recibidas = Oferta.query.filter(
+                Oferta.solicitado == publicacion.id,
+            ).all()
+            ofertas_recibidas_get.extend(ofertas_recibidas)
+
+        if not ofertas_recibidas_get:
+            mensaje = "No hay Ofertas de intercambios"
+            return render_template("/ofertas/ofertas_enviadas.html", mensaje=mensaje)
+        
+        ofertas_param = []
+
+        for oferta in ofertas_recibidas_get:
+            ofrecido = Publicacion.query.get(oferta.ofrecido).titulo
+            solicitado = Publicacion.query.get(oferta.solicitado).titulo
+            filial = Filial.query.get(oferta.filial).nombre
+            estado = Estado.query.get(oferta.estado).nombre
+            
+            oferta_detalle = OfertaDetalle(
+                ofrecido=ofrecido,
+                solicitado=solicitado,
+                fecha=oferta.fechaIntercambio,
+                hora=oferta.horaIntercambio,
+                filial=filial,
+                estado=estado
+            )
+            ofertas_param.append(oferta_detalle)
+
+        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_param)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
