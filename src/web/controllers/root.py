@@ -2,8 +2,10 @@ from flask import Blueprint, render_template, redirect, url_for, session, flash,
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
 from src.core.models.publicacion import Publicacion
+from src.core.models.comentario import Comentario
 from src.core.models.database import db
 from src.web.formularios.inicio_sesion import LoginForm  # Asegúrate que esta es la ruta correcta
+from src.web.formularios.comentar import ComentarForm
 import subprocess
 from flask import (
     Blueprint,
@@ -94,13 +96,74 @@ def mis_publicaciones_get():
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
-@bp.get("/publicaciones/<int:publicacion_id>")
+@bp.route("/publicaciones/<int:publicacion_id>", methods=['GET', 'POST'])
 def publicacion_detalle(publicacion_id):
-    if not(session.get('user_id')):
+    if not session.get('user_id'):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
-    publicacion = Publicacion.query.get_or_404(publicacion_id)
-    return render_template("/publicaciones/detalle.html", publicacion=publicacion)
+
+    # Obtener la publicación junto con sus comentarios y autores
+    publicacion = Publicacion.query \
+        .options(db.joinedload(Publicacion.comentarios_publicacion).joinedload(Comentario.autor)) \
+        .get_or_404(publicacion_id)
+    
+    print(publicacion.comentarios_publicacion)
+
+    comentarios_con_autores = []
+
+    for comentario in publicacion.comentarios_publicacion:        
+        respuesta = comentario.respuesta        
+        respuesta_con_autor = {
+            'contenido': respuesta.contenido,
+            'fecha_creacion': respuesta.fecha_creacion,
+            'autor_nombre': respuesta.autor.nombre,
+            'autor_apellido': respuesta.autor.apellido
+        } if respuesta else None
+
+        comentarios_con_autores.append({
+            'contenido': comentario.contenido,
+            'fecha_creacion': comentario.fecha_creacion,
+            'autor_nombre': comentario.autor.nombre,
+            'autor_apellido': comentario.autor.apellido,
+            'padre': comentario.comentario_padre_id,
+            'id':comentario.id,
+            'respuesta': respuesta_con_autor
+        })
+
+    form = None
+    formAnswer = None
+    if (session.get('user_id') != publicacion.id_usuario) and (Usuario.query.get(session.get('user_id')).id_rol == 1):                                
+        form = ComentarForm()   
+        if form.validate_on_submit():            
+            contenido = form.contenido.data         
+            nuevo_comentario = Comentario(contenido=contenido, publicacion_id=publicacion_id, autor_id=session.get('user_id'))                       
+            try:
+                db.session.add(nuevo_comentario)                
+                db.session.commit()                
+                flash('¡Comentario agregado con éxito!', 'success')
+            except Exception as e:
+                db.session.rollback()
+                flash(f'Ocurrió un error al agregar el comentario. Inténtalo nuevamente.', 'error')                
+                print(f"An error occurred: {str(e)}")
+            return redirect(url_for('root.publicacion_detalle', publicacion_id=publicacion_id))            
+
+    elif (session.get('user_id') == publicacion.id_usuario):           
+        formAnswer = ComentarForm()     
+        if formAnswer.validate_on_submit():            
+            contenido = formAnswer.contenido.data                                        
+            comentario_padre_id = formAnswer.comentario_padre_id.data
+            print(formAnswer.comentario_padre_id.data)              
+            respuesta = Comentario(contenido=contenido, publicacion_id=publicacion_id, autor_id=session.get('user_id'), comentario_padre_id=comentario_padre_id)                                               
+            try:
+                db.session.add(respuesta)                
+                db.session.commit()                
+                flash('¡Respuesta enviada con exito!', 'success')
+            except Exception as e:
+                db.session.rollback()
+                flash('Ocurrió un error al responder el comentario. Inténtalo nuevamente.', 'error')
+                print(f"An error occurred: {str(e)}")                
+            return redirect(url_for('root.publicacion_detalle', publicacion_id=publicacion_id))            
+    return render_template("/publicaciones/detalle.html", publicacion=publicacion, comentarios=comentarios_con_autores, form=form, formAnswer=formAnswer)
 
 
 from werkzeug.security import check_password_hash
