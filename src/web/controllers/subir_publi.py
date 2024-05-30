@@ -40,11 +40,14 @@ def subir_publi():
     if form.validate_on_submit():
         titulo = form.titulo.data
         # Verifica si entre sus publicaciones hay otra con el mismo titulo
-        mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id'])
-        existing_public = mis_publicaciones.filter(Publicacion.titulo == titulo).first()
+        existing_public = (Publicacion.query
+                 .filter_by(id_usuario=session['user_id'])
+                 .filter(Publicacion.titulo == titulo, Publicacion.id_visibilidad != 3)
+                 .all())
         if existing_public:
-            flash('Ya tienes una publicación con el mismo título.', 'error')
-            return redirect(url_for('subir_publi.subir_publi'))
+                flash('Ya tienes una publicación con el mismo título.', 'error')
+                return render_template('/general/subir_publi.html', form=form,categorias=categorias)
+        
         descripcion = form.descripcion.data
         horarios = form.horarios.data
         categoria_id = form.categoria.data  # Obtiene el ID de la categoría seleccionada
@@ -63,7 +66,7 @@ def subir_publi():
                 foto.save(ruta_completa)
             else:
                 flash('El archivo debe ser una imagen en formato JPG o PNG.', 'error')
-                return redirect(url_for('subir_publi.subir_publi'))
+                return render_template('/general/subir_publi.html', form=form,categorias=categorias)
         #Verifica si se presionó el botón de publicar o archivar
         if 'submit' in request.form:
             id_visibilidad = 1  # Publicar

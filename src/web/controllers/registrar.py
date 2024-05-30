@@ -14,12 +14,12 @@ def register():
         existing_user = Usuario.query.filter_by(email=form.email.data).first()
         if existing_user:
             flash('Ya existe un usuario registrado con ese mail', 'error')
-            return redirect(url_for('registrar.register', form=form))
+            return render_template('/comunes/registrar.html', form=form)
         
         existing_user_dni = Usuario.query.filter_by(dni=form.dni.data).first()
         if existing_user_dni:
             flash('Ya existe un usuario registrado con ese dni', 'error')
-            return redirect(url_for('registrar.register', form=form))
+            return render_template('/comunes/registrar.html', form=form)
 
         if len(form.password.data) < 8:
             flash('La contraseña debe tener mínimo 8 caracteres', 'error')
