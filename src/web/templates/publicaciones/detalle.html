@@ -1,42 +1,50 @@
 {% extends "_layouts/app.html" %} {% block head %}
-<title>{{publicacion.titulo}}</title>
+<title>{{ publicacion.titulo }}</title>
 {% endblock %} {% block content %}
-<main class="min-h-screen py-16 bg-gray-100 bg-very-light-yellow-green">
+<script>
+  function toggleCommentForm() {
+    var commentForm = document.getElementById("commentForm");
+    if (commentForm.style.display === "none") {
+      commentForm.style.display = "block";
+    } else {
+      commentForm.style.display = "none";
+    }
+  }
+  function toggleAnswerForm(commentId) {
+    var answerForm = document.getElementById("answerForm-" + commentId);
+    if (answerForm.style.display === "none") {
+      answerForm.style.display = "block";
+    } else {
+      answerForm.style.display = "none";
+    }
+  }
+</script>
+<main class="min-h-screen py-16">
   <div class="px-6 mx-auto overflow-hidden rounded-lg max-w-7xl lg:px-8">
     <div class="lg:flex lg:items-center">
       <div class="lg:flex-shrink-0">
         <img
           src="{{ url_for('static', filename=publicacion.foto_path) }}"
           alt="{{ publicacion.titulo }}"
-          class="object-cover w-full h-64 lg:w-96 lg:h-full"
-        />
+          class="object-cover w-full h-64 lg:w-96 lg:h-full" />
       </div>
       <div class="p-8">
-        <div
-          class="text-sm font-semibold tracking-wide uppercase text-green-shade"
-        >
-          Detalle de la Publicación
-        </div>
+        <div class="text-sm font-semibold tracking-wide uppercase text-green-shade">Detalle de la Publicación</div>
         <div class="flex flex-row">
-          <h1
-            class="block mt-1 text-2xl font-bold leading-tight text-black hover:underline"
-          >
+          <h1 class="block mt-1 text-2xl font-bold leading-tight text-black hover:underline">
             {{ publicacion.titulo }}
           </h1>
           <div class="pt-2 ml-2">
-            {% if publicacion.id_usuario == session.get('user_id') %} {% if
-            publicacion.id_visibilidad == 1 %}
+            {% if publicacion.id_usuario == session.get('user_id') %} {% if publicacion.id_visibilidad == 1 %}
             <a
               href="{{ url_for('cambiar_visibilidad.cambiar_visibilidad', publicacion_id=publicacion.id) }}"
-              class="px-2 py-2 ml-2 font-bold text-center text-white bg-gray-500 rounded"
-            >
+              class="px-2 py-2 ml-2 font-bold text-center text-white bg-gray-500 rounded">
               Archivar
             </a>
             {% elif publicacion.id_visibilidad == 2 %}
             <a
               href="{{ url_for('cambiar_visibilidad.cambiar_visibilidad', publicacion_id=publicacion.id) }}"
-              class="px-2 py-2 ml-2 font-bold text-center text-white bg-green-500 rounded hover:bg-green-700"
-            >
+              class="px-2 py-2 ml-2 font-bold text-center text-white bg-green-500 rounded hover:bg-green-700">
               Publicar
             </a>
             {% endif %} {% endif %}
@@ -44,6 +52,13 @@
         </div>
         <p class="mt-4 text-lg text-gray-700">{{ publicacion.descripcion }}</p>
         <div class="mt-6">
+          <div class="text-gray-500 text-md">
+            <b>Estado:</b>
+            {% if publicacion.id_visibilidad == 1 %} La publicación está activa. {% elif publicacion.id_visibilidad == 2
+            %} La publicación está archivada. {% elif publicacion.id_visibilidad == 3 %} La publicación está en
+            revisión. {% elif publicacion.id_visibilidad == 4 %} La publicación se encuentra pendiente para intercambio.
+            {% endif %}
+          </div>
           <div class="text-gray-500 text-md">
             <b>Categoría:</b>
             {{ publicacion.categoria.nombre }}
@@ -57,19 +72,18 @@
             {{ publicacion.filiales_horarios_dias }}
           </div>
         </div>
-        {% if publicacion.id_usuario == session.get('user_id') %}
+        {% if publicacion.id_usuario == session.get('user_id') and publicacion.id_visibilidad != 3 and
+        publicacion.id_visibilidad != 4%}
         <div class="flex flex-row items-center gap-4 mt-8">
           <a
             href="/editar_publi/{{ publicacion.id }}"
-            class="px-4 py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700"
-          >
+            class="px-4 py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700">
             Editar Publicación
           </a>
           <a
             href="{{ url_for('eliminar_publi.eliminar_publi', publicacion_id=publicacion.id) }}"
             class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
-            onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
-          >
+            onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');">
             Eliminar
           </a>
         </div>
@@ -81,22 +95,131 @@
           >
             Ofertar
           </a>
-        {% endif %}
+        </div>
+        {% endif %} {% if session.rol_id == 3 and publicacion.id_visibilidad != 3 and publicacion.id_visibilidad != 4%}
         <div class="mt-8">
-          {% if session.rol_id == 3 %}
-            {% if publicacion.id_visibilidad != 3%}
-            <a
-            href="{{ url_for('eliminar_publi.eliminar_publi_own', publicacion_id=publicacion.id) }}"
-              class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
-              onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
-            >
-              Eliminar
-            </a>
-            {% endif %}
+          <a
+            href=""
+            class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
+            onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');">
+            Eliminar
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <section>
+      <div class="w-full">
+        <div class="flex flex-col mt-4 text-center">
+          <div class="text-center">
+            <h2 class="text-4xl font-bold text-green-shade">Comentarios</h2>
+          </div>
+          {% if session.get('user_id') != publicacion.id_usuario and session.get('rol_id') == 1 %}
+          <div class="flex flex-row mt-4 text-center">
+            <button
+              onclick="toggleCommentForm()"
+              class="inline-flex items-center px-2 py-1 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+              Comentar
+              <svg
+                class="ml-2 text-gray-800 dark:text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                viewBox="0 0 24 24">
+                <path
+                  fill-rule="evenodd"
+                  d="M3.559 4.544c.355-.35.834-.544 1.33-.544H19.11c.496 0 .975.194 1.33.544.356.35.559.829.559 1.331v9.25c0 .502-.203.981-.559 1.331-.355.35-.834.544-1.33.544H15.5l-2.7 3.6a1 1 0 0 1-1.6 0L8.5 17H4.889c-.496 0-.975-.194-1.33-.544A1.868 1.868 0 0 1 3 15.125v-9.25c0-.502.203-.981.559-1.331ZM7.556 7.5a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2h-8Zm0 3.5a1 1 0 1 0 0 2H12a1 1 0 1 0 0-2H7.556Z"
+                  clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-col my-4">
+            <div id="commentForm" style="display: none">
+              {% if form %}
+              <form
+                action="{{ url_for('root.publicacion_detalle', publicacion_id=publicacion.id) }}"
+                method="POST"
+                class="flex flex-col">
+                {{ form.hidden_tag() }}
+                <div>{{ form.contenido.label }}</div>
+                <div class="w-full">{{ form.contenido(class_='w-full border rounded') }}</div>
+                <button
+                  class="px-2 py-1 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                  {{ form.submit.label("Agregar Comentario")}}
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </div>
           {% endif %}
         </div>
       </div>
-    </div>
+    </section>
+    <section>
+      {% if not comentarios %}
+      <div class="text-center">
+        <h2 class="text-xl font-bold text-green-shade">No hay comentarios</h2>
+      </div>
+      {% else %} {% for comentario in comentarios | reverse %} {% if not comentario.padre %}
+      <div class="p-4 mb-4 break-words bg-white border rounded-lg shadow-md">
+        <div class="flex items-center mb-2">
+          <p class="mr-1 font-semibold">{{ comentario.autor_nombre }}</p>
+          <p class="font-semibold">{{ comentario.autor_apellido }}</p>
+        </div>
+        <p class="mb-2">{{ comentario.contenido }}</p>
+        {% if not comentario.respuesta and session.get('user_id') == publicacion.id_usuario %}
+        <div class="flex flex-row mt-4 text-center">
+          <button
+            onclick="toggleAnswerForm('{{ comentario.id }}')"
+            class="inline-flex items-center px-2 py-1 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+            Responder
+            <svg
+              class="ml-2 text-gray-800 dark:text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                fill-rule="evenodd"
+                d="M3.559 4.544c.355-.35.834-.544 1.33-.544H19.11c.496 0 .975.194 1.33.544.356.35.559.829.559 1.331v9.25c0 .502-.203.981-.559 1.331-.355.35-.834.544-1.33.544H15.5l-2.7 3.6a1 1 0 0 1-1.6 0L8.5 17H4.889c-.496 0-.975-.194-1.33-.544A1.868 1.868 0 0 1 3 15.125v-9.25c0-.502.203-.981.559-1.331ZM7.556 7.5a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2h-8Zm0 3.5a1 1 0 1 0 0 2H12a1 1 0 1 0 0-2H7.556Z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div class="my-4">
+          <div id="answerForm-{{ comentario.id }}" style="display: none">
+            {% if formAnswer %}
+            <form
+              action="{{ url_for('root.publicacion_detalle', publicacion_id=publicacion.id) }}"
+              method="POST"
+              class="flex flex-col">
+              {{ formAnswer.hidden_tag() }}
+              <div class="w-full">{{formAnswer.contenido(class_='w-full border rounded') }}</div>
+              <div class="hidden">{{formAnswer.comentario_padre_id(value=comentario.id)}}</div>
+              <button
+                class="px-2 py-1 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                {{ formAnswer.submit.label("Enviar respuesta")}}
+              </button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %} {% if comentario.respuesta %}
+        <div class="pl-4 mt-2 ml-4 break-words border-l-2 border-gray-200">
+          <div class="flex items-center mb-1">
+            <p class="mr-1 font-semibold">{{ comentario.respuesta.autor_nombre }}</p>
+            <p class="mr-1 font-semibold">{{ comentario.respuesta.autor_apellido }}</p>
+          </div>
+          <div>
+            <p>{{ comentario.respuesta.contenido }}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %} {% endfor %} {% endif %}
+    </section>
   </div>
 </main>
 {% endblock %}

@@ -1,4 +1,6 @@
 [
     {"estado": "Pública"},
-    {"estado": "Privada"}
+    {"estado": "Privada"},
+    {"estado": "Eliminada"},
+    {"estado": "Intercambio"}
 ]

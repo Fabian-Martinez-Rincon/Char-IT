@@ -78,7 +78,7 @@ def subir_publi():
             foto_path=ruta_foto2,
             id_usuario=session['user_id'],
             id_categoria=categoria_id,  # Asigna el ID de la categoría a la publicación
-            id_visibilidad=id_visibilidad   )
+            id_visibilidad=id_visibilidad)
 
         # Guarda la nueva publicación en la base de datos
         db.session.add(nueva_publicacion)
