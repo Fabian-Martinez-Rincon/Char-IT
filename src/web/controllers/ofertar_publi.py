@@ -1,4 +1,5 @@
 import os
+from src.core.models.notificacion import Notificacion
 from src.core.models.usuario import Usuario
 from flask import render_template, request, flash, redirect, url_for, session, current_app
 from src.web.formularios.ofertar_publi import OfertarPubli
@@ -26,7 +27,7 @@ def ofertar_publi_go(publicacion_id):
                     return redirect(url_for('root.index_get'))
 
     # Obtén todas las publicaciones del usuario
-    mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id']).all()
+    mis_publicaciones = Publicacion.query.filter_by(id_usuario=session['user_id']).filter(Publicacion.id_visibilidad.in_([1, 2])).all()
     lista_publi=[(i.id, i.titulo) for i in mis_publicaciones]
 
     if(len(lista_publi)==0):
@@ -56,10 +57,19 @@ def subir_oferta(publicacion_id):
         fecha = form.fecha.data
         filial = form.filial.data
         estado = 1
+
+        oferta_aux = Oferta.query.filter_by(ofrecido=ofrecido_id, solicitado=solicitado_id, estado = 1).first()
+        if oferta_aux:
+            flash('Ya has ofertado por esta publicación.', 'error')
+            return redirect(url_for('root.publicaciones_get'))
+
         # Crea la nueva oferta
         nueva_oferta = Oferta(ofrecido=ofrecido_id, solicitado=solicitado_id, horaIntercambio=horarios, fechaIntercambio=fecha, filial=filial, estado=estado)
         db.session.add(nueva_oferta)
         db.session.commit()
+        
+        # Enviar notificación al usuario dueño de la otra publicación
+        Notificacion.enviarOferta(nueva_oferta)
         flash('Oferta realizada con éxito.', 'success')
         return redirect(url_for('root.publicaciones_get'))
     return render_template('/general/ofertar.html', form=form)

@@ -14,13 +14,12 @@ class Notificacion(db.Model):
     id_usuario = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
     
     @classmethod
-    def enviarOferta(self, id_oferta: int)->None:
+    def enviarOferta(self, oferta: Oferta)->None:
         """
         envia la notificacion cuando se envia una Oferta
         """
-        oferta= Oferta.query.filter_by(id=id_oferta).first()
         Publi  = Publicacion.query.filter_by(id=oferta.solicitado).first()
-        new_notificacion = Notificacion(id_usuario= Publi.id_usuario ,oferta=id_oferta, descripcion="Tu Publicacion "+Publi.titulo+" recibio una oferta")
+        new_notificacion = Notificacion(id_usuario= Publi.id_usuario ,oferta=oferta.id, descripcion="Tu Publicacion "+Publi.titulo+" recibio una oferta")
         self.send_mail(Publi.id_usuario, new_notificacion.descripcion)
         db.session.add(new_notificacion)
         db.session.commit()
