@@ -14,7 +14,7 @@ def editar_perfil():
     if usuario_actual is None:
         flash('No se encontró al usuario. Por favor, vuelve a iniciar sesión.', 'error')
         # Puedes redirigir al usuario a una página de inicio de sesión o a cualquier otra página de tu elección
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('root.login'))
 
     if form.validate_on_submit():
         if len(form.nueva_password.data) < 8:

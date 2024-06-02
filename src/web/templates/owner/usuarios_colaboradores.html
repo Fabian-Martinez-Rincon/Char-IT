@@ -3,11 +3,14 @@
 {% endblock %} {% block content %}
 <main class="flex flex-col items-center min-h-screen">
   <section class="w-full max-w-4xl px-4 py-12 text-center">
-    <div>
-      <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
-        Usuarios Colaboradores
+    <div class="flex items-center justify-center">
+      <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
+          Usuarios Colaboradores
       </h1>
-    </div>
+    </div>         
+    <div class="flex items-center justify-end w-1/2 mb-4 space-x-4">
+      <input id="emailFilter" type="text" placeholder="Filtrar por email" class="px-3 py-2 border border-gray-300 rounded-md">    
+    </div>    
     {% if mensaje %}
     <div>
       <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
@@ -26,7 +29,36 @@
       </tbody>
       {% endcall %}
     </div>
-    {% endif %}
+    {% endif %}    
   </section>
+  <div id="noMatchMessage" class="hidden mb-4 text-2xl font-extrabold text-green-shade">No existen coincidencias</div>
 </main>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const emailFilter = document.getElementById('emailFilter');
+    const tableRows = Array.from(document.querySelectorAll('tbody tr'));
+    const noMatchMessage = document.getElementById('noMatchMessage');
+
+    emailFilter.addEventListener('input', (event) => {
+        const filterValue = event.target.value.toLowerCase();
+        let matchCount = 0;
+        tableRows.forEach((row) => {
+            const emailCell = row.querySelector('td:nth-child(3)');
+            const email = emailCell.textContent.toLowerCase();
+
+            if (email.startsWith(filterValue)) {
+                row.classList.remove('hidden');
+                matchCount++;
+            } else {
+                row.classList.add('hidden');
+            }
+        });
+        if (matchCount === 0) {
+            noMatchMessage.classList.remove('hidden');
+        } else {
+            noMatchMessage.classList.add('hidden');
+        }
+    });
+  });
+</script>
 {% endblock %}

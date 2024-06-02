@@ -10,6 +10,9 @@ def validate_date(form, field):
     if field.data.weekday() >= 5:
         raise ValidationError('No se permiten fechas en sábado o domingo.')
     
+# Para desarrolo de pruebas (sino los sabados y domingos no se podrá hacer pruebas)    
+# def validate_date(form, field):
+#     return True
 
 
 def validate_hours(form, field):

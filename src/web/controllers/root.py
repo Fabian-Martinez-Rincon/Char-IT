@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session, flash, request
+from flask import Blueprint, render_template, redirect, url_for, session, flash, request, make_response
 from src.core.models.estado import Estado
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
@@ -17,8 +17,22 @@ from flask import (
 
 bp = Blueprint("root", __name__)
 
+@bp.before_request
+def check_user():
+    user_id = session.get('user_id')
+    if user_id:
+        user = Usuario.query.get(user_id)
+        if not user:
+            # Si el user_id no coincide con un usuario en la base de datos,
+            # eliminar el user_id de la sesión
+            session.clear()
+            flash('Tu sesión ha sido cerrada.', 'info')
+            response = make_response(redirect(url_for('root.index_get')))
+            response.delete_cookie('session')  # Borrar la cookie de la sesión
+            return response 
+        
 @bp.get("/")
-def index_get():
+def index_get(): 
     try:
         todas_las_filiales = Filial.query.all()
         return render_template("index.html", filiales=todas_las_filiales)
@@ -201,18 +215,18 @@ def ofertas_enviadas_get():
         ofertas_param = []
 
         for oferta in ofertas_enviadas_get:
-            ofrecido = Publicacion.query.get(oferta.ofrecido).titulo
-            solicitado = Publicacion.query.get(oferta.solicitado).titulo
+            ofrecido = Publicacion.query.get(oferta.ofrecido)
+            solicitado = Publicacion.query.get(oferta.solicitado)
             filial = Filial.query.get(oferta.filial).nombre
             estado = Estado.query.get(oferta.estado).nombre
             
             oferta_detalle = OfertaDetalle(
-                ofrecido=ofrecido,
-                solicitado=solicitado,
+                ofrecido=ofrecido,                
+                solicitado=solicitado,                 
                 fecha=oferta.fechaIntercambio,
                 hora=oferta.horaIntercambio,
                 filial=filial,
-                estado=estado
+                estado=estado,                 
             )
             ofertas_param.append(oferta_detalle)
 
@@ -245,7 +259,7 @@ def ofertas_recibidas_get():
 
         if not ofertas_recibidas_get:
             mensaje = "No hay Ofertas de intercambios"
-            return render_template("/ofertas/ofertas_enviadas.html", mensaje=mensaje)
+            return render_template("/ofertas/ofertas_recibidas.html", mensaje=mensaje)
         
         ofertas_param = []
 
@@ -265,7 +279,7 @@ def ofertas_recibidas_get():
             )
             ofertas_param.append(oferta_detalle)
 
-        return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_param)
+        return render_template("/ofertas/ofertas_recibidas.html", intercambios=ofertas_param)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
