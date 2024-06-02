@@ -1,32 +1,39 @@
-{% extends "_layouts/app.html" %}
+{% extends "_layouts/app.html" %}{% import "_macros/oferta.html" as Oferta %}
 {% block head %}
     <title>Intercambios Pendientes</title>
 {% endblock %}
 {% block content %}
-<div class="flex flex-col items-center min-h-screen px-4 py-12 bg-very-light-yellow-green sm:px-6 lg:px-8">
-  <div class="w-full max-w-md">
-    <h2 class="text-4xl font-extrabold text-center text-green-shade">
-      Intercambios Pendientes del Dia
-    </h2>
-    <ul>
-        {% if ofertas %}
-            {% for oferta in ofertas %}
-                <li>
-                    <a href=""> <!-- Agregar Enlace a los detalles de la oferta para aceptar o rechazar -->
-                        Productos a intercambiar:<br> 
-                        - {{ oferta.publicacion_solicitado.titulo }}<br> 
-                        - {{ oferta.publicacion_ofrecido.titulo }}<br>
-                        Hora Intercambio:<br> 
-                        - {{ oferta.horaIntercambio }}<br> 
-                        Filial:<br> 
-                        - {{ oferta.filial_relacion.nombre }}<br> 
-                    </a>
-                </li>
-            {% endfor %}
-        {% else %}
-            <li>No hay intercambios pendientes para el día de hoy.</li>
-        {% endif %}
-    </ul>
-  </div>
-</div>
+<main class="flex flex-col px-4 py-12 text-center bg-very-light-yellow-green sm:px-6 lg:px-8">
+    <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
+        Intercambios Pendientes del Dia
+    </h1>
+    <section>
+        {% if ofertas %}        
+                <ul>
+                    {% for oferta in ofertas %}                               
+                        <div class="items-center justify-center text-center shadow-lg">         
+                            {{ Oferta.OfertaDetalle(
+                                oferta.publicacion_ofrecido, oferta.publicacion_solicitado, 
+                                oferta.fechaIntercambio, oferta.horaIntercambio,                                
+                                oferta.filial_relacion.nombre, width=200)}}                     
+                           <div>
+                                <button                            
+                                class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
+                                >
+                                Confirmar
+                                </button>
+                                <button                            
+                                class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
+                                >
+                                Cancelar
+                                </button>
+                           </div>
+                        </div>                    
+                    {% endfor %}                               
+                </ul>                
+        {% else %}    
+            <p class="mb-4 text-2xl font-extrabold text-green-shade">No hay intercambios pendientes para el día de hoy.</p>
+        {% endif%}
+    </section>    
+</main>
 {% endblock %}

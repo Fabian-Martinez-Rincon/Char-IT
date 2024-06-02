@@ -6,7 +6,7 @@ from src.core.models.categoria import Categoria
 class SubirPubliForm(FlaskForm):
     titulo = StringField('Titulo', validators=[DataRequired(), Length(max=255)])
     descripcion = StringField('Descripcion', validators=[DataRequired(), Length(max=255)])
-    horarios = StringField('Horarios', validators=[DataRequired(), Length(max=255)])
+    horarios = StringField('Horarios', validators=[Length(max=255)])
     categoria = SelectField('Categoria', coerce=int, validators=[DataRequired()]) 
     submit = SubmitField('Publicar')
     submit_archivar = SubmitField('Archivar')
