@@ -9,7 +9,7 @@ class Oferta(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     ofrecido = db.Column(db.Integer, db.ForeignKey("publicaciones.id"), nullable=False)
     solicitado = db.Column(db.Integer, db.ForeignKey("publicaciones.id"), nullable=False)
-    fechaIntercambio = db.Column(db.Date, nullable=False, default=datetime.now().date())
+    fechaIntercambio = db.Column(db.Date, nullable=False)
     horaIntercambio = db.Column(db.Time, nullable=False)
     filial = db.Column(db.Integer, db.ForeignKey("filiales.id"), nullable=False)
     estado = db.Column(db.Integer, db.ForeignKey("estados.id"), nullable=False)
