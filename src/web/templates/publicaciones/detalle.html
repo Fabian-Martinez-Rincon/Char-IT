@@ -163,7 +163,7 @@
       {% else %} {% for comentario in comentarios | reverse %} {% if not comentario.padre %}
       <div class="p-4 mb-4 break-words bg-white border rounded-lg shadow-md">
         <div class="flex items-center mb-2">
-          <p class="mr-1 font-semibold">{{ comentario.autor_nombre }}</p>
+          <p class="mr-2 font-semibold">{{ comentario.autor_nombre }}</p>
           <p class="font-semibold">{{ comentario.autor_apellido }}</p>
         </div>
         <p class="mb-2">{{ comentario.contenido }}</p>
@@ -208,8 +208,8 @@
         {% endif %} {% if comentario.respuesta %}
         <div class="pl-4 mt-2 ml-4 break-words border-l-2 border-gray-200">
           <div class="flex items-center mb-1">
-            <p class="mr-1 font-semibold">{{ comentario.respuesta.autor_nombre }}</p>
-            <p class="mr-1 font-semibold">{{ comentario.respuesta.autor_apellido }}</p>
+            <p class="mr-2 font-semibold">{{ comentario.respuesta.autor_nombre }}</p>
+            <p class="font-semibold">{{ comentario.respuesta.autor_apellido }}</p>
           </div>
           <div>
             <p>{{ comentario.respuesta.contenido }}</p>
