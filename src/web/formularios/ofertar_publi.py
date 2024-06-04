@@ -11,8 +11,9 @@ def validate_date(form, field):
         raise ValidationError('No se permiten fechas en sábado o domingo.')
     
 # Para desarrolo de pruebas (sino los sabados y domingos no se podrá hacer pruebas)    
-# def validate_date(form, field):
-#     return True
+def validate_day(form, field):
+    if field.data <= datetime.now().time():
+        raise ValidationError('El horario ya ha pasado.')
 
 
 def validate_hours(form, field):
@@ -25,7 +26,7 @@ class OfertarPubli(FlaskForm):
     publicacion = SelectField('Seleccione una publicación', coerce=int, validators=[DataRequired()])
     filial = SelectField('Filial a escoger', coerce=int, validators=[DataRequired()])
     fecha = DateField('Fecha propuesta', validators=[DataRequired(),validate_date], format='%Y-%m-%d')
-    horarios = TimeField('Horarios', validators=[DataRequired(), validate_hours])
+    horarios = TimeField('Horarios', validators=[DataRequired(), validate_hours, validate_day])
     submit = SubmitField('Enviar oferta')
 
     def __init__(self, *args, **kwargs):
