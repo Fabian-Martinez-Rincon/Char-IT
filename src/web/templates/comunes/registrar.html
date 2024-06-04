@@ -26,11 +26,13 @@
           {{ form.email(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
           }}
         </div>
+        
         <div class="mb-2">
           <label for="password" class="block font-bold text-gray-700">Contraseña</label>
-          {{ form.password(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
-          }}
-        </div>
+          <input type="password" name="password" id="password" 
+                 class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg" 
+                 value="{{ password | default('') }}">
+      </div>
         <div class="mb-2">
           <label for="dni" class="block font-bold text-gray-700">DNI</label>
           {{ form.dni(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
@@ -42,11 +44,12 @@
         </div>
         <div class="mb-2">
           <label for="fecha_nacimiento" class="block mb-2 font-bold text-gray-700">
-            Fecha de Nacimiento
+              Fecha de Nacimiento
           </label>
-          {{ form.fecha_nacimiento(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg")
-          }}
-        </div>
+          <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"
+                 value="{{ form.fecha_nacimiento.data|tostring(format='YYYY-MM-DD') if form.fecha_nacimiento.data else '' }}"
+                 class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
+      </div>
       </div>
       <div>
         {{ form.submit(class="relative flex justify-center w-full px-4 py-3 text-base font-medium text-white transition duration-300 ease-in-out border border-transparent rounded-md group bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade") }}
