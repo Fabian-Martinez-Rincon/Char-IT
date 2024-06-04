@@ -64,7 +64,7 @@ def eliminar_publi_own(publicacion_id):
     if not(session.get('user_id')):
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
-    # Verifica si el usuario actual es el propietario de la publicación
+    # Verifica si el usuario actual es Owner de la pagina
     if session.get('user_id'):
         rol = Usuario.query.get(session.get('user_id')).id_rol
         if rol != 3 :  
@@ -78,7 +78,7 @@ def eliminar_publi_own(publicacion_id):
     ).all()
     
     if (ofertas_involucradas):
-        flash('No Puedes Eliminar esta Publicacion ya que tenes un intercambio pendiente.', 'error')
+        flash('No Puedes Eliminar esta Publicacion ya que posee un intercambio pendiente.', 'error')
         return redirect(url_for('root.publicacion_detalle', publicacion_id=publicacion_id))
     
     #Busca las ofertas con estado pendiente para notificar el cambio de estado
@@ -101,7 +101,7 @@ def eliminar_publi_own(publicacion_id):
             nueva_notificacion = Notificacion(
                 id_usuario=otra_publicacion.id_usuario
             )
-            nueva_notificacion.cancelarOferta(oferta.id)
+            nueva_notificacion.cancelarOferta(oferta.id, otra_publicacion.id_usuario)
             db.session.add(nueva_notificacion)
     
     Publi.id_visibilidad = 3 # Cambiar la visibilidad de la publicación a "eliminada"
