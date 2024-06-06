@@ -1,0 +1,107 @@
+[
+    {
+        "ofrecido": 1,
+        "solicitado": 2,
+        "fechaIntercambio": "2024-06-06",
+        "horaIntercambio": "09:00:00",
+        "filial": 1,
+        "estado": 1
+    },
+    {
+        "ofrecido": 3,
+        "solicitado": 4,
+        "fechaIntercambio": "2023-12-01",
+        "horaIntercambio": "10:30:00",
+        "filial": 2,
+        "estado": 1
+    },
+    {
+        "ofrecido": 5,
+        "solicitado": 6,
+        "fechaIntercambio": "2024-06-07",
+        "horaIntercambio": "12:00:00",
+        "filial": 3,
+        "estado": 1
+    },
+    {
+        "ofrecido": 7,
+        "solicitado": 8,
+        "fechaIntercambio": "2024-07-08",
+        "horaIntercambio": "14:00:00",
+        "filial": 4,
+        "estado": 1
+    },
+    {
+        "ofrecido": 9,
+        "solicitado": 10,
+        "fechaIntercambio": "2023-11-10",
+        "horaIntercambio": "15:30:00",
+        "filial": 5,
+        "estado": 1
+    },
+    {
+        "ofrecido": 11,
+        "solicitado": 13,
+        "fechaIntercambio": "2024-07-12",
+        "horaIntercambio": "10:00:00",
+        "filial": 6,
+        "estado": 1
+    },
+    {
+        "ofrecido": 12,
+        "solicitado": 14,
+        "fechaIntercambio": "2024-06-09",
+        "horaIntercambio": "11:00:00",
+        "filial": 7,
+        "estado": 1
+    },
+    {
+        "ofrecido": 1,
+        "solicitado": 3,
+        "fechaIntercambio": "2024-08-01",
+        "horaIntercambio": "10:00:00",
+        "filial": 1,
+        "estado": 1
+    },
+    {
+        "ofrecido": 4,
+        "solicitado": 5,
+        "fechaIntercambio": "2024-09-15",
+        "horaIntercambio": "11:00:00",
+        "filial": 2,
+        "estado": 1
+    },
+    {
+        "ofrecido": 7,
+        "solicitado": 9,
+        "fechaIntercambio": "2023-10-05",
+        "horaIntercambio": "12:00:00",
+        "filial": 3,
+        "estado": 1
+    },
+    {
+        "ofrecido": 10,
+        "solicitado": 11,
+        "fechaIntercambio": "2024-07-22",
+        "horaIntercambio": "13:00:00",
+        "filial": 4,
+        "estado": 1
+    },
+    {
+        "ofrecido": 13,
+        "solicitado": 15,
+        "fechaIntercambio": "2024-11-30",
+        "horaIntercambio": "14:30:00",
+        "filial": 5,
+        "estado": 1
+    },
+    {
+        "ofrecido": 16,
+        "solicitado": 14,
+        "fechaIntercambio": "2023-12-18",
+        "horaIntercambio": "15:00:00",
+        "filial": 6,
+        "estado": 1
+    }
+]
+
