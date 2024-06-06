@@ -13,6 +13,7 @@ class Oferta(db.Model):
     horaIntercambio = db.Column(db.Time, nullable=False)
     filial = db.Column(db.Integer, db.ForeignKey("filiales.id"), nullable=False)
     estado = db.Column(db.Integer, db.ForeignKey("estados.id"), nullable=False)
+    descripcion = db.Column(db.String(255), default ="", nullable=True)
     # Relación con Publicacion para la clave foránea 'ofrecido'
     publicacion_ofrecido = db.relationship('Publicacion', foreign_keys=[ofrecido], backref='ofertas_ofrecidas')
     # Relación con Publicacion para la clave foránea 'solicitado'

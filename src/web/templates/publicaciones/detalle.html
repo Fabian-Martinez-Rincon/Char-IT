@@ -38,7 +38,7 @@
             {% if publicacion.id_usuario == session.get('user_id') %} {% if publicacion.id_visibilidad == 1 %}
             <a
               href="{{ url_for('cambiar_visibilidad.cambiar_visibilidad', publicacion_id=publicacion.id) }}"
-              class="px-2 py-2 ml-2 font-bold text-center text-white bg-gray-500 rounded">
+              class="px-2 py-2 ml-2 font-bold text-center text-white bg-gray-500 rounded" onclick="return confirm('¿Estás seguro de que deseas archivar esta publicación? Recorda que si tenes Ofertas pendientes se cancelaran');">
               Archivar
             </a>
             {% elif publicacion.id_visibilidad == 2 %}
