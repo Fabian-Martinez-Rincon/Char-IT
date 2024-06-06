@@ -43,6 +43,7 @@ def eliminar_publi(publicacion_id):
     # Cambiar el estado de todas las ofertas pendientes que involucran esta publicación a "cancelada"
     for oferta in ofertas_relacionadas:
         oferta.estado = cancelada.id  
+        oferta.descripcion = "La publicación ha sido eliminada."
     
     # Enviar notificación al usuario dueño de la otra publicación
     for oferta in ofertas_relacionadas:
