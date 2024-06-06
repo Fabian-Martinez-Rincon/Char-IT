@@ -3,6 +3,8 @@ from datetime import datetime
 from src.core.models.publicacion import Publicacion
 from src.core.models.usuario import Usuario
 from src.web.formularios.editar_publi import EditarPubliForm
+from src.core.models.oferta import Oferta
+from src.core.models.estado import Estado
 from flask import request, flash, redirect, url_for, session, render_template, abort
 from flask import (
     Blueprint,
@@ -48,6 +50,14 @@ def editar_publi():
         if producto.id_usuario != session.get('user_id'):
             flash('No tienes permiso para editar esta publicación.', 'error')
             return redirect(url_for('root.publicacion_detalle', publicacion_id=producto.id))
+        ofertas_involucradas = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
+            ((Oferta.ofrecido == id) | (Oferta.solicitado == id)) &
+            ((Estado.nombre == "aceptada"))
+        ).all()
+        
+        if (ofertas_involucradas):
+            flash('No Puedes Editar esta Publicacion ya que tenes un intercambio pendiente.', 'error')
+            return redirect(url_for('root.publicacion_detalle', publicacion_id=id))
         
         producto.descripcion = descripcion
         db.session.commit()
