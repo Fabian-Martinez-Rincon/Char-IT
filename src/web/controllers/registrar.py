@@ -52,11 +52,15 @@ def register():
         password = request.form.get('password', '')
         for fieldName, errorMessages in form.errors.items():
             for err in errorMessages:
+                if (err == "Por favor ingrese un correo electrónico válido."):
+                    form.email.data = ""                 
+                    flash(f'{err}', 'error')        
+                    continue               
                 if (err == 'This field is required.'):
-                    flash(f'El campo {fieldName} es obligatorio', 'error')
+                    flash(f'El campo {fieldName} es obligatorio', 'error')                
                 else:
                     form.fecha_nacimiento.data = None
-                    form.fecha_nacimiento.data = ''
-                    flash(f'{err}', 'error')
+                    form.fecha_nacimiento.data = ''       
+                    flash(f'{err}', 'error')             
         return render_template('/comunes/registrar.html', form=form, password=password)
     return render_template('/comunes/registrar.html', form=form, password='')

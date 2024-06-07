@@ -13,7 +13,7 @@ head %}
   {% else %}    
     {% for intercambio in intercambios %}  
       <div class="mt-10 shadow">
-      {{ Oferta.OfertaDetalle(
+      {{ Oferta.OfertaOverview(
           intercambio.ofrecido, intercambio.solicitado, 
           intercambio.fechaIntercambio, intercambio.horaIntercambio, 
           intercambio.filial, intercambio.estado, width=128) }} 
