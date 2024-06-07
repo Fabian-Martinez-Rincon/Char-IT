@@ -10,9 +10,9 @@ head %}
   <div>
     <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
   </div>
-  {% else %}  
+  {% else %}    
     {% for intercambio in intercambios %}  
-      <div class="grid gap-6 shadow-lg">
+      <div class="mt-10 shadow">
       {{ Oferta.OfertaDetalle(
           intercambio.ofrecido, intercambio.solicitado, 
           intercambio.fechaIntercambio, intercambio.horaIntercambio, 
