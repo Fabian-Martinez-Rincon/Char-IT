@@ -47,7 +47,7 @@
               Fecha de Nacimiento
           </label>
           <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"
-                 value="{{ form.fecha_nacimiento.data|tostring(format='YYYY-MM-DD') if form.fecha_nacimiento.data else '' }}"
+                 value="{{ form.fecha_nacimiento.data if form.fecha_nacimiento.data else '' }}"
                  class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg">
       </div>
       </div>

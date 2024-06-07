@@ -1,3 +1,84 @@
+{% macro OfertaOverview(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado, foto_ofrecido, width) %}
+<div class="mt-4">
+    <div class="flex justify-center h-auto gap-10">        
+        <div class="flex flex-col items-center text-center">                
+            <p class="py-1 text-sm text-green-shade">
+                Ofertado: <b class="font-semibold">{{ ofrecido.titulo }}</b>
+            </p>
+            <img  
+                class="rounded"                  
+                style="width: {{ width }}px; height: auto;"
+                src="{{ url_for('static', filename=ofrecido.foto_path) }}"
+                alt="{{ ofrecido.titulo }}"
+            />
+        </div>
+        <div class="flex flex-col items-center text-center">                
+            <p class="py-1 text-sm text-cyan-shade">
+                Solicitado: <b class="font-semibold">{{ solicitado.titulo }}</b>
+            </p>
+            <img 
+                class="rounded"                   
+                style="width: {{ width }}px; height: auto;"
+                src="{{ url_for('static', filename=solicitado.foto_path) }}"
+                alt="{{ solicitado.titulo }}"
+            />
+        </div>                    
+    </div>
+    <div class="px-6 mt-2 text-center">
+        <p class="inline-block mb-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+            {{ fechaIntercambio.strftime('%d/%m/%Y ') }}
+        </p>
+        <p class="inline-block text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+            {{ horaIntercambio }}
+        </p>
+        <br>
+        <p class="inline-block text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+            {{ filial }}
+        </p>
+        <div class="mb-2 gap-y-2">
+            {% if estado == 'pendiente' %}
+                <div class="flex flex-row justify-center text-center">                    
+                    <svg 
+                        class="w-6 h-6 text-yellow-500" 
+                        aria-hidden="true" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="24" height="24" 
+                        fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>                      
+                    <p class="inline-block text-sm font-bold text-yellow-500">
+                        {{ estado }}                
+                    </p>
+                </div>
+            {% elif estado == 'aceptada' %}
+                <div class="flex flex-row justify-center text-center">                    
+                    <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>                                          
+                    <p class="inline-block text-sm font-bold text-green-600">
+                        {{ estado }}                
+                    </p>
+                </div>
+            {% elif estado == 'rechazada' %}
+                <div class="flex flex-row justify-center text-center">                    
+                    <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                      </svg>                                            
+                    <p class="inline-block text-sm font-bold text-red-600">
+                        {{ estado }}                
+                    </p>
+                </div>
+            {% else %}
+                <div class="flex flex-row justify-center text-center">                                                      
+                    <p class="inline-block text-sm font-bold text-gray-900">
+                        {{ estado }}                
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endmacro %}
 {% macro OfertaDetalle(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado, foto_ofrecido, width) %}
 <div class="mt-4">
     <div class="flex justify-center h-auto gap-10">        
