@@ -264,8 +264,8 @@ def ofertas_recibidas_get():
         ofertas_param = []
 
         for oferta in ofertas_recibidas_get:
-            ofrecido = Publicacion.query.get(oferta.ofrecido).titulo
-            solicitado = Publicacion.query.get(oferta.solicitado).titulo
+            ofrecido = Publicacion.query.get(oferta.ofrecido)
+            solicitado = Publicacion.query.get(oferta.solicitado)
             filial = Filial.query.get(oferta.filial).nombre
             estado = Estado.query.get(oferta.estado).nombre
             
