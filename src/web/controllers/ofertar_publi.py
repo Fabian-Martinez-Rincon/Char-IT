@@ -62,6 +62,10 @@ def subir_oferta(publicacion_id):
         if oferta_aux:
             flash('Ya has ofertado por esta publicación.', 'error')
             return redirect(url_for('root.publicaciones_get'))
+        oferta_aux2 = Oferta.query.filter_by(ofrecido=solicitado_id, solicitado=ofrecido_id, estado = 1).first()
+        if oferta_aux2:
+            flash('Ya existe una oferta similar.', 'error')
+            return redirect(url_for('root.publicaciones_get'))
 
         # Crea la nueva oferta
         nueva_oferta = Oferta(ofrecido=ofrecido_id, solicitado=solicitado_id, horaIntercambio=horarios, fechaIntercambio=fecha, filial=filial, estado=estado)
