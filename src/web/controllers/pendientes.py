@@ -5,7 +5,6 @@ from src.core.models.estado import Estado
 from src.core.models.publicacion import Publicacion
 from src.core.models.usuario import Usuario
 from src.core.models.notificacion import Notificacion
-
 bp = Blueprint("pendientes", __name__)
 
 @bp.route("/pendientes", methods=['GET'])
@@ -24,9 +23,9 @@ def pendientes():
     estado_aceptada_id = Estado.query.filter_by(nombre="aceptada").first()  # Suponiendo que el estado "aceptada" 
     
     ofertas_anteriores = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
-        Oferta.fechaIntercambio < hoy,
-        Estado.id == estado_aceptada_id.id
-    ).all()
+        Oferta.fechaIntercambio < hoy,        
+        ((Estado.nombre == "pendiente")) | ((Estado.nombre == "aceptada"))
+    ).all() 
     
     cancelada = Estado.query.filter_by(nombre="cancelada").first()
     # Cambiar el estado de todas las ofertas anteriores a "cancelada"
@@ -34,6 +33,7 @@ def pendientes():
         oferta.estado = cancelada.id
         oferta.publicacion_ofrecido.id_visibilidad = 2
         oferta.publicacion_solicitado.id_visibilidad = 2
+        oferta.descripcion = "Cancelada por el sistema - Oferta no aceptada en el tiempo establecido."
         Notificacion.cancelarOfertaAceptada(oferta.id)
     
     ofertas = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(

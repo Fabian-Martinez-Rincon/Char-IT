@@ -1,0 +1,29 @@
+{% extends "_layouts/app.html" %} {% import "_macros/table.html" as Table %} {% block head %}
+<title>Historial de Intercambios</title>
+{% endblock %} 
+{% block content %}
+    <main class="flex flex-col items-center min-h-screen">
+        <section class="w-full max-w-4xl px-4 py-12 text-center">
+            <div class="flex items-center justify-center">
+                <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
+                    Historial de Intercambios
+                </h1>
+            </div>             
+            {% if mensaje %}
+                <div>
+                    <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
+                </div>
+            {% else %}
+                {% for intercambio in intercambios %}  
+                    <a href="{{ url_for('root.detallar_oferta', intercambio_id=intercambio.oferta_id, showButtons='false') }}">
+                        <div class="mt-10 shadow">
+                            {{ Oferta.OfertaOverview(        
+                                intercambio.ofrecido, intercambio.solicitado, 
+                                intercambio.fechaIntercambio, intercambio.horaIntercambio, 
+                                intercambio.filial, intercambio.estado, width=128) }} 
+                        </div>
+                    </a>
+                {% endfor %} 
+            {% endif %}
+    </main>
+{% endblock %}

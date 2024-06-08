@@ -1,6 +1,7 @@
 [
     {"nombre":"pendiente"}, 
     {"nombre":"aceptada"}, 
-    {"nombre":"cancelada"}, 
-    {"nombre":"rechazada"}
+    {"nombre":"rechazada"},
+    {"nombre":"cancelada"},
+    {"nombre":"finalizada"}
 ]

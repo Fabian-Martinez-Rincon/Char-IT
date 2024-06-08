@@ -59,7 +59,7 @@ endblock %} {% endblock %} {% block base_body %}
       ] %}
       {{ Menu.Menu(informationComunLogged) }}
       
-      {% if session.rol_id == 3 %}
+      {% if session.rol_id == 3 %}   <!-- owner -->
         <!-- ["Listar Historial de Donaciones", ""] -->
         {% set informationOwner = [
           ["Listar Usuarios", "/generales"],
@@ -71,24 +71,25 @@ endblock %} {% endblock %} {% block base_body %}
         ] %}       
         {{ Menu.Menu(informationOwner) }}
         
-      {% elif session.rol_id == 2 %}
+      {% elif session.rol_id == 2 %}    <!-- Colaborador -->
+        <!-- Proximos a agregar
+        ["Registrar Donación en efectivo", ""],
+        ["Registrar Donacion de Produto", ""], -->
         {% set informationColaborador = [
           ["Listar Usuarios", "/generales"],
-          ["Registrar Donación en efectivo", ""],
-          ["Registrar Donacion de Produto", ""],
-          ["Listar Intercambios Pendientes", ""]
+          ["Listar Intercambios Pendientes", "/pendientes"],
+          ["Listar Historial de Intercambios", "/historial_intercambios"]
         ] %}
         {{ Menu.Menu(informationColaborador) }}
         
-      {% elif session.rol_id == 1 %}
+      {% elif session.rol_id == 1 %}   <!-- Usuario -->
         <!-- ["Listar Mi Historial de Donaciones", ""], -->
         <!-- ["Donar con Tarjeta", ""] -->
         {% set informationGeneral = [
           ["Subir Publicación", "/subir_publi"],
           ["Listar Mis Publicaciones", "/mis_publicaciones"],
           ["Listar Ofertas Recibidas", "/ofertas_recibidas"],
-          ["Listar Ofertas Enviadas", "/ofertas_enviadas"],
-          ["Listar Notificaciones", ""],                    
+          ["Listar Ofertas Enviadas", "/ofertas_enviadas"],          
         ] %}
         {{ Menu.Menu(informationGeneral) }}
         
