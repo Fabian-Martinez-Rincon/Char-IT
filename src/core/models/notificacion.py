@@ -1,6 +1,7 @@
 from src.core.models.database import db
 from src.core.models.oferta import Oferta
 from src.core.models.publicacion import Publicacion
+from src.core.models.comentario import Comentario
 from src.core.models.usuario import Usuario
 from flask_mail import Mail, Message
 from flask import current_app
@@ -77,25 +78,27 @@ class Notificacion(db.Model):
         db.session.commit()
         
     @classmethod
-    def nuevoComentario(self, id_Publicacion: int)->None:
+    def nuevoComentario(self, id_Publicacion: int, comentario:Comentario)->None:
         """
         envia la notificacion cuando se realiza un nuevo comentario
         """
         Publi  = Publicacion.query.filter_by(id=id_Publicacion).first()
-        new_notificacion = Notificacion(id_usuario=Publi.id_usuario,publicacion=id_Publicacion, descripcion="Tu Publicacion "+Publi.titulo+" recibio un nuevo comentario")
+        duenio_comentario = Usuario.query.filter_by(id=comentario.autor_id).first()
+        new_notificacion = Notificacion(id_usuario=Publi.id_usuario,publicacion=id_Publicacion, descripcion="Tu Publicacion "+Publi.titulo+" recibio un nuevo comentario" + "\n\n" + duenio_comentario.nombre + " " + duenio_comentario.apellido + ": " + comentario.contenido)
         self.send_mail(Publi.id_usuario, new_notificacion.descripcion)
         db.session.add(new_notificacion)
         db.session.commit()
         
     @classmethod
-    def responderComentario(self, id_usuario:int, id_Publicacion: int)->None:
+    def responderComentario(self, id_Publicacion: int, comentario_padre:Comentario, respuesta:Comentario)->None:
         """
         envia la notificacion cuando le responden a un comentario 
         recordar que el id_usuario es el que realizo el comentario
         """
-        nombrePubli  = Publicacion.query.filter_by(id=id_Publicacion).first()
-        new_notificacion = Notificacion(id_usuario=id_usuario, publicacion=id_Publicacion, descripcion="Tu comentario en la Publicacion "+nombrePubli+" fue respondido")
-        self.send_mail(id_usuario, new_notificacion.descripcion)
+        Publi  = Publicacion.query.filter_by(id=id_Publicacion).first()
+        duenio = Usuario.query.filter_by(id=Publi.id_usuario).first()
+        new_notificacion = Notificacion(id_usuario=comentario_padre.autor_id, publicacion=id_Publicacion, descripcion="Tu comentario en la Publicacion "+Publi.titulo+" fue respondido" + "\n\n" + "Tú: " + comentario_padre.contenido + "\n" + duenio.nombre + " " + duenio.apellido+ ": " + respuesta.contenido)
+        self.send_mail(comentario_padre.autor_id, new_notificacion.descripcion)
         db.session.add(new_notificacion)
         db.session.commit()
     
@@ -110,7 +113,7 @@ class Notificacion(db.Model):
         subject = 'Nueva Notificacion'
         sender = app.config['MAIL_DEFAULT_SENDER']
         recipients = [usuario.email]
-        message = f'¡Atencion! Se le notifica que:\n\n {descripcion} \n\n Para Conocer mas detalles ingrese a la plataforma.'
+        message = f'¡Atencion! Se le notifica que:\n{descripcion}\n\n Para Conocer mas detalles ingrese a la plataforma.'
         msg = Message(subject, sender=sender, recipients=recipients)
         msg.body = message
         mail.send(msg)

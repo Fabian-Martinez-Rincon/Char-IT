@@ -12,12 +12,14 @@
     </div>
     {% else %}    
       {% for intercambio in intercambios %}  
-      <div class="mt-10 shadow">
-        {{ Oferta.OfertaOverview(
-          intercambio.ofrecido, intercambio.solicitado, 
-          intercambio.fechaIntercambio, intercambio.horaIntercambio, 
-          intercambio.filial, intercambio.estado, width=128) }}       
-      </div>
+      <a href="{{ url_for('root.detallar_oferta', intercambio_id=intercambio.oferta_id) }}">
+        <div class="mt-10 shadow">
+            {{ Oferta.OfertaOverview(                             
+                intercambio.ofrecido, intercambio.solicitado, 
+                intercambio.fechaIntercambio, intercambio.horaIntercambio, 
+                intercambio.filial, intercambio.estado, width=128)}} 
+        </div>
+      </a>            
       {% endfor %} 
     {% endif %}  
   </main>

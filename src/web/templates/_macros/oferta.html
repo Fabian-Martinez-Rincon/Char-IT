@@ -1,5 +1,5 @@
-{% macro OfertaOverview(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado, foto_ofrecido, width) %}
-<div class="mt-4">
+{% macro OfertaOverview(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado, width, botones) %}
+<div class="mt-4">    
     <div class="flex justify-center h-auto gap-10">        
         <div class="flex flex-col items-center text-center">                
             <p class="py-1 text-sm text-green-shade">
@@ -49,7 +49,7 @@
                     <p class="inline-block text-sm font-bold text-yellow-500">
                         {{ estado }}                
                     </p>
-                </div>
+                </div>                
             {% elif estado == 'aceptada' %}
                 <div class="flex flex-row justify-center text-center">                    
                     <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
                 <div class="flex flex-row justify-center text-center">                    
                     <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                      </svg>                                            
+                    </svg>                                            
                     <p class="inline-block text-sm font-bold text-red-600">
                         {{ estado }}                
                     </p>
@@ -79,16 +79,16 @@
     </div>
 </div>
 {% endmacro %}
-{% macro OfertaDetalle(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado, foto_ofrecido, width) %}
-<div class="mt-4">
+{% macro OfertaDetalle(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado) %}
+<div class="mt-4">    
     <div class="flex justify-center h-auto gap-10">        
         <div class="flex flex-col items-center text-center">                
             <p class="py-1 text-sm text-green-shade">
                 Ofertado: <b class="font-semibold">{{ ofrecido.titulo }}</b>
             </p>
             <img  
-                class="rounded"                  
-                style="width: {{ width }}px; height: auto;"
+                class="w-4 rounded"  
+                style="width: 400px; height: auto;"                                
                 src="{{ url_for('static', filename=ofrecido.foto_path) }}"
                 alt="{{ ofrecido.titulo }}"
             />
@@ -98,8 +98,8 @@
                 Solicitado: <b class="font-semibold">{{ solicitado.titulo }}</b>
             </p>
             <img 
-                class="rounded"                   
-                style="width: {{ width }}px; height: auto;"
+                class="w-4 rounded"                             
+                style="width: 400px; height: auto;"           
                 src="{{ url_for('static', filename=solicitado.foto_path) }}"
                 alt="{{ solicitado.titulo }}"
             />
@@ -131,6 +131,20 @@
                         {{ estado }}                
                     </p>
                 </div>
+                {% if session.get('user_id') == solicitado.id_usuario %}
+                    <div class="flex flex-row justify-center gap-4">
+                        <button      
+                            class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
+                        >
+                            Aceptar
+                        </button>
+                        <button      
+                            class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
+                        >
+                            Rechazar
+                        </button>
+                    </div>
+                {% endif %}
             {% elif estado == 'aceptada' %}
                 <div class="flex flex-row justify-center text-center">                    
                     <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -144,7 +158,7 @@
                 <div class="flex flex-row justify-center text-center">                    
                     <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                      </svg>                                            
+                    </svg>                                            
                     <p class="inline-block text-sm font-bold text-red-600">
                         {{ estado }}                
                     </p>

@@ -9,6 +9,8 @@ from src.core.models.oferta import Oferta
 from src.core.models.database import db
 from src.web.formularios.inicio_sesion import LoginForm  # Asegúrate que esta es la ruta correcta
 from src.web.formularios.comentar import ComentarForm
+from src.core.models.notificacion import Notificacion
+from sqlalchemy import or_
 import subprocess
 from flask import (
     Blueprint,
@@ -74,6 +76,26 @@ def usuarios_colaboradores_get():
             mensaje = "No existen usuarios colaboradores cargados en el sistema"
             return render_template("/owner/usuarios_colaboradores.html", mensaje=mensaje)
         return render_template("/owner/usuarios_colaboradores.html", usuarios=usuarios_rol_3)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500
+
+@bp.get("/historial_intercambios")
+def historial_intercambios_get():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol == 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
+                    return redirect(url_for('root.index_get'))
+    try:
+        intercambios = Oferta.query.filter(or_(Oferta.estado == 5, Oferta.estado == 6)).all() #corregir estados
+        if not intercambios:
+            print("No hay ofertas")
+            mensaje = "No existen ofertas de intercambio cargadas en el sistema"
+            return render_template("/owner/historial_intercambios.html", mensaje=mensaje)        
+        return render_template("/owner/historial_intercambios.html", intercambios=intercambios)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
@@ -157,6 +179,7 @@ def publicacion_detalle(publicacion_id):
             try:
                 db.session.add(nuevo_comentario)                
                 db.session.commit()                
+                Notificacion.nuevoComentario(publicacion_id, nuevo_comentario);
                 flash('¡Comentario agregado con éxito!', 'success')
             except Exception as e:
                 db.session.rollback()
@@ -173,7 +196,9 @@ def publicacion_detalle(publicacion_id):
             respuesta = Comentario(contenido=contenido, publicacion_id=publicacion_id, autor_id=session.get('user_id'), comentario_padre_id=comentario_padre_id)                                               
             try:
                 db.session.add(respuesta)                
-                db.session.commit()                
+                db.session.commit()            
+                comentario_padre = Comentario.query.get(comentario_padre_id)                                
+                Notificacion.responderComentario(publicacion_id, comentario_padre, respuesta); 
                 flash('¡Respuesta enviada con exito!', 'success')
             except Exception as e:
                 db.session.rollback()
@@ -221,6 +246,7 @@ def ofertas_enviadas_get():
             estado = Estado.query.get(oferta.estado).nombre
             
             oferta_detalle = OfertaDetalle(
+                oferta_id=oferta.id,
                 ofrecido=ofrecido,                
                 solicitado=solicitado,                 
                 fecha=oferta.fechaIntercambio,
@@ -270,6 +296,7 @@ def ofertas_recibidas_get():
             estado = Estado.query.get(oferta.estado).nombre
             
             oferta_detalle = OfertaDetalle(
+                oferta_id=oferta.id,
                 ofrecido=ofrecido,
                 solicitado=solicitado,
                 fecha=oferta.fechaIntercambio,
@@ -381,3 +408,15 @@ def reset_db():
 @bp.app_errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+@bp.route("/ofertas/detallar_oferta/<int:intercambio_id>")
+def detallar_oferta(intercambio_id, ):
+    oferta = Oferta.query.get_or_404(intercambio_id) 
+    # Obtén los valores de los atributos de la oferta
+    solicitado = Publicacion.query.get(oferta.solicitado)
+    ofrecido = Publicacion.query.get(oferta.ofrecido)
+    fechaIntercambio = oferta.fechaIntercambio
+    horaIntercambio = oferta.horaIntercambio
+    filial = Filial.query.get(oferta.filial).nombre
+    estado = Estado.query.get(oferta.estado).nombre    
+    return render_template("/ofertas/detallar_oferta.html", oferta=oferta, solicitado=solicitado, ofrecido=ofrecido, fechaIntercambio=fechaIntercambio, horaIntercambio=horaIntercambio, filial=filial, estado=estado)

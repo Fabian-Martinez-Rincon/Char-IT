@@ -25,20 +25,20 @@ def rechazarOferta(oferta_id):
 
         if not oferta:
             flash("Oferta no encontrada", "error")
-            return redirect(url_for('detalle_oferta', id=oferta_id))
+            return redirect(url_for('/ofertas/detallar_oferta', id=oferta_id))
 
         if (oferta.publicacion_solicitado.id_usuario != session.get('user_id')):
             flash('No tienes permiso para rechazar esta oferta.', 'error')
-            return redirect(url_for('detalle_oferta', id=oferta_id))
+            return redirect(url_for('/ofertas/detallar_oferta', id=oferta_id))
         
         descripcion_rechazo = request.form.get('descripcion')
         if not descripcion_rechazo:
             flash("Descripción de rechazo es requerida", "error")
-            return redirect(url_for('detalle_oferta', id=oferta_id))
+            return redirect(url_for('/ofertas/detallar_oferta', id=oferta_id))
         estado_pendiente = Estado.query.filter_by(nombre="pendiente").first()
         if(oferta.estado != estado_pendiente.id):
             flash("La oferta no se puede rechazar", "error")
-            return redirect(url_for('detalle_oferta', id=oferta_id))
+            return redirect(url_for('/ofertas/detallar_oferta', id=oferta_id))
         
         estado_rechazada = Estado.query.filter_by(nombre="rechazada").first()
 
@@ -48,8 +48,8 @@ def rechazarOferta(oferta_id):
         db.session.commit()
         Notificacion.responderOferta(oferta.id)
         flash("Oferta rechazada con éxito", "success")
-        return redirect(url_for('detalle_oferta', id=oferta_id))
+        return redirect(url_for('/ofertas/detallar_oferta', id=oferta_id))
     except Exception as e:
         db.session.rollback()
         flash(f"Error: {str(e)}", "error")
-        return redirect(url_for('detalle_oferta', id=oferta_id))
+        return redirect(url_for('/ofertas/detallar_oferta', id=oferta_id))
