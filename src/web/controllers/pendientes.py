@@ -38,6 +38,18 @@ def pendientes():
     
     ofertas = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
         Oferta.fechaIntercambio == hoy,
-        Estado.id == estado_aceptada_id.id
+        Estado.id == estado_aceptada_id.id,         
     ).order_by(Oferta.horaIntercambio.asc()).all()
-    return render_template("owner/pendientes.html", ofertas=ofertas)
+    return render_template("owner/pendientes.html", ofertas=ofertas, estado=estado_aceptada_id.nombre )
+
+
+# <div>
+
+#         <form method="POST" action="{{ url_for('confirmarIntercambio.cancelarIntercambio', oferta_id=id) }}">
+#             <button class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+#                 Cancelar
+#             </button>                            
+#         </form>
+#     </div>
+
+        

@@ -13,21 +13,10 @@
                     {% for oferta in ofertas %}                               
                         <div class="items-center justify-center text-center shadow-lg">         
                             {{ Oferta.OfertaDetalle(
+                                oferta.id,
                                 oferta.publicacion_ofrecido, oferta.publicacion_solicitado, 
                                 oferta.fechaIntercambio, oferta.horaIntercambio,                                
-                                oferta.filial_relacion.nombre, width=200)}}                     
-                           <div>
-                                <button                            
-                                class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
-                                >
-                                Confirmar
-                                </button>
-                                <button                            
-                                class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
-                                >
-                                Cancelar
-                                </button>
-                           </div>
+                                oferta.filial_relacion.nombre,estado) }}                                                                        
                         </div>                    
                     {% endfor %}                               
                 </ul>                

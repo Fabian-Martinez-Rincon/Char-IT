@@ -54,9 +54,14 @@
         <div class="mt-6">
           <div class="text-gray-500 text-md">
             <b>Estado:</b>
-            {% if publicacion.id_visibilidad == 1 %} La publicación está activa. {% elif publicacion.id_visibilidad == 2
-            %} La publicación está archivada. {% elif publicacion.id_visibilidad == 3 %} La publicación está en
-            revisión. {% elif publicacion.id_visibilidad == 4 %} La publicación se encuentra pendiente para intercambio.
+            {% if publicacion.id_visibilidad == 1 %} 
+              La publicación está activa. 
+            {% elif publicacion.id_visibilidad == 2 %}
+              La publicación está archivada. 
+            {% elif publicacion.id_visibilidad == 3 %} 
+              La publicación está en revisión. 
+            {% elif publicacion.id_visibilidad == 4 %} 
+              La publicación se encuentra pendiente para intercambio.
             {% endif %}
           </div>
           <div class="text-gray-500 text-md">

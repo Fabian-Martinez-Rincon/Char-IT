@@ -79,7 +79,7 @@
     </div>
 </div>
 {% endmacro %}
-{% macro OfertaDetalle(ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado) %}
+{% macro OfertaDetalle(id, ofrecido, solicitado, fechaIntercambio, horaIntercambio, filial, estado) %}
 <div class="mt-4">    
     <div class="flex justify-center h-auto gap-10">        
         <div class="flex flex-col items-center text-center">                
@@ -115,7 +115,7 @@
         <br>
         <p class="inline-block text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
             {{ filial }}
-        </p>
+        </p>      
         <div class="mb-2 gap-y-2">
             {% if estado == 'pendiente' %}
                 <div class="flex flex-row justify-center text-center">                    
@@ -129,20 +129,15 @@
                     </svg>                      
                     <p class="inline-block text-sm font-bold text-yellow-500">
                         {{ estado }}                
-                    </p>
+                    </p>                    
                 </div>
                 {% if session.get('user_id') == solicitado.id_usuario %}
-                    <div class="flex flex-row justify-center gap-4">
-                        <button      
-                            class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
-                        >
-                            Aceptar
-                        </button>
-                        <button      
-                            class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade"
-                        >
-                            Rechazar
-                        </button>
+                    <div class="flex flex-row justify-center gap-4">                        
+                        <form method="POST" action="{{ url_for('rechazarOferta.rechazarOferta', oferta_id=id) }}">
+                            <button type="submit" class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                                Rechazar
+                            </button>
+                        </form>
                     </div>
                 {% endif %}
             {% elif estado == 'aceptada' %}
@@ -152,8 +147,17 @@
                     </svg>                                          
                     <p class="inline-block text-sm font-bold text-green-600">
                         {{ estado }}                
-                    </p>
+                    </p>                    
                 </div>
+                {% if session.get('rol_id') != 1 %}
+                    <div>
+                        <form method="POST" action="{{ url_for('confirmarIntercambio.confirmarIntercambio', oferta_id=id) }}">                            
+                            <button class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                                Confirmar
+                            </button>                        
+                        </form>
+                    </div>
+                {% endif %}
             {% elif estado == 'rechazada' %}
                 <div class="flex flex-row justify-center text-center">                    
                     <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -174,3 +178,4 @@
     </div>
 </div>
 {% endmacro %}
+
