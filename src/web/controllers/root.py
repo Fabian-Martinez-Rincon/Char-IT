@@ -348,7 +348,6 @@ def login():
             flash('El mail o contraseña son incorrectos.', 'error')
     return render_template('/comunes/login.html', form=form)
 
-
 @bp.route('/logout')
 def logout():
     if not(session.get('user_id')):

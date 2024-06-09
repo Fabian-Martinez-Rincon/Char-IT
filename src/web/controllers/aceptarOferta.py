@@ -59,13 +59,13 @@ def aceptarOferta(oferta_id):
         # oferta.descripcion = descripcion_rechazo
         
         oferta.estado = Estado.query.filter_by(nombre="aceptada").first().id
-        archivada = Visibilidad.query.filter_by(estado="Privada").first().id
+        visibilidad_intercambio = Visibilidad.query.filter_by(estado="Intercambio").first().id
         
         
         Ofrecido  = Publicacion.query.filter_by(id=oferta.ofrecido).first()
-        Ofrecido.id_visibilidad = archivada
+        Ofrecido.id_visibilidad = visibilidad_intercambio
         Solicitado = Publicacion.query.filter_by(id=oferta.solicitado).first()
-        Solicitado.id_visibilidad = archivada
+        Solicitado.id_visibilidad = visibilidad_intercambio
         
         db.session.commit()
         Notificacion.aceptarOferta(oferta.id)
