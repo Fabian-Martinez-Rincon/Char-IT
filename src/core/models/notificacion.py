@@ -117,3 +117,42 @@ class Notificacion(db.Model):
         msg = Message(subject, sender=sender, recipients=recipients)
         msg.body = message
         mail.send(msg)
+        
+    @classmethod
+    def aceptarOferta(self, id_oferta: int)->None:
+        """
+        envia la notificacion cuando se acepta una Oferta
+        """
+        oferta= Oferta.query.filter_by(id=id_oferta).first()
+        Ofrecido  = Publicacion.query.filter_by(id=oferta.ofrecido).first()
+        Solicitado = Publicacion.query.filter_by(id=oferta.solicitado).first()
+        
+        new_notificacion = Notificacion(
+            id_usuario= Ofrecido.id_usuario ,
+            oferta=id_oferta, 
+            descripcion="Tu Oferta de "+ Ofrecido.titulo+"  por la Publicacion "+Solicitado.titulo+" fue aceptada"
+        )
+        
+        self.send_mail(Ofrecido.id_usuario, new_notificacion.descripcion) 
+        db.session.add(new_notificacion)
+        db.session.commit()
+    
+    
+    @classmethod
+    def rechazarOferta(self, id_oferta: int)->None:
+        """
+        envia la notificacion cuando se rechaza una Oferta
+        """
+        oferta= Oferta.query.filter_by(id=id_oferta).first()
+        Ofrecido  = Publicacion.query.filter_by(id=oferta.ofrecido).first()
+        Solicitado = Publicacion.query.filter_by(id=oferta.solicitado).first()
+        
+        new_notificacion = Notificacion(
+            id_usuario= Ofrecido.id_usuario ,
+            oferta=id_oferta, 
+            descripcion="Tu Oferta de "+ Ofrecido.titulo+"  por la Publicacion "+Solicitado.titulo+" fue rechazada"
+        )
+        
+        self.send_mail(Ofrecido.id_usuario, new_notificacion.descripcion) 
+        db.session.add(new_notificacion)
+        db.session.commit()
