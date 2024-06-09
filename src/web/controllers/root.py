@@ -88,11 +88,18 @@ def publicaciones_get():
         flash('Debes iniciar sesión para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
     try:
-        todas_las_publicaciones = Publicacion.query.filter_by(id_visibilidad=1).filter(Publicacion.id_usuario != session.get('user_id')).all()
-        if not todas_las_publicaciones:
+        todas_las_publicaciones = Publicacion.query.all()  
+        if session.get('rol_id') == 3:
+            if not todas_las_publicaciones:
+                mensaje = "No hay Publicaciones disponibles"
+                return render_template("/comunes/publicaciones.html", mensaje=mensaje)
+            return render_template("/comunes/publicaciones.html", publicaciones=todas_las_publicaciones)
+
+        todas_las_publicaciones_agenas = Publicacion.query.filter_by(id_visibilidad=1).filter(Publicacion.id_usuario != session.get('user_id')).all()
+        if not todas_las_publicaciones_agenas:
             mensaje = "No hay Publicaciones disponibles"
             return render_template("/comunes/publicaciones.html", mensaje=mensaje)
-        return render_template("/comunes/publicaciones.html", publicaciones=todas_las_publicaciones)
+        return render_template("/comunes/publicaciones.html", publicaciones=todas_las_publicaciones_agenas)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 

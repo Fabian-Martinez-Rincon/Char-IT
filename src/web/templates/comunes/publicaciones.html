@@ -12,8 +12,10 @@ head %}
   </div>
   {% else %}
   <div class="grid gap-6 mt-6 md:grid-cols-2 lg:grid-cols-3">
-    {% for publicacion in publicaciones %} {{ Publicacion.Publicacion(publicacion.titulo,
-    publicacion.foto_path, publicacion.fecha_publicacion, root, publicacion.id) }} {% endfor %}
+    {% for publicacion in publicaciones %} 
+      {{ Publicacion.Publicacion(publicacion.titulo,
+      publicacion.foto_path, publicacion.fecha_publicacion, root, publicacion.id) }} 
+    {% endfor %}
   </div>
   {% endif %}
 </main>
