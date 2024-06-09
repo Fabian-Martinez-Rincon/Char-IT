@@ -133,6 +133,11 @@
                 </div>
                 {% if session.get('user_id') == solicitado.id_usuario %}
                     <div class="flex flex-row justify-center gap-4">                        
+                        <form method="POST" action="{{ url_for('aceptarOferta.aceptarOferta', oferta_id=id) }}">
+                            <button type="submit" class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                                Aceptar
+                            </button>
+                        </form>
                         <form method="POST" action="{{ url_for('rechazarOferta.rechazarOferta', oferta_id=id) }}">
                             <button type="submit" class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
                                 Rechazar
