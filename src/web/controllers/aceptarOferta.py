@@ -4,6 +4,8 @@ from src.core.models.oferta import Oferta
 from src.core.models.estado import Estado
 from src.core.models.usuario import Usuario
 from src.core.models.notificacion import Notificacion
+from src.core.models.publicacion import Publicacion
+from src.core.models.visibilidad import Visibilidad
 
 bp = Blueprint("aceptarOferta", __name__)
 
@@ -57,6 +59,14 @@ def aceptarOferta(oferta_id):
         # oferta.descripcion = descripcion_rechazo
         
         oferta.estado = Estado.query.filter_by(nombre="aceptada").first().id
+        archivada = Visibilidad.query.filter_by(estado="Privada").first().id
+        
+        
+        Ofrecido  = Publicacion.query.filter_by(id=oferta.ofrecido).first()
+        Ofrecido.id_visibilidad = archivada
+        Solicitado = Publicacion.query.filter_by(id=oferta.solicitado).first()
+        Solicitado.id_visibilidad = archivada
+        
         db.session.commit()
         Notificacion.aceptarOferta(oferta.id)
         flash("Oferta aceptada con éxito", "success")
