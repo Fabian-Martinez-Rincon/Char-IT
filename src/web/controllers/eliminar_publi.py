@@ -23,36 +23,19 @@ def eliminar_publi(publicacion_id):
         flash('No tienes permiso para editar esta publicación.', 'error')
         return redirect(url_for('root.publicaciones_get'))
     
-    
-    ofertas_involucradas = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
-        ((Oferta.ofrecido == publicacion_id) | (Oferta.solicitado == publicacion_id)) &
-        ((Estado.nombre == "aceptada"))
-    ).all()
-    
-    if (ofertas_involucradas):
-        flash('No Puedes Eliminar esta Publicacion ya que tenes un intercambio pendiente.', 'error')
-        return redirect(url_for('root.publicacion_detalle', publicacion_id=publicacion_id))
-    
-    #Busca las ofertas con estado pendiente para notificar el cambio de estado
-    ofertas_relacionadas = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
+    if (Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
         ((Oferta.ofrecido == publicacion_id) | (Oferta.solicitado == publicacion_id)) &
         ((Estado.nombre == "pendiente"))
-    ).all()
+    ).all()):
+        flash('No Puedes Eliminar esta Publicacion ya que tenes ofertas pendientes.', 'error')
+        return redirect(url_for('root.ofertas_recibidas_get'))
     
-    cancelada = Estado.query.filter_by(nombre="cancelada").first()
-    # Cambiar el estado de todas las ofertas pendientes que involucran esta publicación a "cancelada"
-    for oferta in ofertas_relacionadas:
-        oferta.estado = cancelada.id  
-        oferta.descripcion = "La publicación ha sido eliminada."
-    
-    # Enviar notificación al usuario dueño de la otra publicación
-    for oferta in ofertas_relacionadas:
-        otra_publicacion_id = oferta.ofrecido if oferta.ofrecido != publicacion_id else oferta.solicitado
-        otra_publicacion = Publicacion.query.get(otra_publicacion_id)
-        if otra_publicacion.id_usuario != session.get('user_id'):
-            # Crear notificación solo si el usuario dueño de la otra publicación no es el mismo que elimina la publicación
-            Notificacion.cancelarOferta(oferta.id, otra_publicacion.id_usuario)
-
+    if (Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
+        ((Oferta.ofrecido == publicacion_id) | (Oferta.solicitado == publicacion_id)) &
+        ((Estado.nombre == "aceptadas"))
+    ).all()):
+        flash('No Puedes Eliminar esta Publicacion se encuentra en una oferta aceptada.', 'error')
+        return redirect(url_for('root.ofertas_recibidas_get'))
     
     Publi.id_visibilidad = 3 # Cambiar la visibilidad de la publicación a "eliminada"
     db.session.add(Publi)
@@ -73,14 +56,13 @@ def eliminar_publi_own(publicacion_id):
                     return redirect(url_for('root.index_get'))
     Publi = Publicacion.query.get_or_404(publicacion_id)
     
-    ofertas_involucradas = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
-        ((Oferta.ofrecido == publicacion_id) | (Oferta.solicitado == publicacion_id)) &
-        ((Estado.nombre == "aceptada"))
-    ).all()
     
-    if (ofertas_involucradas):
-        flash('No Puedes Eliminar esta Publicacion ya que posee un intercambio pendiente.', 'error')
-        return redirect(url_for('root.publicacion_detalle', publicacion_id=publicacion_id))
+    if (Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
+        ((Oferta.ofrecido == publicacion_id) | (Oferta.solicitado == publicacion_id)) &
+        ((Estado.nombre == "aceptadas"))
+    ).all()):
+        flash('No Puedes Eliminar esta Publicacion se encuentra en una oferta aceptada.', 'error')
+        return redirect(url_for('root.historial_intercambios'))
     
     #Busca las ofertas con estado pendiente para notificar el cambio de estado
     ofertas_relacionadas = Oferta.query.join(Estado, Estado.id == Oferta.estado).filter(
@@ -88,10 +70,10 @@ def eliminar_publi_own(publicacion_id):
         ((Estado.nombre == "pendiente"))
     ).all()
     
-    cancelada = Estado.query.filter_by(nombre="cancelada").first()
-    # Cambiar el estado de todas las ofertas pendientes que involucran esta publicación a "cancelada"
-    for oferta in ofertas_relacionadas:
-        oferta.estado = cancelada.id  
+    # cancelada = Estado.query.filter_by(nombre="cancelada").first()
+    # # Cambiar el estado de todas las ofertas pendientes que involucran esta publicación a "cancelada"
+    # for oferta in ofertas_relacionadas:
+    #     oferta.estado = cancelada.id
     
     # Enviar notificación al usuario dueño de la otra publicación
     for oferta in ofertas_relacionadas:
@@ -101,7 +83,7 @@ def eliminar_publi_own(publicacion_id):
             # Crear notificación solo si el usuario dueño de la otra publicación no es el mismo que elimina la publicación
             Notificacion.cancelarOferta(oferta.id, otra_publicacion.id_usuario)
             # Crear la notificación de eliminación de publicación
-    Notificacion.eliminarPublicacion(publicacion_id)
+    #Notificacion.eliminarPublicacion(publicacion_id)
     
     Publi.id_visibilidad = 3 # Cambiar la visibilidad de la publicación a "eliminada"
     db.session.add(Publi)
