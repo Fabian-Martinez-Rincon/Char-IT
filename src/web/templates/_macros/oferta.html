@@ -134,16 +134,16 @@
                 {% if session.get('user_id') == solicitado.id_usuario %}
                     <div class="flex flex-row justify-center gap-4">                        
                         <form method="POST" action="{{ url_for('aceptarOferta.aceptarOferta', oferta_id=id) }}">
-                            <button type="submit" class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                            <button type="submit" class="px-6 py-2 text-white transition duration-300 bg-green-500 rounded hover:bg-green-700">
                                 Aceptar
                             </button>
                         </form>
                         <form method="POST" action="{{ url_for('rechazarOferta.rechazarOferta', oferta_id=id) }}">
                             <div class="flex flex-row gap-2">
-                                <button class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade" type="submit">
+                                <button class="px-6 py-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700" type="submit">
                                     Rechazar
                                 </button>                                
-                                <textarea id="descripcion" name="descripcion" rows="1" cols="25" required></textarea>                                
+                                <textarea id="descripcion" name="descripcion" rows="1" cols="25" required placeholder="detalle el motivo"></textarea>                                
                             </div>
                         </form>
                     </div>
@@ -156,20 +156,20 @@
                     <p class="inline-block text-sm font-bold text-green-600">
                         {{ estado }}                
                     </p>                    
-                </div>
+                </div>                
                 {% if session.get('rol_id') != 1 %}
                     <div class="flex flex-row justify-center gap-4">        
                         <form method="POST" action="{{ url_for('confirmarIntercambio.confirmarIntercambio', oferta_id=id) }}">                            
-                            <button class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
-                                Confirmar
+                            <button class="px-6 py-2 text-white transition duration-300 bg-green-500 rounded hover:bg-green-700">
+                                Confirmar intercambio
                             </button>                        
                         </form>
                         <form method="POST" action="{{ url_for('cancelarIntercambio.cancelarIntercambio', oferta_id=id) }}" class="flex flex-row gap-4">
                             <div class="flex flex-row gap-2">
-                                <button class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade" type="submit">
-                                    Cancelar
+                                <button class="px-6 py-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700" type="submit">
+                                    Cancelar intercambio
                                 </button>                                
-                                <textarea id="descripcion" name="descripcion" rows="1" cols="25" required></textarea>                                
+                                <textarea id="descripcion" name="descripcion" rows="1" cols="25" required placeholder="detalle el motivo"></textarea>                                
                             </div>
                         </form>
                     </div>
