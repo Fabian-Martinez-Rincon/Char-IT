@@ -420,4 +420,6 @@ def detallar_oferta(intercambio_id):
     horaIntercambio = oferta.horaIntercambio
     filial = Filial.query.get(oferta.filial).nombre
     estado = Estado.query.get(oferta.estado).nombre        
-    return render_template("/ofertas/detallar_oferta.html", oferta=oferta, solicitado=solicitado, ofrecido=ofrecido, fechaIntercambio=fechaIntercambio, horaIntercambio=horaIntercambio, filial=filial, estado=estado)
+    descripcion = oferta.descripcion
+    print(descripcion)
+    return render_template("/ofertas/detallar_oferta.html", oferta=oferta, solicitado=solicitado, ofrecido=ofrecido, fechaIntercambio=fechaIntercambio, horaIntercambio=horaIntercambio, filial=filial, estado=estado, descripcion=descripcion)
