@@ -52,8 +52,8 @@ def cancelarIntercambio(oferta_id):
         # Actualizar el estado y la descripción de la oferta
         
         
-        intercambio.estado = Estado.query.filter_by(nombre="finalizada").first().id
-        intercambio.descripcion = "Intercambio cancelado con éxito" # LA DESCRIPCION LA DEBE PONER EL USUARIO
+        intercambio.estado = Estado.query.filter_by(nombre="finalizada").first().id        
+        intercambio.descripcion = request.form.get('descripcion') # LA DESCRIPCION LA DEBE PONER EL USUARIO
         db.session.commit()
         Notificacion.responderOferta(intercambio.id) # CREAR LA NOTIFICACION DE CONFIRMACION DE INTERCAMBIO
         flash("Intercambio cancelado con éxito", "success")
