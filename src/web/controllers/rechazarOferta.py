@@ -59,6 +59,7 @@ def rechazarOferta(oferta_id):
         # oferta.descripcion = descripcion_rechazo
         
         oferta.estado = Estado.query.filter_by(nombre="rechazada").first().id
+        oferta.descripcion = request.form.get('descripcion') # LA DESCRIPCION LA DEBE PONER EL USUARIO
         db.session.commit()
         Notificacion.rechazarOferta(oferta.id)
         flash("Oferta rechazada con éxito", "success")

@@ -134,14 +134,17 @@
                 {% if session.get('user_id') == solicitado.id_usuario %}
                     <div class="flex flex-row justify-center gap-4">                        
                         <form method="POST" action="{{ url_for('aceptarOferta.aceptarOferta', oferta_id=id) }}">
-                            <button type="submit" class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                            <button type="submit" class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
                                 Aceptar
                             </button>
                         </form>
                         <form method="POST" action="{{ url_for('rechazarOferta.rechazarOferta', oferta_id=id) }}">
-                            <button type="submit" class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
-                                Rechazar
-                            </button>
+                            <div class="flex flex-row gap-2">
+                                <button class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade" type="submit">
+                                    Rechazar
+                                </button>                                
+                                <textarea id="descripcion" name="descripcion" rows="1" cols="25" required></textarea>                                
+                            </div>
                         </form>
                     </div>
                 {% endif %}
@@ -157,14 +160,17 @@
                 {% if session.get('rol_id') != 1 %}
                     <div class="flex flex-row justify-center gap-4">        
                         <form method="POST" action="{{ url_for('confirmarIntercambio.confirmarIntercambio', oferta_id=id) }}">                            
-                            <button class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
+                            <button class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
                                 Confirmar
                             </button>                        
                         </form>
-                        <form method="POST" action="{{ url_for('cancelarIntercambio.cancelarIntercambio', oferta_id=id) }}">
-                            <button class="px-6 py-2 my-4 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade">
-                                Cancelar
-                            </button>                            
+                        <form method="POST" action="{{ url_for('cancelarIntercambio.cancelarIntercambio', oferta_id=id) }}" class="flex flex-row gap-4">
+                            <div class="flex flex-row gap-2">
+                                <button class="px-6 py-2 text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade" type="submit">
+                                    Cancelar
+                                </button>                                
+                                <textarea id="descripcion" name="descripcion" rows="1" cols="25" required></textarea>                                
+                            </div>
                         </form>
                     </div>
                 {% endif %}
@@ -177,17 +183,15 @@
                         {{ estado }}                
                     </p>
                 </div>
+                <p>Motivo: <b>{{ descripcion }}</b></p>
             {% else %}
                 <div class="flex flex-col justify-center mt-2 text-center">                                                      
-                    <div class="flex flex-row justify-center text-center">                    
-                        <svg class="w-6 h-6 text-gray-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                        </svg>                                            
+                    <div class="flex flex-row justify-center text-center">                                                                                    
                         <p class="inline-block text-sm font-bold text-gray-200">
                             {{ estado }}                
                         </p>
                     </div>
-                    <b>{{ descripcion }}</b>
+                    <p>Motivo: <b>{{ descripcion }}</b></p>
                 </div>
             {% endif %}
         </div>

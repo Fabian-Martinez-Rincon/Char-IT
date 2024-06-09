@@ -60,14 +60,16 @@ endblock %} {% endblock %} {% block base_body %}
       {{ Menu.Menu(informationComunLogged) }}
       
       {% if session.rol_id == 3 %}   <!-- owner -->
-        <!-- ["Listar Historial de Donaciones", ""] -->
+        <!-- Proximos a agregar
+        ["Listar Historial de Donaciones", ""] 
+        ["Registrar Donación en efectivo", ""],
+        ["Registrar Donacion de Produto", ""], -->
         {% set informationOwner = [
           ["Listar Usuarios", "/generales"],
           ["Listar Colaboradores", "/colaboradores"],
           ["Registrar Colaborador", "/registrar_colaborador"],
-          ["Registrar Donación en efectivo", ""],
-          ["Registrar Donacion de Produto", ""],
-          ["Listar Intercambios Pendientes", "/pendientes"]
+          ["Listar Intercambios Pendientes", "/pendientes"],
+          ["Listar Historial de Intercambios", "/historial_intercambios"]
         ] %}       
         {{ Menu.Menu(informationOwner) }}
         

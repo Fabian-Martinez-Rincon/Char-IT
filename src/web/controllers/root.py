@@ -10,6 +10,7 @@ from src.core.models.database import db
 from src.web.formularios.inicio_sesion import LoginForm  # Asegúrate que esta es la ruta correcta
 from src.web.formularios.comentar import ComentarForm
 from src.core.models.notificacion import Notificacion
+from datetime import date
 from sqlalchemy import or_
 import pdb; 
 import subprocess
@@ -80,25 +81,6 @@ def usuarios_colaboradores_get():
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
-@bp.get("/historial_intercambios")
-def historial_intercambios_get():
-    if not(session.get('user_id')):
-        flash('Debes iniciar sesión para realizar esta operación.', 'error')
-        return redirect(url_for('root.index_get'))
-    if session.get('user_id'):
-        rol = Usuario.query.get(session.get('user_id')).id_rol
-        if rol == 1 :  
-                    flash('No tienes permiso para realizar esta operacion.', 'error')
-                    return redirect(url_for('root.index_get'))
-    try:
-        intercambios = Oferta.query.filter(or_(Oferta.estado == 5, Oferta.estado == 6)).all() #corregir estados
-        if not intercambios:
-            print("No hay ofertas")
-            mensaje = "No existen ofertas de intercambio cargadas en el sistema"
-            return render_template("/owner/historial_intercambios.html", mensaje=mensaje)        
-        return render_template("/owner/historial_intercambios.html", intercambios=intercambios)
-    except Exception as e:
-        return f"An error occurred: {str(e)}", 500
 
 @bp.get("/publicaciones")
 def publicaciones_get():
@@ -256,7 +238,7 @@ def ofertas_enviadas_get():
                 estado=estado,                 
             )
             ofertas_param.append(oferta_detalle)
-
+        ofertas_param = sorted(ofertas_param, key=lambda oferta_detalle: (oferta_detalle.estado != 'pendiente', abs((date.today() - oferta_detalle.fechaIntercambio).days)))
         return render_template("/ofertas/ofertas_enviadas.html", intercambios=ofertas_param)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
@@ -306,11 +288,49 @@ def ofertas_recibidas_get():
                 estado=estado
             )
             ofertas_param.append(oferta_detalle)
-
+        ofertas_param = sorted(ofertas_param, key=lambda oferta_detalle: (oferta_detalle.estado != 'pendiente', abs((date.today() - oferta_detalle.fechaIntercambio).days)))
         return render_template("/ofertas/ofertas_recibidas.html", intercambios=ofertas_param)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
+@bp.get("/historial_intercambios")
+def historial_intercambios_get():
+    if not(session.get('user_id')):
+        flash('Debes iniciar sesión para realizar esta operación.', 'error')
+        return redirect(url_for('root.index_get'))
+    if session.get('user_id'):
+        rol = Usuario.query.get(session.get('user_id')).id_rol
+        if rol == 1 :  
+                    flash('No tienes permiso para realizar esta operacion.', 'error')
+                    return redirect(url_for('root.index_get'))
+    try:
+        intercambios = Oferta.query.filter(Oferta.estado == 5).all() #corregir estados
+
+        if not intercambios:
+            print("No hay intercambios realizados")
+            mensaje = "No existen intercambios realizados en el sistema"
+            return render_template("/owner/historial_intercambios.html", mensaje=mensaje)      
+
+        intercambios_realizados = []  
+        for intercambio in intercambios:
+            ofrecido = Publicacion.query.get(intercambio.ofrecido)
+            solicitado = Publicacion.query.get(intercambio.solicitado)
+            filial = Filial.query.get(intercambio.filial).nombre
+            estado = Estado.query.get(intercambio.estado).nombre
+            intercambio_detalle = OfertaDetalle(
+                oferta_id=intercambio.id,
+                ofrecido=ofrecido,
+                solicitado=solicitado,
+                fecha=intercambio.fechaIntercambio,
+                hora=intercambio.horaIntercambio,
+                filial=filial,
+                estado=estado
+            )
+            intercambios_realizados.append(intercambio_detalle)
+        return render_template("/owner/historial_intercambios.html", intercambios=intercambios_realizados)
+    except Exception as e:
+        return f"An error occurred: {str(e)}", 500
+    
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
