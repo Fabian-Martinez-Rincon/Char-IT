@@ -60,7 +60,7 @@ def rechazarOferta(oferta_id):
         
         oferta.estado = Estado.query.filter_by(nombre="rechazada").first().id
         db.session.commit()
-        Notificacion.responderOferta(oferta.id)
+        Notificacion.rechazarOferta(oferta.id)
         flash("Oferta rechazada con éxito", "success")
         oferta = Oferta.query.get(oferta_id)        
         # Obtén los valores de los atributos de la oferta        
