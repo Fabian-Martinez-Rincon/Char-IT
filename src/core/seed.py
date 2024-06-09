@@ -26,8 +26,8 @@ def seed_db():
             Categoria: 'categorias.json',
             Visibilidad: 'visibilidades.json',
             Publicacion: 'publicaciones.json',            
-            Estado: 'estados.json',
-            Oferta: 'ofertas.json'
+            Estado: 'estados.json'
+            # Oferta: 'ofertas.json'
         }
         
         for entidad, archivo in entidades_datos.items():
