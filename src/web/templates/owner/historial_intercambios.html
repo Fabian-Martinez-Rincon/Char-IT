@@ -15,7 +15,7 @@
                 </div>
             {% else %}
                 {% for intercambio in intercambios %}  
-                    <a href="{{ url_for('root.detallar_oferta', intercambio_id=intercambio.oferta_id, showButtons='false') }}">
+                    <a href="{{ url_for('root.detallar_oferta', intercambio_id=intercambio.oferta_id) }}">
                         <div class="mt-10 shadow">
                             {{ Oferta.OfertaOverview(        
                                 intercambio.ofrecido, intercambio.solicitado, 

@@ -8,7 +8,8 @@
     Detalle de la oferta
   </h1>
   <div class="mt-10">    
-    {{ Oferta.OfertaDetalle(                        
+    {{ Oferta.OfertaDetalle(     
+        oferta.id,                    
         ofrecido, solicitado, 
         fechaIntercambio, horaIntercambio, 
         filial,estado) }}    

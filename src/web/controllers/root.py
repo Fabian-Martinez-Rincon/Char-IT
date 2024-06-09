@@ -11,6 +11,7 @@ from src.web.formularios.inicio_sesion import LoginForm  # Asegúrate que esta e
 from src.web.formularios.comentar import ComentarForm
 from src.core.models.notificacion import Notificacion
 from sqlalchemy import or_
+import pdb; 
 import subprocess
 from flask import (
     Blueprint,
@@ -410,7 +411,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 @bp.route("/ofertas/detallar_oferta/<int:intercambio_id>")
-def detallar_oferta(intercambio_id, ):
+def detallar_oferta(intercambio_id):
     oferta = Oferta.query.get_or_404(intercambio_id) 
     # Obtén los valores de los atributos de la oferta
     solicitado = Publicacion.query.get(oferta.solicitado)
@@ -418,5 +419,5 @@ def detallar_oferta(intercambio_id, ):
     fechaIntercambio = oferta.fechaIntercambio
     horaIntercambio = oferta.horaIntercambio
     filial = Filial.query.get(oferta.filial).nombre
-    estado = Estado.query.get(oferta.estado).nombre    
+    estado = Estado.query.get(oferta.estado).nombre        
     return render_template("/ofertas/detallar_oferta.html", oferta=oferta, solicitado=solicitado, ofrecido=ofrecido, fechaIntercambio=fechaIntercambio, horaIntercambio=horaIntercambio, filial=filial, estado=estado)
