@@ -204,8 +204,7 @@ def ofertas_enviadas_get():
                     return redirect(url_for('root.index_get'))
     try:
         mis_publicaciones = Publicacion.query.filter(
-            Publicacion.id_usuario == session['user_id'],
-            Publicacion.id_visibilidad != 3
+            Publicacion.id_usuario == session['user_id']            
         ).all()
 
         ofertas_enviadas_get = []
@@ -255,8 +254,7 @@ def ofertas_recibidas_get():
                     return redirect(url_for('root.index_get'))
     try:
         mis_publicaciones = Publicacion.query.filter(
-            Publicacion.id_usuario == session['user_id'],
-            Publicacion.id_visibilidad != 3
+            Publicacion.id_usuario == session['user_id']   
         ).all()
 
         ofertas_recibidas_get = []
@@ -304,7 +302,8 @@ def historial_intercambios_get():
                     flash('No tienes permiso para realizar esta operacion.', 'error')
                     return redirect(url_for('root.index_get'))
     try:
-        intercambios = Oferta.query.filter(Oferta.estado == 5).all() #corregir estados
+        finaliza = Estado.query.filter_by(nombre="finalizada").first().id
+        intercambios = Oferta.query.filter(Oferta.estado == finaliza).all() #corregir estados
 
         if not intercambios:
             print("No hay intercambios realizados")
@@ -434,11 +433,12 @@ def detallar_oferta(intercambio_id):
     oferta = Oferta.query.get_or_404(intercambio_id) 
     # Obtén los valores de los atributos de la oferta
     solicitado = Publicacion.query.get(oferta.solicitado)
+    solicitado_email = Usuario.query.get(solicitado.id_usuario).email
     ofrecido = Publicacion.query.get(oferta.ofrecido)
+    ofrecido_email = Usuario.query.get(ofrecido.id_usuario).email
     fechaIntercambio = oferta.fechaIntercambio
     horaIntercambio = oferta.horaIntercambio
     filial = Filial.query.get(oferta.filial).nombre
-    estado = Estado.query.get(oferta.estado).nombre        
-    descripcion = oferta.descripcion
-    print(descripcion)
-    return render_template("/ofertas/detallar_oferta.html", oferta=oferta, solicitado=solicitado, ofrecido=ofrecido, fechaIntercambio=fechaIntercambio, horaIntercambio=horaIntercambio, filial=filial, estado=estado, descripcion=descripcion)
+    estado = Estado.query.get(oferta.estado).nombre            
+    descripcion = oferta.descripcion    
+    return render_template("/ofertas/detallar_oferta.html", oferta=oferta, solicitado=solicitado, ofrecido=ofrecido, fechaIntercambio=fechaIntercambio, horaIntercambio=horaIntercambio, filial=filial, estado=estado, descripcion=descripcion,ofrecido_email=ofrecido_email,solicitado_email=solicitado_email)
