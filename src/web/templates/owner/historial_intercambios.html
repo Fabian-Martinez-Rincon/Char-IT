@@ -14,15 +14,14 @@
                     <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
                 </div>
             {% else %}
-                {% for intercambio in intercambios %}  
-                    <a href="{{ url_for('root.detallar_oferta', intercambio_id=intercambio.oferta_id) }}">
-                        <div class="mt-10 shadow">
-                            {{ Oferta.OfertaOverview(        
-                                intercambio.ofrecido, intercambio.solicitado, 
-                                intercambio.fechaIntercambio, intercambio.horaIntercambio, 
-                                intercambio.filial, intercambio.estado, width=128) }} 
-                        </div>
-                    </a>
+                {% for intercambio in intercambios %}                      
+                    <div class="mt-10">
+                        {{ Oferta.OfertaDetalle(        
+                            intercambio.oferta_id,
+                            intercambio.ofrecido, intercambio.solicitado, 
+                            intercambio.fechaIntercambio, intercambio.horaIntercambio, 
+                            intercambio.filial, intercambio.estado,intercambio.descripcion,intercambio.ofrecido_email,intercambio.solicitado_email) }} 
+                    </div>                    
                 {% endfor %} 
             {% endif %}
     </main>

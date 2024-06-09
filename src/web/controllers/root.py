@@ -224,6 +224,8 @@ def ofertas_enviadas_get():
         for oferta in ofertas_enviadas_get:
             ofrecido = Publicacion.query.get(oferta.ofrecido)
             solicitado = Publicacion.query.get(oferta.solicitado)
+            solicitado_email = Usuario.query.get(solicitado.id_usuario).email            
+            ofrecido_email = Usuario.query.get(ofrecido.id_usuario).email
             filial = Filial.query.get(oferta.filial).nombre
             estado = Estado.query.get(oferta.estado).nombre
             
@@ -235,6 +237,9 @@ def ofertas_enviadas_get():
                 hora=oferta.horaIntercambio,
                 filial=filial,
                 estado=estado,                 
+                descripcion=oferta.descripcion,
+                solicitado_email=solicitado_email,
+                ofrecido_email=ofrecido_email
             )
             ofertas_param.append(oferta_detalle)
         ofertas_param = sorted(ofertas_param, key=lambda oferta_detalle: (oferta_detalle.estado != 'pendiente', abs((date.today() - oferta_detalle.fechaIntercambio).days)))
@@ -273,6 +278,8 @@ def ofertas_recibidas_get():
         for oferta in ofertas_recibidas_get:
             ofrecido = Publicacion.query.get(oferta.ofrecido)
             solicitado = Publicacion.query.get(oferta.solicitado)
+            solicitado_email = Usuario.query.get(solicitado.id_usuario).email            
+            ofrecido_email = Usuario.query.get(ofrecido.id_usuario).email
             filial = Filial.query.get(oferta.filial).nombre
             estado = Estado.query.get(oferta.estado).nombre
             
@@ -283,7 +290,10 @@ def ofertas_recibidas_get():
                 fecha=oferta.fechaIntercambio,
                 hora=oferta.horaIntercambio,
                 filial=filial,
-                estado=estado
+                estado=estado,
+                descripcion=oferta.descripcion,
+                solicitado_email=solicitado_email,
+                ofrecido_email=ofrecido_email
             )
             ofertas_param.append(oferta_detalle)
         ofertas_param = sorted(ofertas_param, key=lambda oferta_detalle: (oferta_detalle.estado != 'pendiente', abs((date.today() - oferta_detalle.fechaIntercambio).days)))
@@ -305,15 +315,16 @@ def historial_intercambios_get():
         finaliza = Estado.query.filter_by(nombre="finalizada").first().id
         intercambios = Oferta.query.filter(Oferta.estado == finaliza).all() #corregir estados
 
-        if not intercambios:
-            print("No hay intercambios realizados")
+        if not intercambios:            
             mensaje = "No existen intercambios realizados en el sistema"
             return render_template("/owner/historial_intercambios.html", mensaje=mensaje)      
 
         intercambios_realizados = []  
         for intercambio in intercambios:
             ofrecido = Publicacion.query.get(intercambio.ofrecido)
-            solicitado = Publicacion.query.get(intercambio.solicitado)
+            solicitado = Publicacion.query.get(intercambio.solicitado)            
+            solicitado_email = Usuario.query.get(solicitado.id_usuario).email            
+            ofrecido_email = Usuario.query.get(ofrecido.id_usuario).email
             filial = Filial.query.get(intercambio.filial).nombre
             estado = Estado.query.get(intercambio.estado).nombre
             intercambio_detalle = OfertaDetalle(
@@ -323,7 +334,10 @@ def historial_intercambios_get():
                 fecha=intercambio.fechaIntercambio,
                 hora=intercambio.horaIntercambio,
                 filial=filial,
-                estado=estado
+                estado=estado, 
+                descripcion=intercambio.descripcion, 
+                solicitado_email=solicitado_email,
+                ofrecido_email=ofrecido_email
             )
             intercambios_realizados.append(intercambio_detalle)
         return render_template("/owner/historial_intercambios.html", intercambios=intercambios_realizados)
