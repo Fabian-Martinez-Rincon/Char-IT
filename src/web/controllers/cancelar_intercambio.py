@@ -6,6 +6,7 @@ from src.core.models.usuario import Usuario
 from src.core.models.notificacion import Notificacion
 from src.core.models.publicacion import Publicacion
 from src.core.models.filial import Filial
+from src.core.models.visibilidad import Visibilidad
 
 bp = Blueprint("cancelarIntercambio", __name__)
 
@@ -54,6 +55,11 @@ def cancelarIntercambio(oferta_id):
         
         intercambio.estado = Estado.query.filter_by(nombre="finalizada").first().id        
         intercambio.descripcion = request.form.get('descripcion') # LA DESCRIPCION LA DEBE PONER EL USUARIO
+        visibilidad_privada = Visibilidad.query.filter_by(estado="Privada").first().id
+        solicitado = Publicacion.query.filter_by(id=intercambio.solicitado).first()
+        ofrecido  = Publicacion.query.filter_by(id=intercambio.ofrecido).first()
+        solicitado.id_visibilidad = visibilidad_privada
+        ofrecido.id_visibilidad = visibilidad_privada
         db.session.commit()
         Notificacion.responderOferta(intercambio.id) # CREAR LA NOTIFICACION DE CONFIRMACION DE INTERCAMBIO
         flash("Intercambio cancelado con éxito", "success")

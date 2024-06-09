@@ -40,12 +40,4 @@ def pendientes():
         Oferta.fechaIntercambio == hoy,
         Estado.id == estado_aceptada_id.id,         
     ).order_by(Oferta.horaIntercambio.asc()).all()
-    return render_template("owner/pendientes.html", ofertas=ofertas, estado=estado_aceptada_id.nombre )
-
-
-# <div>
-
-
-#     </div>
-
-        
+    return render_template("owner/pendientes.html", ofertas=ofertas, estado=estado_aceptada_id.nombre )        

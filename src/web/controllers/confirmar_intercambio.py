@@ -6,7 +6,7 @@ from src.core.models.usuario import Usuario
 from src.core.models.notificacion import Notificacion
 from src.core.models.publicacion import Publicacion
 from src.core.models.filial import Filial
-
+from src.core.models.visibilidad import Visibilidad
 bp = Blueprint("confirmarIntercambio", __name__)
 
 @bp.route('/confirmarIntercambio/<int:oferta_id>', methods=['GET', 'POST'])
@@ -54,6 +54,11 @@ def confirmarIntercambio(oferta_id):
         
         intercambio.estado = Estado.query.filter_by(nombre="finalizada").first().id
         intercambio.descripcion = "Intercambio confirmado con éxito"
+        visibilidad_eliminada = Visibilidad.query.filter_by(estado="Eliminada").first().id
+        solicitado = Publicacion.query.filter_by(id=intercambio.solicitado).first()
+        ofrecido  = Publicacion.query.filter_by(id=intercambio.ofrecido).first()
+        solicitado.id_visibilidad = visibilidad_eliminada
+        ofrecido.id_visibilidad = visibilidad_eliminada        
         db.session.commit()
         Notificacion.responderOferta(intercambio.id) # CREAR LA NOTIFICACION DE CONFIRMACION DE INTERCAMBIO
         flash("Intercambio confirmado con éxito", "success")
