@@ -18,9 +18,9 @@ def validate_dayhour(form, field):
 
 def validate_hours(form, field):
     start_time = datetime.strptime('08:00', '%H:%M').time()
-    end_time = datetime.strptime('16:00', '%H:%M').time()
+    end_time = datetime.strptime('19:00', '%H:%M').time()
     if field.data < start_time or field.data > end_time:
-        raise ValidationError('El horario debe estar entre las 8 AM y las 4 PM.')
+        raise ValidationError('El horario debe estar entre las 8 AM y las 7 PM.')
 
 class OfertarPubli(FlaskForm):
     publicacion = SelectField('Seleccione una publicación', coerce=int, validators=[DataRequired()])
