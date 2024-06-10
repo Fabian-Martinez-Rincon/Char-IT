@@ -59,12 +59,13 @@ def confirmarIntercambio(oferta_id):
         ofrecido  = Publicacion.query.filter_by(id=intercambio.ofrecido).first()
         solicitado.id_visibilidad = visibilidad_eliminada
         ofrecido.id_visibilidad = visibilidad_eliminada        
+
         db.session.commit()
-        Notificacion.responderOferta(intercambio.id) # CREAR LA NOTIFICACION DE CONFIRMACION DE INTERCAMBIO
+        Notificacion.confirmarIntercambio(intercambio.id) # CREAR LA NOTIFICACION DE CONFIRMACION DE INTERCAMBIO
         flash("Intercambio confirmado con éxito", "success")
         intercambio = Oferta.query.get(oferta_id)        
         # Obtén los valores de los atributos de la oferta        
-        return redirect(url_for('root.detallar_oferta', intercambio_id=intercambio.id))
+        return redirect(url_for('pendientes.pendientes'))
     except Exception as e:
         db.session.rollback()
         flash(f"Error: {str(e)}", "error")       

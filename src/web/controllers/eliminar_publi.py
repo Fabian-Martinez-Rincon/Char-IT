@@ -70,10 +70,10 @@ def eliminar_publi_own(publicacion_id):
         ((Estado.nombre == "pendiente"))
     ).all()
     
-    # cancelada = Estado.query.filter_by(nombre="cancelada").first()
+    cancelada = Estado.query.filter_by(nombre="cancelada").first()
     # # Cambiar el estado de todas las ofertas pendientes que involucran esta publicación a "cancelada"
-    # for oferta in ofertas_relacionadas:
-    #     oferta.estado = cancelada.id
+    for oferta in ofertas_relacionadas:
+        oferta.estado = cancelada.id
     
     # Enviar notificación al usuario dueño de la otra publicación
     for oferta in ofertas_relacionadas:
@@ -81,9 +81,10 @@ def eliminar_publi_own(publicacion_id):
         otra_publicacion = Publicacion.query.get(otra_publicacion_id)
         if otra_publicacion.id_usuario != session.get('user_id'):
             # Crear notificación solo si el usuario dueño de la otra publicación no es el mismo que elimina la publicación
+            oferta.descripcion = "La oferta fue cancelada por la eliminacion de " + Publi.titulo
             Notificacion.cancelarOferta(oferta.id, otra_publicacion.id_usuario)
             # Crear la notificación de eliminación de publicación
-    #Notificacion.eliminarPublicacion(publicacion_id)
+    Notificacion.eliminarPublicacion(publicacion_id)
     
     Publi.id_visibilidad = 3 # Cambiar la visibilidad de la publicación a "eliminada"
     db.session.add(Publi)

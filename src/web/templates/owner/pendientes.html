@@ -13,10 +13,10 @@
                     {% for oferta in ofertas %}                               
                         <div class="items-center justify-center text-center">         
                             {{ Oferta.OfertaDetalle(
-                                oferta.id,
-                                oferta.publicacion_ofrecido, oferta.publicacion_solicitado, 
+                                oferta.oferta_id,
+                                oferta.ofrecido, oferta.solicitado, 
                                 oferta.fechaIntercambio, oferta.horaIntercambio,                                
-                                oferta.filial_relacion.nombre,estado, oferta.descripcion,ofrecido_email,solicitado_email) }}                                                                        
+                                oferta.filial,oferta.estado, oferta.descripcion,oferta.ofrecido_email,oferta.   solicitado_email) }}                                                                        
                         </div>                    
                     {% endfor %}                               
                 </ul>                

@@ -5,6 +5,8 @@ from src.core.models.estado import Estado
 from src.core.models.publicacion import Publicacion
 from src.core.models.usuario import Usuario
 from src.core.models.notificacion import Notificacion
+from src.core.models.oferta_detalle import OfertaDetalle
+from src.core.models.filial import Filial
 bp = Blueprint("pendientes", __name__)
 
 @bp.route("/pendientes", methods=['GET'])
@@ -40,4 +42,26 @@ def pendientes():
         Oferta.fechaIntercambio == hoy,
         Estado.id == estado_aceptada_id.id,         
     ).order_by(Oferta.horaIntercambio.asc()).all()
-    return render_template("owner/pendientes.html", ofertas=ofertas, estado=estado_aceptada_id.nombre )        
+
+    intercambios_realizados = []
+    for intercambio in ofertas:
+        ofrecido = Publicacion.query.get(intercambio.ofrecido)
+        solicitado = Publicacion.query.get(intercambio.solicitado)            
+        solicitado_email = Usuario.query.get(solicitado.id_usuario).email            
+        ofrecido_email = Usuario.query.get(ofrecido.id_usuario).email
+        filial = Filial.query.get(intercambio.filial).nombre
+        estado = Estado.query.get(intercambio.estado).nombre
+        intercambio_detalle = OfertaDetalle(
+            oferta_id=intercambio.id,
+            ofrecido=ofrecido,
+            solicitado=solicitado,
+            fecha=intercambio.fechaIntercambio,
+            hora=intercambio.horaIntercambio,
+            filial=filial,
+            estado=estado, 
+            descripcion=intercambio.descripcion, 
+            solicitado_email=solicitado_email,
+            ofrecido_email=ofrecido_email
+        )
+        intercambios_realizados.append(intercambio_detalle)
+    return render_template("owner/pendientes.html", ofertas=intercambios_realizados)        

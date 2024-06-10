@@ -72,7 +72,7 @@ class Notificacion(db.Model):
         recordar cancelar las ofertas pendientes que tenia y enviar la notificacion con "cancelarOferta" (lo mismo que cuando se elimina mi publicacion)
         """
         Publi  = Publicacion.query.filter_by(id=id_Publicacion).first()
-        new_notificacion = Notificacion(id_usuario=Publi.id_usuario, publicacion=id_Publicacion, descripcion="Tu Publicacion "+Publi.titulo+" fue eliminada por el administrador")
+        new_notificacion = Notificacion(id_usuario=Publi.id_usuario, publicacion=id_Publicacion, descripcion="Tu Publicación "+Publi.titulo+" fue eliminada por el administrador")
         self.send_mail(Publi.id_usuario, new_notificacion.descripcion)
         db.session.add(new_notificacion)
         db.session.commit()
@@ -156,3 +156,55 @@ class Notificacion(db.Model):
         self.send_mail(Ofrecido.id_usuario, new_notificacion.descripcion) 
         db.session.add(new_notificacion)
         db.session.commit()
+
+    @classmethod
+    def confirmarIntercambio(self, id_oferta: int)->None:
+        """
+        envia la notificacion cuando se confirma el intercambio
+        """
+        oferta= Oferta.query.filter_by(id=id_oferta).first()
+        Ofrecido  = Publicacion.query.filter_by(id=oferta.ofrecido).first()
+        Solicitado = Publicacion.query.filter_by(id=oferta.solicitado).first()
+        
+        new_notificacion = Notificacion(
+            id_usuario= Ofrecido.id_usuario ,
+            oferta=id_oferta, 
+            descripcion="El intercambio de "+ Ofrecido.titulo+"  por "+Solicitado.titulo+" fue realizado con exito"
+        )
+
+        new_notificacion2 = Notificacion(
+            id_usuario= Solicitado.id_usuario ,
+            oferta=id_oferta, 
+            descripcion="El intercambio de "+ Ofrecido.titulo+"  por "+Solicitado.titulo+" fue realizado con exito"
+        )
+        
+        self.send_mail(Ofrecido.id_usuario, new_notificacion.descripcion) 
+        self.send_mail(Solicitado.id_usuario, new_notificacion2.descripcion)
+        db.session.add(new_notificacion)
+        db.session.commit()        
+
+    @classmethod
+    def cancelarIntercambio(self, id_oferta: int)->None:
+        """
+        envia la notificacion cuando se cancela el intercambio
+        """
+        oferta= Oferta.query.filter_by(id=id_oferta).first()
+        Ofrecido  = Publicacion.query.filter_by(id=oferta.ofrecido).first()
+        Solicitado = Publicacion.query.filter_by(id=oferta.solicitado).first()
+        
+        new_notificacion = Notificacion(
+            id_usuario= Ofrecido.id_usuario ,
+            oferta=id_oferta, 
+            descripcion="El intercambio de "+ Ofrecido.titulo+" por "+Solicitado.titulo+" fue cancelado \nMotivo: "+oferta.descripcion
+        )
+
+        new_notificacion2 = Notificacion(
+            id_usuario= Solicitado.id_usuario ,
+            oferta=id_oferta, 
+            descripcion="El intercambio de "+ Ofrecido.titulo+" por "+Solicitado.titulo+" fue cancelado \nMotivo: "+oferta.descripcion
+        )
+        
+        self.send_mail(Ofrecido.id_usuario, new_notificacion.descripcion) 
+        self.send_mail(Solicitado.id_usuario, new_notificacion2.descripcion)
+        db.session.add(new_notificacion)
+        db.session.commit()        

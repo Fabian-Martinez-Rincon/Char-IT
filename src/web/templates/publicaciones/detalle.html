@@ -77,29 +77,28 @@
             {{ publicacion.filiales_horarios_dias }}
           </div>
         </div>
-        {% if publicacion.id_usuario == session.get('user_id') and publicacion.id_visibilidad != 3 and
-        publicacion.id_visibilidad != 4%}
-        <div class="flex flex-row items-center gap-4 mt-8">
-          <a
-            href="/editar_publi/{{ publicacion.id }}"
-            class="px-4 py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700">
-            Editar Publicación
-          </a>
-          <a
-            href="{{ url_for('eliminar_publi.eliminar_publi', publicacion_id=publicacion.id) }}"
-            class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
-            onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');">
-            Eliminar
-          </a>
-        </div>
-        {% elif session.rol_id == 1 %}
-        <div class="flex flex-row items-center gap-4 mt-8">
-          <a
-            href="{{ url_for('ofertar_publi.ofertar_publi_go', publicacion_id=publicacion.id) }}"
-            class="px-4 py-2 font-bold text-center text-white rounded bg-cyan-shade hover:bg-green-cyan-shade">
-            Ofertar
-          </a>
-        </div>
+        {% if publicacion.id_usuario == session.get('user_id') and publicacion.id_visibilidad != 3 and publicacion.id_visibilidad != 4 %}
+          <div class="flex flex-row items-center gap-4 mt-8">
+            <a
+              href="/editar_publi/{{ publicacion.id }}"
+              class="px-4 py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700">
+              Editar Publicación
+            </a>
+            <a
+              href="{{ url_for('eliminar_publi.eliminar_publi', publicacion_id=publicacion.id) }}"
+              class="px-4 py-2 font-bold text-center text-white bg-red-500 rounded hover:bg-red-700"
+              onclick="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');">
+              Eliminar
+            </a>
+          </div>
+        {% elif session.rol_id == 1  and publicacion.id_visibilidad != 3 and publicacion.id_visibilidad != 4 %}
+          <div class="flex flex-row items-center gap-4 mt-8">
+            <a
+              href="{{ url_for('ofertar_publi.ofertar_publi_go', publicacion_id=publicacion.id) }}"
+              class="px-4 py-2 font-bold text-center text-white rounded bg-cyan-shade hover:bg-green-cyan-shade">
+              Ofertar
+            </a>
+          </div>
         {% endif %} {% if session.rol_id == 3 and publicacion.id_visibilidad != 3 and publicacion.id_visibilidad != 4%}
         <div class="mt-8">
           <a
@@ -172,7 +171,7 @@
           <p class="font-semibold">{{ comentario.autor_apellido }}</p>
         </div>
         <p class="mb-2">{{ comentario.contenido }}</p>
-        {% if not comentario.respuesta and session.get('user_id') == publicacion.id_usuario %}
+        {% if not comentario.respuesta and session.get('user_id') == publicacion.id_usuario and publicacion.id_visibilidad != 3 and publicacion.id_visibilidad != 4 %}
         <div class="flex flex-row mt-4 text-center">
           <button
             onclick="toggleAnswerForm('{{ comentario.id }}')"
