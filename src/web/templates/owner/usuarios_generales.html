@@ -38,13 +38,15 @@
   <div id="noMatchMessage" class="hidden mb-4 text-2xl font-extrabold text-green-shade">No existen coincidencias</div>
   <div id="popup" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
     <div class="p-8 bg-white rounded-md shadow-lg">
-      <h2 class="mb-4 text-2xl font-bold">Opciones de Usuario</h2>
-      <p id="penalizaciones-count" class="mb-4">Penalizaciones: <span id="penalizaciones-numero"></span></p>
-      <button id="penalizar-btn" class="px-4 py-2 mb-2 text-white bg-red-500 rounded-md">Penalizar</button>
-      <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white bg-red-500 rounded-md">Eliminar</button>
-      <button id="close-popup" class="px-4 py-2 text-white bg-gray-500 rounded-md">Cerrar</button>
+        <h2 class="mb-4 text-2xl font-bold">Opciones de Usuario</h2>
+        <p class="mb-4">Nombre: <span id="usuario-nombre"></span></p>
+        <p class="mb-4">Email: <span id="usuario-email"></span></p>
+        <p class="mb-4">Penalizaciones: <span id="penalizaciones-numero"></span></p>
+        <button id="penalizar-btn" class="px-4 py-2 mb-2 text-white bg-red-500 rounded-md">Penalizar</button>
+        <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white bg-red-500 rounded-md">Eliminar</button>
+        <button id="close-popup" class="px-4 py-2 text-white bg-gray-500 rounded-md">Cerrar</button>
     </div>
-  </div>
+</div>
   
 </main>
 
@@ -91,36 +93,49 @@
     const penalizarBtn = document.getElementById('penalizar-btn');
     const eliminarBtn = document.getElementById('eliminar-btn');
     const penalizacionesNumero = document.getElementById('penalizaciones-numero');
+    const usuarioNombre = document.getElementById('usuario-nombre');
+    const usuarioEmail = document.getElementById('usuario-email');
     let currentUserId = null;
   
     emailFilter.addEventListener('input', (event) => {
       const filterValue = event.target.value.toLowerCase();
       let matchCount = 0;
-      tableRows.forEach((row) => {
-        const emailCell = row.querySelector('td:nth-child(3)');
-        const email = emailCell.textContent.toLowerCase();
-  
-        if (email.startsWith(filterValue)) {
-          row.classList.remove('hidden');
-          matchCount++;
-        } else {
-          row.classList.add('hidden');
-        }
-      });
-      if (matchCount === 0) {
-        noMatchMessage.classList.remove('hidden');
+      if (filterValue === '') {
+          tableRows.forEach(row => row.classList.remove('hidden'));
+          noMatchMessage.classList.add('hidden');
       } else {
-        noMatchMessage.classList.add('hidden');
+          tableRows.forEach((row) => {
+              const emailCell = row.querySelector('td:nth-child(3)');
+              const email = emailCell.textContent.toLowerCase();
+
+              if (email.startsWith(filterValue)) {
+                  row.classList.remove('hidden');
+                  matchCount++;
+              } else {
+                  row.classList.add('hidden');
+              }
+          });
+          if (matchCount === 0) {
+              noMatchMessage.classList.remove('hidden');
+          } else {
+              noMatchMessage.classList.add('hidden');
+          }
       }
-    });
+  });
   
     tableRows.forEach(row => {
       row.addEventListener('click', (event) => {
-        currentUserId = row.getAttribute('data-usuario-id');
-        fetchPenalizaciones(currentUserId);
-        popup.classList.remove('hidden');
+          currentUserId = row.getAttribute('data-usuario-id');
+          const nombreCell = row.querySelector('td:nth-child(1)');
+          const emailCell = row.querySelector('td:nth-child(3)');
+          const penalizacionesCell = row.querySelector('td:nth-child(4)');
+
+          usuarioNombre.textContent = nombreCell.textContent;
+          usuarioEmail.textContent = emailCell.textContent;
+          fetchPenalizaciones(currentUserId);
+          popup.classList.remove('hidden');
       });
-    });
+  });
   
     closePopupBtn.addEventListener('click', () => {
       popup.classList.add('hidden');
@@ -162,9 +177,12 @@
           }
         })
         .then(data => {
-          console.log('Penalización realizada:', data);
+          console.log('Acción realizada:', data);
           // Cerrar el popup y actualizar la página
           popup.classList.add('hidden');
+          if (data.action === 'deleted') {
+            alert('El usuario ha sido eliminado debido a demasiadas penalizaciones.');
+          }
           window.location.reload();
         })
         .catch(error => {
@@ -174,8 +192,23 @@
   
     function eliminarUsuario(userId) {
       // Lógica para eliminar al usuario
-      console.log('Eliminando usuario con ID:', userId);
-      // Aquí iría la llamada a tu API para eliminar al usuario.
+      fetch(`/eliminar_usuario/${userId}`, { method: 'DELETE' })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Error al eliminar al usuario');
+          }
+        })
+        .then(data => {
+          console.log('Usuario eliminado:', data);
+          // Cerrar el popup y actualizar la página
+          popup.classList.add('hidden');
+          window.location.reload();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
   });
   
