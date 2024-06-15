@@ -20,7 +20,7 @@
       {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido", "Email", "DNI", "Fecha de Nacimiento", "Teléfono")) }}
       <tbody>
         {% for usuario in usuarios %}
-        <tr class="text-black bg-very-light-yellow-green">
+        <tr class="text-black cursor-pointer bg-very-light-yellow-green" data-usuario-id="{{ usuario.id }}">
           <td class="py-4 break-words">{{ usuario.nombre }}</td>
           <td class="py-4 break-words">{{ usuario.apellido }}</td>
           <td class="py-4 break-words">{{ usuario.email }}</td>
@@ -30,11 +30,22 @@
         </tr>
         {% endfor %}
       </tbody>
+      
       {% endcall %}
     </div>
     {% endif %}
   </section>
   <div id="noMatchMessage" class="hidden mb-4 text-2xl font-extrabold text-green-shade">No existen coincidencias</div>
+  <div id="popup" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
+    <div class="p-8 bg-white rounded-md shadow-lg">
+      <h2 class="mb-4 text-2xl font-bold">Opciones de Usuario</h2>
+      <p id="penalizaciones-count" class="mb-4">Penalizaciones: <span id="penalizaciones-numero"></span></p>
+      <button id="penalizar-btn" class="px-4 py-2 mb-2 text-white bg-red-500 rounded-md">Penalizar</button>
+      <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white bg-red-500 rounded-md">Eliminar</button>
+      <button id="close-popup" class="px-4 py-2 text-white bg-gray-500 rounded-md">Cerrar</button>
+    </div>
+  </div>
+  
 </main>
 
 <script>
@@ -64,5 +75,77 @@
         }
     });
   });
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const emailFilter = document.getElementById('emailFilter');
+    const tableRows = Array.from(document.querySelectorAll('tbody tr'));
+    const noMatchMessage = document.getElementById('noMatchMessage');
+    const popup = document.getElementById('popup');
+    const closePopupBtn = document.getElementById('close-popup');
+    const penalizarBtn = document.getElementById('penalizar-btn');
+    const eliminarBtn = document.getElementById('eliminar-btn');
+    const penalizacionesNumero = document.getElementById('penalizaciones-numero');
+    let currentUserId = null;
+  
+    emailFilter.addEventListener('input', (event) => {
+      const filterValue = event.target.value.toLowerCase();
+      let matchCount = 0;
+      tableRows.forEach((row) => {
+        const emailCell = row.querySelector('td:nth-child(3)');
+        const email = emailCell.textContent.toLowerCase();
+  
+        if (email.startsWith(filterValue)) {
+          row.classList.remove('hidden');
+          matchCount++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+      if (matchCount === 0) {
+        noMatchMessage.classList.remove('hidden');
+      } else {
+        noMatchMessage.classList.add('hidden');
+      }
+    });
+  
+    tableRows.forEach(row => {
+      row.addEventListener('click', (event) => {
+        currentUserId = row.getAttribute('data-usuario-id');
+        fetchPenalizaciones(currentUserId);
+        popup.classList.remove('hidden');
+      });
+    });
+  
+    closePopupBtn.addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
+  
+    penalizarBtn.addEventListener('click', () => {
+      penalizarUsuario(currentUserId);
+    });
+  
+    eliminarBtn.addEventListener('click', () => {
+      eliminarUsuario(currentUserId);
+    });
+  
+    function fetchPenalizaciones(userId) {
+      // Aquí harías una llamada a tu API para obtener el número de penalizaciones.
+      // Esto es solo un ejemplo estático.
+      penalizacionesNumero.textContent = "3"; // Reemplaza esto con el número real de penalizaciones.
+    }
+  
+    function penalizarUsuario(userId) {
+      // Lógica para penalizar al usuario
+      console.log('Penalizando usuario con ID:', userId);
+      // Aquí iría la llamada a tu API para penalizar al usuario.
+    }
+  
+    function eliminarUsuario(userId) {
+      // Lógica para eliminar al usuario
+      console.log('Eliminando usuario con ID:', userId);
+      // Aquí iría la llamada a tu API para eliminar al usuario.
+    }
+  });
+  
 </script>
 {% endblock %}
