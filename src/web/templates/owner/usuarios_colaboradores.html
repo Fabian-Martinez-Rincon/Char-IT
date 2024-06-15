@@ -22,7 +22,7 @@
         {% for usuario in usuarios %}
         <tr 
             class="text-black bg-very-light-yellow-green" 
-            onclick="confirmarEliminacion(event)"
+            onclick="confirmarEliminar(event)"
             data-email="{{usuario.email}}"
             data-href="{{url_for('eliminar_colaborador.eliminar_colaborador', user_id=usuario.id)}}">
             <td class="py-4 break-words">{{ usuario.nombre }}</td>
