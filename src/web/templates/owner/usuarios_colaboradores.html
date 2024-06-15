@@ -20,13 +20,17 @@
       {% call Table.Table() %} {{ Table.TableHeader(("Nombre", "Apellido", "Email")) }}
       <tbody>
         {% for usuario in usuarios %}
-        <tr class="text-black bg-very-light-yellow-green">
-          <td class="py-4 break-words">{{ usuario.nombre }}</td>
-          <td class="py-4 break-words">{{ usuario.apellido }}</td>
-          <td class="py-4 break-words">{{ usuario.email }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
+        <tr 
+            class="text-black bg-very-light-yellow-green" 
+            onclick="confirmarEliminacion(event)"
+            data-email="{{usuario.email}}"
+            data-href="{{url_for('eliminar_colaborador.eliminar_colaborador', user_id=usuario.id)}}">
+            <td class="py-4 break-words">{{ usuario.nombre }}</td>
+            <td class="py-4 break-words">{{ usuario.apellido }}</td>
+            <td class="py-4 break-words">{{ usuario.email }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
       {% endcall %}
     </div>
     {% endif %}    
@@ -42,23 +46,47 @@
     emailFilter.addEventListener('input', (event) => {
         const filterValue = event.target.value.toLowerCase();
         let matchCount = 0;
-        tableRows.forEach((row) => {
-            const emailCell = row.querySelector('td:nth-child(3)');
-            const email = emailCell.textContent.toLowerCase();
+        if (filterValue === ''){
+          tableRows.forEach(row => row.classList.remove('hidden'));
+          noMatchMessage.classList.add('hidden');
+        }else{
+          tableRows.forEach((row) => {
+              const emailCell = row.querySelector('td:nth-child(3)');
+              const email = emailCell.textContent.toLowerCase();
 
-            if (email.startsWith(filterValue)) {
-                row.classList.remove('hidden');
-                matchCount++;
-            } else {
-                row.classList.add('hidden');
-            }
-        });
-        if (matchCount === 0) {
-            noMatchMessage.classList.remove('hidden');
-        } else {
-            noMatchMessage.classList.add('hidden');
+              if (email.startsWith(filterValue)) {
+                  row.classList.remove('hidden');
+                  matchCount++;
+              } else {
+                  row.classList.add('hidden');
+              }
+          });
+          if (matchCount === 0) {
+              noMatchMessage.classList.remove('hidden');
+          } else {
+              noMatchMessage.classList.add('hidden');
+          }
         }
+    }
+  );
+  });
+  document.addEventListener('DOMContentLoaded', (event) => {
+    function confirmarEliminar(event) {
+      const email = event.currentTarget.dataset.email;
+      const confirmacion = confirm(`¿Estás seguro de que deseas eliminar a ${email}?`);
+      if (!confirmacion) {
+        event.preventDefault();
+      } else {
+        window.location.href = event.currentTarget.dataset.href;
+      }
+    }
+
+    // Asigna el evento onclick a cada fila <tr>
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('click', confirmarEliminar);
     });
   });
+
 </script>
 {% endblock %}
