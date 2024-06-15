@@ -135,15 +135,41 @@
     });
   
     function fetchPenalizaciones(userId) {
-      // Aquí harías una llamada a tu API para obtener el número de penalizaciones.
-      // Esto es solo un ejemplo estático.
-      penalizacionesNumero.textContent = "3"; // Reemplaza esto con el número real de penalizaciones.
+      fetch(`/get_penaltis/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            penalizacionesNumero.textContent = data.penaltis;
+          } else {
+            console.error('Error al obtener penalizaciones:', data.error);
+            penalizacionesNumero.textContent = 'Error';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          penalizacionesNumero.textContent = 'Error';
+        });
     }
   
     function penalizarUsuario(userId) {
       // Lógica para penalizar al usuario
-      console.log('Penalizando usuario con ID:', userId);
-      // Aquí iría la llamada a tu API para penalizar al usuario.
+      fetch(`/penalizar_usuario/${userId}`)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Error al penalizar al usuario');
+          }
+        })
+        .then(data => {
+          console.log('Penalización realizada:', data);
+          // Cerrar el popup y actualizar la página
+          popup.classList.add('hidden');
+          window.location.reload();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
   
     function eliminarUsuario(userId) {
