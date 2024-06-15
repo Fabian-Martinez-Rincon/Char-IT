@@ -60,43 +60,41 @@ endblock %} {% endblock %} {% block base_body %}
       {{ Menu.Menu(informationComunLogged) }}
       
       {% if session.rol_id == 3 %}   <!-- owner -->
-        <!-- Proximos a agregar
-        ["Listar Historial de Donaciones", ""] 
-        ["Registrar Donación en efectivo", ""],
-        ["Registrar Donacion de Produto", ""], -->
+        
         {% set informationOwner = [
           ["Listar Usuarios", "/generales"],
           ["Listar Colaboradores", "/colaboradores"],
           ["Registrar Colaborador", "/registrar_colaborador"],
           ["Listar Intercambios Pendientes", "/pendientes"],
-          ["Listar Historial de Intercambios", "/historial_intercambios"]
+          ["Listar Historial de Intercambios", "/historial_intercambios"],
+          ["Registrar Donación en efectivo", ""],
+          ["Registrar Donacion de Produto", ""],
+          ["Listar Historial de Donaciones", ""]
         ] %}       
         {{ Menu.Menu(informationOwner) }}
         
-      {% elif session.rol_id == 2 %}    <!-- Colaborador -->
-        <!-- Proximos a agregar
-        ["Registrar Donación en efectivo", ""],
-        ["Registrar Donacion de Produto", ""], -->
+      {% elif session.rol_id == 2 %}    <!-- Colaborador -->      
         {% set informationColaborador = [
           ["Listar Usuarios", "/generales"],
           ["Listar Intercambios Pendientes", "/pendientes"],
-          ["Listar Historial de Intercambios", "/historial_intercambios"]
+          ["Listar Historial de Intercambios", "/historial_intercambios"],
+          ["Registrar Donación en efectivo", ""],
+          ["Registrar Donacion de Produto", ""]
         ] %}
         {{ Menu.Menu(informationColaborador) }}
         
       {% elif session.rol_id == 1 %}   <!-- Usuario -->
-        <!-- ["Listar Mi Historial de Donaciones", ""], -->
-        <!-- ["Donar con Tarjeta", ""] -->
-        {% set informationGeneral = [
-          ["Subir Publicación", "/subir_publi"],
-          ["Listar Mis Publicaciones", "/mis_publicaciones"],
-          ["Listar Ofertas Recibidas", "/ofertas_recibidas"],
-          ["Listar Ofertas Enviadas", "/ofertas_enviadas"],          
+      {% set informationGeneral = [
+        ["Subir Publicación", "/subir_publi"],
+        ["Listar Mis Publicaciones", "/mis_publicaciones"],
+        ["Listar Ofertas Recibidas", "/ofertas_recibidas"],
+        ["Listar Ofertas Enviadas", "/ofertas_enviadas"],          
+        ["Donar con Tarjeta", ""],
+        ["Listar Mi Historial de Donaciones", ""]
         ] %}
-        {{ Menu.Menu(informationGeneral) }}
-        
+        {{ Menu.Menu(informationGeneral) }}        
       {% endif %}
-      
+            
       <li>
         <a
           href="{{ url_for('root.logout') }}"
