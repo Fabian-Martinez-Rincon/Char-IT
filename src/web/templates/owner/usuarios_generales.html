@@ -57,23 +57,29 @@
     emailFilter.addEventListener('input', (event) => {
         const filterValue = event.target.value.toLowerCase();
         let matchCount = 0;
-        tableRows.forEach((row) => {
-            const emailCell = row.querySelector('td:nth-child(3)');
-            const email = emailCell.textContent.toLowerCase();
+        if (filterValue === ''){
+          tableRows.forEach(row => row.classList.remove('hidden'));
+          noMatchMessage.classList.add('hidden');
+        }else{
+          tableRows.forEach((row) => {
+              const emailCell = row.querySelector('td:nth-child(3)');
+              const email = emailCell.textContent.toLowerCase();
 
-            if (email.startsWith(filterValue)) {
-              row.classList.remove('hidden');
-              matchCount++;
-            } else {
-              row.classList.add('hidden');
-            }
-        });
-        if (matchCount === 0) {
-          noMatchMessage.classList.remove('hidden');
-        } else {
-            noMatchMessage.classList.add('hidden');
+              if (email.startsWith(filterValue)) {
+                  row.classList.remove('hidden');
+                  matchCount++;
+              } else {
+                  row.classList.add('hidden');
+              }
+          });
+          if (matchCount === 0) {
+              noMatchMessage.classList.remove('hidden');
+          } else {
+              noMatchMessage.classList.add('hidden');
+          }
         }
-    });
+    }
+  );
   });
 
   document.addEventListener('DOMContentLoaded', (event) => {
