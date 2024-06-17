@@ -69,7 +69,7 @@ endblock %} {% endblock %} {% block base_body %}
           ["Listar Historial de Intercambios", "/historial_intercambios"],
           ["Registrar Donación en efectivo", ""],
           ["Registrar Donacion de Produto", ""],
-          ["Listar Historial de Donaciones", ""]
+          ["Listar Historial de Donaciones", "/todas_donaciones"]
         ] %}       
         {{ Menu.Menu(informationOwner) }}
         
@@ -90,7 +90,7 @@ endblock %} {% endblock %} {% block base_body %}
         ["Listar Ofertas Recibidas", "/ofertas_recibidas"],
         ["Listar Ofertas Enviadas", "/ofertas_enviadas"],          
         ["Donar con Tarjeta", ""],
-        ["Listar Mi Historial de Donaciones", ""]
+        ["Listar Mi Historial de Donaciones", "/mis_donaciones"]
         ] %}
         {{ Menu.Menu(informationGeneral) }}        
       {% endif %}
