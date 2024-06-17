@@ -12,3 +12,5 @@ from src.core.models.comentario import Comentario
 from src.core.models.oferta import Oferta
 from src.core.models.notificacion import Notificacion
 from src.core.models.respuesta import Respuesta
+from src.core.models.tipo import Tipo
+from src.core.models.donacion import Donacion
