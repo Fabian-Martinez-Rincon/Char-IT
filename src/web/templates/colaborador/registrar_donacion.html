@@ -11,6 +11,23 @@
     <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl text-green-shade">
       Registrar Donación en Efectivo
     </h1>
-    
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    <div class="mb-4">
+      <label for="email" class="block font-bold text-gray-700">Email</label>
+      {{ form.email(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+    </div>
+    <div class="mb-4">
+      <label for="telefono" class="block font-bold text-gray-700">Telefono</label>
+      {{ form.telefono(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+    </div>
+    <div class="mb-4">
+      <label for="monto" class="block font-bold text-gray-700">Monto a Donar</label>
+      {{ form.monto(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
+    </div>
+    <div class="flex justify-center gap-10">
+      {{ form.submit(class="px-4 py-2 font-bold text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade") }}
+    </div>
+  </form>
   </main>
 {% endblock %}
