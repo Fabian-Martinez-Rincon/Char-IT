@@ -14,11 +14,15 @@
   <form method="POST" enctype="multipart/form-data">
     {{ form.csrf_token }}
     <div class="mb-4">
+      <label for="checkbox" class="block font-bold text-gray-700">¿No está Registrado?</label>
+      <input type="checkbox" id="checkbox" onchange="toggleTelephoneInput()">
+    </div>
+    <div class="mb-4">
       <label for="email" class="block font-bold text-gray-700">Email</label>
       {{ form.email(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
     </div>
-    <div class="mb-4">
-      <label for="telefono" class="block font-bold text-gray-700">Telefono</label>
+    <div class="mb-4" id="telephoneInput" style="display: none;">
+      <label for="telefono" class="block font-bold text-gray-700">Teléfono</label>
       {{ form.telefono(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
     </div>
     <div class="mb-4">
@@ -30,4 +34,15 @@
     </div>
   </form>
   </main>
+  <script>
+    function toggleTelephoneInput() {
+      var telephoneInput = document.getElementById("telephoneInput");
+      var checkbox = document.getElementById("checkbox");
+      if (checkbox.checked) {
+        telephoneInput.style.display = "block";
+      } else {
+        telephoneInput.style.display = "none";
+      }
+    }
+  </script>
 {% endblock %}

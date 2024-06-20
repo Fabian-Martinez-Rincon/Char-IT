@@ -36,12 +36,18 @@ def registrar_donacion_post():
     form = RegistrarDonacionForm()
     if form.validate_on_submit():
         email = form.email.data
+        aux = Usuario.query.filter_by(email=email).first()
         telefono = form.telefono.data
+        if (aux):
+            telefono = Usuario.query.filter_by(email=email).first().telefono     
+        elif(telefono == ""):
+            flash('El campo telefono está vacio.', 'error')
+            return redirect(url_for('registrar_donacion.registrar_donacion', form=form))
+        
         monto = form.monto.data
-        id_categoria = 10
-        id_tipo = 2
-        fecha_donacion = datetime.now()
-        donacion = Donacion(email=email, telefono=telefono, monto=monto, id_categoria=id_categoria, id_tipo=id_tipo, fecha_donacion=fecha_donacion)
+        id_categoria = 10 # Categoria Otros
+        id_tipo = 2 # Tipo Efectivo
+        donacion = Donacion(email=email, telefono=telefono, monto=monto, id_categoria=id_categoria, id_tipo=id_tipo)
         db.session.add(donacion)
         db.session.commit()
         flash('Donación registrada con éxito.', 'success')
