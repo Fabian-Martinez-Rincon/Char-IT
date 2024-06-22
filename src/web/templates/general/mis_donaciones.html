@@ -1,46 +1,51 @@
-{% extends "_layouts/app.html" %}
-{% block head %}
+{% extends "_layouts/app.html" %}{% import "_macros/table.html" as
+Table %} {% block head %}
 <title>Historial de Donaciones</title>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <main class="flex flex-col items-center min-h-screen">
-    <section class="w-full max-w-4xl px-4 py-12 text-center">
-        <div class="flex items-center justify-center">
-            <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
-                Historial de Donaciones
-            </h1>
-        </div>
-        {% if mensaje %}
-        <p>{{ mensaje }}</p>
-    {% else %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Donación</th>
-                    <th>Tipo de Donación</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for donacion in donaciones %}
-                    <tr>
-                        {% if donacion.id_tipo == 1 %} <!-- Producto -->
-                            <td>{{ donacion.descripcion }}</td>
-                            <td>{{ donacion.categoria.nombre }}</td>
-                        {% elif donacion.id_tipo == 2 %} <!-- Efectivo -->
-                            <td>{{ donacion.monto }}</td>
-                            <td>Efectivo</td>
-                        {% elif donacion.id_tipo == 3 %} <!-- Tarjeta -->
-                            <td>{{ donacion.monto }} </br> (Nro Comprobante: {{ donacion.descripcion }}) </td>
-                            <td>Tarjeta</td>
-                        {% endif %}
-                        <td>{{ donacion.fecha_donacion.strftime('%Y-%m-%d %H:%M') }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
-    </section>
+  <section class="w-full max-w-4xl px-4 py-12 text-center">
+    <div class="flex items-center justify-center">
+      <h1
+        class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
+        Historial de Donaciones
+      </h1>
+    </div>
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% else %} {% call Table.Table() %} {{
+    Table.TableHeader(("Donación", "Tipo de Donación", "Fecha")) }}
+    <tbody>
+      {% for donacion in donaciones %}
+      <tr class="text-black bg-very-light-yellow-green">
+        {% if donacion.id_tipo == 1 %}
+        <!-- Producto -->
+        <td class="py-4 break-words whitespace-normal">
+          {{ donacion.descripcion }}
+        </td>
+        <td class="py-4 break-words whitespace-normal">
+          {{ donacion.categoria.nombre }}
+        </td>
+        {% elif donacion.id_tipo == 2 %}
+        <!-- Efectivo -->
+        <td class="py-4 break-words whitespace-normal">
+          $ {{ donacion.monto }}
+        </td>
+        <td class="py-4 break-words whitespace-normal">Efectivo</td>
+        {% elif donacion.id_tipo == 3 %}
+        <!-- Tarjeta -->
+        <td class="py-4 break-words whitespace-normal">
+          $ {{ donacion.monto }} <br />
+          (Nro Comprobante: {{ donacion.descripcion }})
+        </td>
+        <td class="py-4 break-words whitespace-normal">Tarjeta</td>
+        {% endif %}
+        <td>
+          {{ donacion.fecha_donacion.strftime('%Y-%m-%d %H:%M') }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% endcall %} {% endif %}
+  </section>
 </main>
 {% endblock %}
