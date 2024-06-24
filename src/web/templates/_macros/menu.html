@@ -1,7 +1,10 @@
 {% macro Menu(information) %} {% for info in information %}
 <li>
-  <a href="{{ info[1] }}" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">
-    {{ info[0] }}
+  <a
+    href="{{ info[1] }}"
+    class="flex flex-row px-4 py-2 text-center hover:bg-gray-100 whitespace-nowrap">
+    <div class="pr-2">{{ info[2] }}</div>
+    <span style="align-content: center">{{ info[0] }}</span>
   </a>
 </li>
 {% endfor %} {% endmacro %}

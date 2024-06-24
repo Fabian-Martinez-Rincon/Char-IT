@@ -2,7 +2,7 @@ import os
 import json
 from datetime import datetime
 from src.core.models.database import db
-from src.core.models import Filial, Usuario, Rol, Publicacion, Categoria, Visibilidad, Estado, Oferta, Tipo
+from src.core.models import Filial, Usuario, Rol, Publicacion, Categoria, Visibilidad, Estado, Oferta, Tipo, Donacion
 
 def cargar_datos(filename):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -28,7 +28,8 @@ def seed_db():
             Publicacion: 'publicaciones.json',            
             Estado: 'estados.json',
             # Oferta: 'ofertas.json'
-            Tipo: 'tipos.json'
+            Tipo: 'tipos.json',
+            Donacion: 'donaciones.json'
         }
         
         for entidad, archivo in entidades_datos.items():

@@ -1,0 +1,141 @@
+{% extends "_layouts/app.html" %} {% block head %}
+<title>Donar con tarjeta</title>
+{% endblock %} {% block content %}
+<main class="min-h-screen bg-very-light-yellow-green">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-12 overflow-hidden rounded-lg lg:px-8">
+    <div>
+      <div class="flex flex-row">
+        <h1
+          class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
+          Donar con tarjeta
+        </h1>
+        <svg
+          class="pb-2"
+          xmlns="http://www.w3.org/2000/svg"
+          width="64"
+          height="64"
+          viewBox="0 0 24 24">
+          <path
+            fill="#92b268"
+            d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v5.325q-.45-.325-.95-.575T20 10.325V8H4v4h9q-.975.95-1.537 2.238T10.9 17q0 .8.175 1.563t.5 1.437zm13.9.5L14.4 17q-.325-.325-.462-.7t-.138-.75q0-.8.575-1.425t1.475-.625q.7 0 1.1.325t.95.875q.5-.5.913-.85t1.137-.35q.925 0 1.488.638T22 15.574q0 .375-.15.75T21.4 17z" />
+        </svg>
+      </div>
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        action="{{url_for('donar_con_tarjeta.donar_con_tarjeta')}}">
+        {{ form.hidden_tag() }}
+        <div class="mb-4">
+          <label for="Monto" class="block font-bold text-gray-700"
+            >Monto</label
+          >
+          {{ form.monto(placeholder="$", class="w-full text-gray-900
+          border border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg") }}
+        </div>
+        <div class="mb-4">
+          <label
+            for="tarjetas_habilitadas"
+            class="block font-bold text-gray-700"
+            >Tarjetas habilitadas</label
+          >
+          {{ form.tarjetas_habilitadas(class="w-full text-gray-900
+          border border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg") }}
+        </div>
+        <div class="mb-4">
+          <label
+            for="numero_tarjeta"
+            class="block font-bold text-gray-700"
+            >Número de tarjeta</label
+          >
+          {{ form.numero_tarjeta(class="w-full text-gray-900 border
+          border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg", type="text", pattern="\d*", title="Ingrese solo
+          números", minlength="16", maxlength="16",
+          required="required") }} {% if form.numero_tarjeta.errors %}
+          <div class="mt-1 text-red-500">
+            {% for error in form.numero_tarjeta.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="mb-4">
+          <label
+            for="fecha_expiracion"
+            class="block font-bold text-gray-700"
+            >Fecha de expiración</label
+          >
+          {{ form.fecha_expiracion(class="w-full text-gray-900 border
+          border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg",size=32, maxlength="5", placeholder="MM/AA",
+          pattern="(0[1-9]|1[0-2])\/([0-9]{2})", title="MM/AA") }} {%
+          if form.fecha_expiracion.errors %}
+          <div class="mt-1 text-red-500">
+            {% for error in form.fecha_expiracion.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="mb-4">
+          <label
+            for="codigo_seguridad"
+            class="block font-bold text-gray-700"
+            >Código de seguridad</label
+          >
+          {{ form.codigo_seguridad(class="w-full text-gray-900 border
+          border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg",type="text", pattern="\d*", title="Ingrese solo
+          números", minlength="3", maxlength="3", required="required")
+          }}
+        </div>
+        <div class="mb-4">
+          <label
+            for="nombre_titular"
+            class="flex font-bold text-gray-700"
+            >Nombre del titular
+            <p class="font-serif font-thin text-gray-500">
+              &nbsp;(Como aparece en la tarjeta)
+            </p>
+          </label>
+          {{ form.nombre_titular(class="w-full text-gray-900 border
+          border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg", style="text-transform: uppercase;") }}
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block font-bold text-gray-700"
+            >Correo electrónico</label
+          >
+          {{ form.email(class="w-full text-gray-900 border
+          border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg") }}
+        </div>
+        <div class="mb-4">
+          <label for="telefono" class="block font-bold text-gray-700"
+            >Teléfono</label
+          >
+          {{ form.telefono(class="w-full text-gray-900 border
+          border-gray-300 rounded focus:outline-none
+          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
+          sm:text-lg") }}
+        </div>
+        <div class="flex flex-row justify-center gap-4 mt-4">
+          {{ form.submit(class="px-4 py-2 font-bold text-white
+          transition duration-300 rounded bg-cyan-shade
+          hover:bg-green-cyan-shade") }}
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}
