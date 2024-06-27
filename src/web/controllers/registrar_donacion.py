@@ -4,6 +4,7 @@ from src.core.models.database import db
 from src.core.models.usuario import Usuario
 from src.core.models.donacion import Donacion
 from src.web.formularios.registrar_donacion import RegistrarDonacionForm
+from src.core.models.notificacion import Notificacion
 
 from flask import (
     Blueprint,
@@ -36,21 +37,33 @@ def registrar_donacion_post():
     form = RegistrarDonacionForm()
     if form.validate_on_submit():
         email = form.email.data
-        aux = Usuario.query.filter_by(email=email).first()
-        telefono = form.telefono.data
-        if (aux):
-            telefono = Usuario.query.filter_by(email=email).first().telefono     
-        elif not(aux) and not(telefono):
-            flash('El usuario no se encuentra registrado. Complete los campos como corresponde.', 'error')
-            return redirect(url_for('registrar_donacion.registrar_donacion', form=form))
+        usuario = Usuario.query.filter_by(email=email).first()
+        nombre = form.nombre.data
+        apellido = form.apellido.data
+        telefono = form.telefono.data if 'telefono' in request.form else None
+        if not nombre and not apellido:
+            usuario = Usuario.query.filter_by(email=email).first()
+            if usuario:
+                nombre = usuario.nombre
+                apellido = usuario.apellido
+                telefono = usuario.telefono
+            else:
+                flash('El usuario no se encuentra registrado. Complete los campos como corresponde.', 'error')
+                return render_template('colaborador/registrar_donacion.html', form=form)
         
         monto = form.monto.data
-        id_categoria = 10 # Categoria Otros
         id_tipo = 2 # Tipo Efectivo
-        donacion = Donacion(email=email, telefono=telefono, monto=monto, id_categoria=id_categoria, id_tipo=id_tipo)
+        donacion = Donacion(
+            email=email, 
+            nombre=nombre,
+            apellido=apellido,
+            telefono=telefono, 
+            monto=monto, 
+            id_tipo=id_tipo)
         db.session.add(donacion)
         db.session.commit()
+        Notificacion.donacionEfectivo(donacion.id)
         flash('Donación registrada con éxito.', 'success')
-        return redirect(url_for('root.index_get'))
+        return redirect(url_for('registrar_donacion.registrar_donacion'))
     
     return render_template("/colaborador/registrar_donacion.html", form=form)
