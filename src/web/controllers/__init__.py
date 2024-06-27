@@ -1,8 +1,8 @@
 import flask
-from src.web.controllers import root, registrar, registrar_colaborador, editar_publi, cambiar_visibilidad, editar_perfil, eliminar_publi, subir_publi, pendientes, ofertar_publi, rechazarOferta, confirmar_intercambio, cancelar_intercambio, aceptarOferta, eliminar_colaborador, usuario_operaciones, todas_donaciones, mis_donaciones, donar_con_tarjeta, registrar_donacion
+from src.web.controllers import root, registrar, registrar_colaborador, editar_publi, cambiar_visibilidad, editar_perfil, eliminar_publi, subir_publi, pendientes, ofertar_publi, rechazarOferta, confirmar_intercambio, cancelar_intercambio, aceptarOferta, eliminar_colaborador, usuario_operaciones, todas_donaciones, mis_donaciones, donar_con_tarjeta, registrar_producto, registrar_donacion
 
 _blueprints = (
-    root.bp, registrar.bp, registrar_colaborador.bp, editar_publi.bp, eliminar_publi.bp, cambiar_visibilidad.bp, subir_publi.bp, editar_perfil.bp, pendientes.bp, ofertar_publi.bp, rechazarOferta.bp, confirmar_intercambio.bp, cancelar_intercambio.bp, aceptarOferta.bp, eliminar_colaborador.bp, usuario_operaciones.bp, todas_donaciones.bp, mis_donaciones.bp, donar_con_tarjeta.bp, registrar_donacion.bp
+    root.bp, registrar.bp, registrar_colaborador.bp, editar_publi.bp, eliminar_publi.bp, cambiar_visibilidad.bp, subir_publi.bp, editar_perfil.bp, pendientes.bp, ofertar_publi.bp, rechazarOferta.bp, confirmar_intercambio.bp, cancelar_intercambio.bp, aceptarOferta.bp, eliminar_colaborador.bp, usuario_operaciones.bp, todas_donaciones.bp, mis_donaciones.bp, donar_con_tarjeta.bp, registrar_producto.bp, registrar_donacion.bp
 )
 
 def init_app(app: flask.Flask):

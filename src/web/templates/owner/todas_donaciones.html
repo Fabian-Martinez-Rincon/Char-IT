@@ -14,11 +14,13 @@
                 <p>{{ mensaje }}</p>
             {% else %}
                 {% call Table.Table() %}
-                    {{ Table.TableHeader(("Email", "Teléfono", "Donación", "Tipo de Donación", "Fecha")) }}
+                    {{ Table.TableHeader(("Email", "Apellido", "Nombre", "Teléfono", "Donación", "Tipo de Donación", "Fecha")) }}
                     <tbody>
                         {% for donacion in donaciones %}
                         <tr class="text-black bg-very-light-yellow-green">
                             <td class="py-4 break-words whitespace-normal">{{ donacion.email }}</td>
+                            <td class="py-4 break-words whitespace-normal">{{ donacion.apellido }}</td>
+                            <td class="py-4 break-words whitespace-normal">{{ donacion.nombre }}</td>
                             <td class="py-4 break-words whitespace-normal">{{ donacion.telefono or 'No proporcionado' }}</td>
                             {% if donacion.id_tipo == 1 %} <!-- Producto -->
                                 <td class="py-4 break-words whitespace-normal">{{ donacion.descripcion }}</td>
