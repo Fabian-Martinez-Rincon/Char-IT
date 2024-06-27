@@ -3,6 +3,7 @@ from src.core.models.oferta import Oferta
 from src.core.models.publicacion import Publicacion
 from src.core.models.comentario import Comentario
 from src.core.models.usuario import Usuario
+from src.core.models.donacion import Donacion
 from flask_mail import Mail, Message
 from flask import current_app
 
@@ -180,7 +181,7 @@ class Notificacion(db.Model):
         
         self.send_mail(Ofrecido.id_usuario, new_notificacion.descripcion) 
         self.send_mail(Solicitado.id_usuario, new_notificacion2.descripcion)
-        db.session.add(new_notificacion)
+        db.session.add(new_notificacion, new_notificacion2)
         db.session.commit()        
 
     @classmethod
@@ -206,5 +207,42 @@ class Notificacion(db.Model):
         
         self.send_mail(Ofrecido.id_usuario, new_notificacion.descripcion) 
         self.send_mail(Solicitado.id_usuario, new_notificacion2.descripcion)
-        db.session.add(new_notificacion)
+        db.session.add(new_notificacion, new_notificacion2)
         db.session.commit()        
+        
+    @classmethod
+    def donacionProducto(self, id_donacion: int)->None:
+        """
+        envia la notificacion cuando se re registra la donacion de un producto
+        """
+        donacion  = Donacion.query.filter_by(id=id_donacion).first()
+        usuario = Usuario.query.filter_by(email=donacion.email).first()
+        owner = Usuario.query.filter_by(email="hopetrade08@gmail.com").first()
+        if usuario: 
+            new_notificacion = Notificacion(id_usuario= usuario.id, descripcion="Hemos registrado con exito su donacion del Producto: \n"+donacion.descripcion+" \n¡Muchas Gracias por Ayudarnos a ayudar! ")
+            self.send_mail(usuario.id, new_notificacion.descripcion)
+            new_notificacion2 = Notificacion(id_usuario= owner.id, descripcion="Hemos registrado con exito una nueva donacion. \n Descripcion del Producto: \n"+donacion.descripcion+" \nCategoria del Producto: \n"+donacion.categoria.nombre)
+            self.send_mail(owner.id, new_notificacion2.descripcion)
+            db.session.add(new_notificacion, new_notificacion2)
+        else: 
+            descripcion = "Hemos registrado con exito su donacion del Producto: \n"+donacion.descripcion+" \n¡Muchas Gracias por Ayudarnos a ayudar!"
+            self.send_mail2(donacion.email, descripcion)
+            new_notificacion2 = Notificacion(id_usuario= owner.id, descripcion="Hemos registrado con exito una nueva donacion. \n Descripcion del Producto: \n"+donacion.descripcion+" \nCategoria del Producto: \n"+donacion.categoria.nombre)
+            self.send_mail(owner.id, new_notificacion2.descripcion)
+            db.session.add(new_notificacion2)
+        db.session.commit()
+        
+    @staticmethod
+    def send_mail2(email: str, descripcion: str)->None:
+        """
+        Send the confirmation email to the user.
+        """
+        app = current_app._get_current_object()
+        mail = Mail(app)
+        subject = 'Nueva Notificacion'
+        sender = app.config['MAIL_DEFAULT_SENDER']
+        recipients = [email]
+        message = f'¡Atencion! Se le notifica que:\n{descripcion}'
+        msg = Message(subject, sender=sender, recipients=recipients)
+        msg.body = message
+        mail.send(msg)
