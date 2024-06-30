@@ -248,7 +248,7 @@ endblock %} {% block base_body %}
             svg_registrarColaborador], ["Listar Intercambios
             Pendientes", "/pendientes", svg_pendientes], ["Listar
             Historial de Intercambios", "/historial_intercambios",
-            svg_intercambios], ["Registrar Donación en efectivo", "registrar_donacion",
+            svg_intercambios], ["Registrar Donación en efectivo", "/registrar_donacion",
             svg_regitrarDonacionEfectivo], ["Registrar Donacion de
             Produto", "/registrar_producto", svg_regitrarDonacionProducto], ["Listar
             Historial de Donaciones", "/todas_donaciones",
@@ -259,9 +259,9 @@ endblock %} {% block base_body %}
             "/generales", svg_generales], ["Listar Intercambios
             Pendientes", "/pendientes", svg_pendientes], ["Listar
             Historial de Intercambios", "/historial_intercambios",
-            svg_intercambios], ["Registrar Donación en efectivo", "registrar_donacion",
+            svg_intercambios], ["Registrar Donación en efectivo", "/registrar_donacion",
             svg_regitrarDonacionEfectivo], ["Registrar Donacion de
-            Produto", "",svg_regitrarDonacionProducto] ] %} {{
+            Produto", "/registrar_producto",svg_regitrarDonacionProducto] ] %} {{
             Menu.Menu(informationColaborador) }} {% elif
             session.rol_id == 1 %}
             <!-- Usuario -->
