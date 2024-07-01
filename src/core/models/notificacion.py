@@ -268,3 +268,27 @@ class Notificacion(db.Model):
             self.send_mail(owner.id, new_notificacion2.descripcion)
             db.session.add(new_notificacion2)
         db.session.commit()
+        
+    @classmethod
+    def informarPenalizacion(self, id_usuario: int, motivo: str) -> None:
+        """
+        Envia una notificacion y un correo electronico al usuario cuando recibe una penalizacion
+        """
+        usuario = Usuario.query.filter_by(id=id_usuario).first()
+        descripcion = f"Has recibido una penalización. Motivo: {motivo}"
+        new_notificacion = Notificacion(id_usuario=id_usuario, descripcion=descripcion)
+        self.send_mail(id_usuario, descripcion)
+        db.session.add(new_notificacion)
+        db.session.commit()
+    
+    @classmethod
+    def informarEliminacionUsuario(self, id_usuario: int, motivo: str) -> None:
+        """
+        Envía una notificación y un correo electrónico al usuario cuando es eliminado.
+        """
+        usuario = Usuario.query.filter_by(id=id_usuario).first()
+        descripcion = f"Tu cuenta ha sido eliminada. Motivo: {motivo}"
+        new_notificacion = Notificacion(id_usuario=id_usuario, descripcion=descripcion)
+        self.send_mail(id_usuario, descripcion)
+        db.session.add(new_notificacion)
+        db.session.commit()
