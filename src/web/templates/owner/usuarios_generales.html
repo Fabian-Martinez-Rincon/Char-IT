@@ -30,18 +30,20 @@ Table %} {% block head %}
       }}
       <tbody>
         {% for usuario in usuarios %}
-        <tr
-          class="text-black cursor-pointer bg-very-light-yellow-green"
-          data-usuario-id="{{ usuario.id }}">
-          <td class="py-4 break-words">{{ usuario.nombre }}</td>
-          <td class="py-4 break-words">{{ usuario.apellido }}</td>
-          <td class="py-4 break-words">{{ usuario.email }}</td>
-          <td class="py-4 break-words">{{ usuario.dni }}</td>
-          <td class="py-4 break-words">
-            {{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}
-          </td>
-          <td class="py-4 break-words">{{ usuario.telefono }}</td>
-        </tr>
+          {% if usuario.penaltis < 3 %}
+            <tr
+              class="text-black cursor-pointer bg-very-light-yellow-green"
+              data-usuario-id="{{ usuario.id }}">
+              <td class="py-4 break-words">{{ usuario.nombre }}</td>
+              <td class="py-4 break-words">{{ usuario.apellido }}</td>
+              <td class="py-4 break-words">{{ usuario.email }}</td>
+              <td class="py-4 break-words">{{ usuario.dni }}</td>
+              <td class="py-4 break-words">
+                {{ usuario.fecha_nacimiento.strftime('%Y-%m-%d') }}
+              </td>
+              <td class="py-4 break-words">{{ usuario.telefono }}</td>
+            </tr>
+          {% endif %}
         {% endfor %}
       </tbody>
 
@@ -54,39 +56,19 @@ Table %} {% block head %}
     class="hidden mb-4 text-2xl font-extrabold text-green-shade">
     No existen coincidencias
   </div>
-  <div
-    id="popup"
-    class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
+  <div id="popup" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
     <div class="p-8 bg-white rounded-md shadow-yellow-green-shade">
-      <h2
-        class="mb-4 text-2xl font-bold text-center text-green-shade">
-        Opciones de Usuario
-      </h2>
-      <p class="mb-4">
-        Nombre: <span id="usuario-nombre"></span>
-        <span id="usuario-apellido"></span>
-      </p>
-      <p class="mb-4">Email: <span id="usuario-email"></span></p>
-      <p class="mb-4">
-        Penalizaciones: <span id="penalizaciones-numero"></span>
-      </p>
-      <button
-        id="penalizar-btn"
-        class="px-4 py-2 mb-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700">
-        Penalizar
-      </button>
-      <button
-        id="eliminar-btn"
-        class="px-4 py-2 mb-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700">
-        Eliminar
-      </button>
-      <button
-        id="close-popup"
-        class="px-4 py-2 text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-800">
-        Cerrar
-      </button>
+        <h2 class="mb-4 text-2xl font-bold text-center text-green-shade">Opciones de Usuario</h2>
+        <p class="mb-4">Nombre: <span id="usuario-nombre"></span> <span id="usuario-apellido"></span></p>
+        <p class="mb-4">Email: <span id="usuario-email"></span></p>
+        <p class="mb-4">Penalizaciones: <span id="penalizaciones-numero"></span></p>
+        <textarea id="motivo" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="Ingrese el motivo aquí..."></textarea>
+        <button id="penalizar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-yellow-500 rounded hover:bg-red-700">Penalizar</button>
+        <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700">Eliminar</button>
+        <button id="close-popup" class="px-4 py-2 text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-800">Cerrar</button>
     </div>
-  </div>
+</div>
+
 </main>
 
 <script>
@@ -126,145 +108,151 @@ Table %} {% block head %}
 
   document.addEventListener("DOMContentLoaded", (event) => {
     const emailFilter = document.getElementById("emailFilter");
-    const tableRows = Array.from(
-      document.querySelectorAll("tbody tr")
-    );
+    const tableRows = Array.from(document.querySelectorAll("tbody tr"));
     const noMatchMessage = document.getElementById("noMatchMessage");
     const popup = document.getElementById("popup");
     const closePopupBtn = document.getElementById("close-popup");
     const penalizarBtn = document.getElementById("penalizar-btn");
     const eliminarBtn = document.getElementById("eliminar-btn");
-    const penalizacionesNumero = document.getElementById(
-      "penalizaciones-numero"
-    );
+    const penalizacionesNumero = document.getElementById("penalizaciones-numero");
     const usuarioNombre = document.getElementById("usuario-nombre");
-    const usuarioApellido = document.getElementById(
-      "usuario-apellido"
-    );
+    const usuarioApellido = document.getElementById("usuario-apellido");
     const usuarioEmail = document.getElementById("usuario-email");
+    const motivoInput = document.getElementById("motivo");
     let currentUserId = null;
 
     emailFilter.addEventListener("input", (event) => {
-      const filterValue = event.target.value.toLowerCase();
-      let matchCount = 0;
-      if (filterValue === "") {
-        tableRows.forEach((row) => row.classList.remove("hidden"));
-        noMatchMessage.classList.add("hidden");
-      } else {
-        tableRows.forEach((row) => {
-          const emailCell = row.querySelector("td:nth-child(3)");
-          const email = emailCell.textContent.toLowerCase();
-
-          if (email.startsWith(filterValue)) {
-            row.classList.remove("hidden");
-            matchCount++;
-          } else {
-            row.classList.add("hidden");
-          }
-        });
-        if (matchCount === 0) {
-          noMatchMessage.classList.remove("hidden");
+        const filterValue = event.target.value.toLowerCase();
+        let matchCount = 0;
+        if (filterValue === "") {
+            tableRows.forEach((row) => row.classList.remove("hidden"));
+            noMatchMessage.classList.add("hidden");
         } else {
-          noMatchMessage.classList.add("hidden");
+            tableRows.forEach((row) => {
+                const emailCell = row.querySelector("td:nth-child(3)");
+                const email = emailCell.textContent.toLowerCase();
+
+                if (email.startsWith(filterValue)) {
+                    row.classList.remove("hidden");
+                    matchCount++;
+                } else {
+                    row.classList.add("hidden");
+                }
+            });
+            if (matchCount === 0) {
+                noMatchMessage.classList.remove("hidden");
+            } else {
+                noMatchMessage.classList.add("hidden");
+            }
         }
-      }
     });
 
     tableRows.forEach((row) => {
-      row.addEventListener("click", (event) => {
-        currentUserId = row.getAttribute("data-usuario-id");
-        const nombreCell = row.querySelector("td:nth-child(1)");
-        const apellidoCell = row.querySelector("td:nth-child(2)");
-        const emailCell = row.querySelector("td:nth-child(3)");
-        const penalizacionesCell =
-          row.querySelector("td:nth-child(4)");
+        row.addEventListener("click", (event) => {
+            currentUserId = row.getAttribute("data-usuario-id");
+            const nombreCell = row.querySelector("td:nth-child(1)");
+            const apellidoCell = row.querySelector("td:nth-child(2)");
+            const emailCell = row.querySelector("td:nth-child(3)");
 
-        usuarioNombre.textContent = nombreCell.textContent;
-        usuarioApellido.textContent = apellidoCell.textContent;
-        usuarioEmail.textContent = emailCell.textContent;
-        fetchPenalizaciones(currentUserId);
-        popup.classList.remove("hidden");
-      });
+            usuarioNombre.textContent = nombreCell.textContent;
+            usuarioApellido.textContent = apellidoCell.textContent;
+            usuarioEmail.textContent = emailCell.textContent;
+            fetchPenalizaciones(currentUserId);
+            popup.classList.remove("hidden");
+        });
     });
 
     closePopupBtn.addEventListener("click", () => {
-      popup.classList.add("hidden");
+        popup.classList.add("hidden");
     });
 
     penalizarBtn.addEventListener("click", () => {
-      penalizarUsuario(currentUserId);
+        const motivo = motivoInput.value.trim();
+        if (!motivo) {
+            alert("Por favor, ingrese un motivo.");
+            return;
+        }
+        penalizarUsuario(currentUserId, motivo);
     });
 
     eliminarBtn.addEventListener("click", () => {
-      eliminarUsuario(currentUserId);
+        const motivo = motivoInput.value.trim();
+        if (!motivo) {
+            alert("Por favor, ingrese un motivo.");
+            return;
+        }
+        eliminarUsuario(currentUserId, motivo);
     });
 
     function fetchPenalizaciones(userId) {
-      fetch(`/get_penaltis/${userId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            penalizacionesNumero.textContent = data.penaltis;
-          } else {
-            console.error(
-              "Error al obtener penalizaciones:",
-              data.error
-            );
-            penalizacionesNumero.textContent = "Error";
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          penalizacionesNumero.textContent = "Error";
-        });
+        fetch(`/get_penaltis/${userId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    penalizacionesNumero.textContent = data.penaltis;
+                } else {
+                    console.error("Error al obtener penalizaciones:", data.error);
+                    penalizacionesNumero.textContent = "Error";
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                penalizacionesNumero.textContent = "Error";
+            });
     }
 
-    function penalizarUsuario(userId) {
-      // Lógica para penalizar al usuario
-      fetch(`/penalizar_usuario/${userId}`)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Error al penalizar al usuario");
-          }
+    function penalizarUsuario(userId, motivo) {
+        fetch(`/penalizar_usuario/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ motivo })
         })
-        .then((data) => {
-          console.log("Acción realizada:", data);
-          // Cerrar el popup y actualizar la página
-          popup.classList.add("hidden");
-          if (data.action === "deleted") {
-            alert(
-              "El usuario ha sido eliminado debido a demasiadas penalizaciones."
-            );
-          }
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Error al penalizar al usuario");
+                }
+            })
+            .then((data) => {
+                console.log("Acción realizada:", data);
+                popup.classList.add("hidden");
+                if (data.action === 'deleted') {
+                    alert('El usuario ha sido eliminado debido a demasiadas penalizaciones.');
+                }
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     }
 
-    function eliminarUsuario(userId) {
-      // Lógica para eliminar al usuario
-      fetch(`/eliminar_usuario/${userId}`, { method: "DELETE" })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Error al eliminar al usuario");
-          }
+    function eliminarUsuario(userId, motivo) {
+        fetch(`/eliminar_usuario/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ motivo })
         })
-        .then((data) => {
-          console.log("Usuario eliminado:", data);
-          // Cerrar el popup y actualizar la página
-          popup.classList.add("hidden");
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Error al eliminar al usuario");
+                }
+            })
+            .then((data) => {
+                console.log("Usuario eliminado:", data);
+                popup.classList.add("hidden");
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     }
-  });
+});
 </script>
 {% endblock %}
