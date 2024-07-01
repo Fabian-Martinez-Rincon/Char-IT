@@ -12,6 +12,7 @@ def todas_donaciones():
         flash('No tienes permisos para realizar esta operación.', 'error')
         return redirect(url_for('root.index_get'))
     donaciones = Donacion.query.order_by(Donacion.fecha_donacion.asc()).all()
+    donaciones.reverse()
     if not donaciones:
         mensaje = "No hay donaciones disponibles."
         return render_template('owner/todas_donaciones.html', mensaje=mensaje)

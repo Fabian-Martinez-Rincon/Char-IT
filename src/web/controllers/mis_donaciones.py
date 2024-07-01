@@ -14,7 +14,7 @@ def todas_donaciones():
         return redirect(url_for('root.index_get'))
     email = Usuario.query.filter_by(id=session.get('user_id')).first().email
     mis_donaciones = Donacion.query.filter_by(email=email).order_by(Donacion.fecha_donacion.asc()).all()
-    print(email)
+    mis_donaciones.reverse()
     if not mis_donaciones:
         mensaje = "No hay donaciones disponibles."
         return render_template('general/mis_donaciones.html', mensaje=mensaje)

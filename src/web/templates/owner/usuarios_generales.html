@@ -63,9 +63,11 @@ Table %} {% block head %}
         <p class="mb-4">Email: <span id="usuario-email"></span></p>
         <p class="mb-4">Penalizaciones: <span id="penalizaciones-numero"></span></p>
         <textarea id="motivo" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="Ingrese el motivo aquí..."></textarea>
-        <button id="penalizar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-yellow-500 rounded hover:bg-red-700">Penalizar</button>
-        <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700">Eliminar</button>
-        <button id="close-popup" class="px-4 py-2 text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-800">Cerrar</button>
+        <div class="flex items-center justify-center gap-2">
+          <button id="penalizar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-yellow-500 rounded hover:bg-red-700">Penalizar</button>
+          <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700">Eliminar</button>
+          <button id="close-popup" class="px-4 py-2 mb-2 text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-800">Cerrar</button>
+        </div>
     </div>
 </div>
 

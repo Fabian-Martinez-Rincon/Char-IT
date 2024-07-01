@@ -22,7 +22,7 @@
         {% for usuario in usuarios %}
         {% if usuario.penaltis < 3 %}
         <tr
-            class="text-black bg-very-light-yellow-green cursor-pointer"
+            class="text-black cursor-pointer bg-very-light-yellow-green"
             data-email="{{usuario.email}}"
             data-usuario-id="{{usuario.id}}">
             <td class="py-4 break-words">{{ usuario.nombre }}</td>
@@ -42,8 +42,10 @@
       <h2 class="mb-4 text-2xl font-bold text-center text-green-shade">Opciones de Usuario</h2>
       <p class="mb-4">Nombre: <span id="usuario-nombre"></span> <span id="usuario-apellido"></span></p>
       <p class="mb-4">Email: <span id="usuario-email"></span></p>
-      <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700">Eliminar</button>
-      <button id="close-popup" class="px-4 py-2 text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-800">Cerrar</button>
+      <div class="flex items-center justify-center gap-2">        
+        <button id="eliminar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-red-500 rounded hover:bg-red-700">Eliminar</button>
+        <button id="close-popup" class="px-4 py-2 mb-2 text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-800">Cerrar</button>
+      </div>
     </div>
   </div>
 </main>
