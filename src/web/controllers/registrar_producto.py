@@ -27,21 +27,27 @@ def registrar_donacion():
         email = form.email.data
         descripcion = form.descripcion.data
         id_categoria = form.categoria.data
-
         nombre = form.nombre.data
         apellido = form.apellido.data
         telefono = form.telefono.data if 'telefono' in request.form else None
-
+        usuario = Usuario.query.filter_by(email=email).first()
+        
         if not nombre and not apellido:
-            usuario = Usuario.query.filter_by(email=email).first()
             if usuario:
+                if usuario.id_rol != 1:
+                    flash('El donante no puede ser ni Dueño, ni Colaborador. Complete los campos como corresponde.', 'error')
+                    return render_template('owner/registrar_producto.html', form=form)
                 nombre = usuario.nombre
                 apellido = usuario.apellido
                 telefono = usuario.telefono
             else:
                 flash('Usuario no registrado. Por favor, complete los datos requeridos.', 'error')
-                return render_template('owner/registrar_producto.html', form=form)
-
+                return redirect(url_for('registrar_producto.registrar_donacion'))
+        else:
+            if usuario:
+                flash('El usuario ya se encuentra registrado. Complete los campos como corresponde.', 'error')
+                return redirect(url_for('registrar_producto.registrar_donacion'))
+        
         nueva_donacion = Donacion(
             email=email,
             descripcion=descripcion,
