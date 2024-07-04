@@ -1,7 +1,7 @@
 [
     {
-        "nombre": "Juan",
-        "apellido": "P\u00e9rez",
+        "nombre": "Luciana Elizabeth",
+        "apellido": "Lamella",
         "password": "pbkdf2:sha256:600000$JSiH5kjFfJGWnjnE$f55058cb83c459fac6073d28e078ade99ef24174cf7fc4a92901d2ed6fede40f",
         "email": "general@gmail.com",
         "dni": "12345678",

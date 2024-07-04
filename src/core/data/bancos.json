@@ -1,0 +1,23 @@
+[  
+  {
+        "tipo": "VISA DEBITO",
+        "nro_tarjeta": "4978260000000000",
+        "vencimiento": "08/27",
+        "cvv": "111",
+        "titular": "LAMELLA LUCIANA ELI",
+        "saldo": 5000.00,
+        "nombre": "Luciana Elizabeth",
+        "apellido": "Lamella"
+    },
+    {
+        "tipo": "CABAL",
+        "nro_tarjeta": "4978260000000000",
+        "vencimiento": "08/27",
+        "cvv": "111",
+        "titular": "LAMELLA LUCIANA ELI",
+        "saldo": 5000.50,
+        "nombre": "Luciana Elizabeth",
+        "apellido": "Lamella",
+        "activo": false
+    }
+]
