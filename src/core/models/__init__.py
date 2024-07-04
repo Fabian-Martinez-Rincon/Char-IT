@@ -14,3 +14,4 @@ from src.core.models.notificacion import Notificacion
 from src.core.models.respuesta import Respuesta
 from src.core.models.tipo import Tipo
 from src.core.models.donacion import Donacion
+from src.core.models.banco import Banco
