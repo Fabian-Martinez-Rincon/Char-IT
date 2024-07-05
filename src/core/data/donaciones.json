@@ -1,3 +1,12 @@
 [
-   
+   {"id_tipo": 2,
+    "email": "general@gmail.com",	
+    "nombre": "Luciana Elizabeth",
+    "apellido": "Lamella",
+	"telefono": "1122334455",		
+    "descripcion": "",
+    "monto": 1000,		
+    "id_categoria": 1,
+    "fecha_donacion": "2024-07-05 16:50:11.761583"
+    }   
 ]
