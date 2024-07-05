@@ -1,4 +1,4 @@
-from flask import request, redirect, url_for, flash, Blueprint, session, jsonify
+from flask import request, redirect, url_for, flash, Blueprint, session, jsonify, render_template
 from src.core.models.publicacion import Publicacion
 from src.core.models.oferta import Oferta
 from src.core.models.estado import Estado
@@ -71,10 +71,13 @@ def eliminar_usuario(user_id):
         # db.session.delete(user)
         db.session.commit()
         flash(f'Usuario {user.email} eliminado correctamente. Motivo: {motivo}', 'success')
+        return jsonify({"success": True, "error": f'Usuario {user.email} eliminado correctamente. Motivo: {motivo}'})
     except Exception as e:
         db.session.rollback()
         flash(f'Error al eliminar el usuario: {str(e)}', 'error')
         return jsonify({"success": False, "error": str(e)})
+    
+
 
 def eliminar_publicaciones_usuario(user_id):
     publicaciones = Publicacion.query.filter_by(id_usuario=user_id).all()

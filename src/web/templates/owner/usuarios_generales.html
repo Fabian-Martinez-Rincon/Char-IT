@@ -115,6 +115,8 @@ Table %} {% block head %}
     const popup = document.getElementById("popup");
     const closePopupBtn = document.getElementById("close-popup");
     const penalizarBtn = document.getElementById("penalizar-btn");
+    
+    
     const eliminarBtn = document.getElementById("eliminar-btn");
     const penalizacionesNumero = document.getElementById("penalizaciones-numero");
     const usuarioNombre = document.getElementById("usuario-nombre");
@@ -174,8 +176,13 @@ Table %} {% block head %}
             alert("Por favor, ingrese un motivo.");
             return;
         }
+        penalizarBtn.disabled = true;
+        eliminarBtn.disabled = true;
+        penalizarBtn.innerText = 'Penalizando...'; 
         penalizarUsuario(currentUserId, motivo);
     });
+
+
 
     eliminarBtn.addEventListener("click", () => {
         const motivo = motivoInput.value.trim();
@@ -183,6 +190,9 @@ Table %} {% block head %}
             alert("Por favor, ingrese un motivo.");
             return;
         }
+        eliminarBtn.disabled = true;
+        penalizarBtn.disabled = true;
+        eliminarBtn.innerText = 'Eliminando...'; 
         eliminarUsuario(currentUserId, motivo);
     });
 
