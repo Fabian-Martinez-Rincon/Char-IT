@@ -110,6 +110,9 @@
     });
 
     eliminarBtn.addEventListener("click", () => {
+      eliminarBtn.disabled = true;
+      
+      eliminarBtn.innerText = 'Eliminando...'; 
       eliminarUsuario(currentUserId);
     });
 
