@@ -43,11 +43,7 @@ def registrar_donacion():
             else:
                 flash('Usuario no registrado. Por favor, complete los datos requeridos.', 'error')
                 return redirect(url_for('registrar_producto.registrar_donacion'))
-        else:
-            if usuario:
-                flash('El usuario ya se encuentra registrado. Complete los campos como corresponde.', 'error')
-                return redirect(url_for('registrar_producto.registrar_donacion'))
-        
+
         nueva_donacion = Donacion(
             email=email,
             descripcion=descripcion,
