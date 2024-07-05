@@ -54,7 +54,7 @@ def usuarios_generales_get():
                     flash('No tienes permiso para realizar esta operacion.', 'error')
                     return redirect(url_for('root.index_get'))
     try:
-        usuarios_rol_2 = Usuario.query.filter(Usuario.id_rol == 1).all()
+        usuarios_rol_2 = Usuario.query.filter((Usuario.id_rol == 1) & (Usuario.penaltis != 3)).all()
         if not usuarios_rol_2:
             mensaje = "No existen usuarios generales cargados en el sistema"
             return render_template("/owner/usuarios_generales.html", mensaje=mensaje)
@@ -73,7 +73,7 @@ def usuarios_colaboradores_get():
                 flash('No tienes permiso para realizar esta operacion.', 'error')
                 return redirect(url_for('root.index_get'))
     try:
-        usuarios_rol_3 = Usuario.query.filter(Usuario.id_rol == 2).all()
+        usuarios_rol_3 = Usuario.query.filter((Usuario.id_rol == 2) & (Usuario.penaltis != 3)).all()
         if not usuarios_rol_3:
             mensaje = "No existen usuarios colaboradores cargados en el sistema"
             return render_template("/owner/usuarios_colaboradores.html", mensaje=mensaje)

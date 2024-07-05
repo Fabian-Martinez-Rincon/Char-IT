@@ -7,31 +7,34 @@
 <main class="flex flex-col items-center min-h-screen">
     <section class="w-full max-w-4xl px-4 py-12 text-center">
         <div class="overflow-x-auto">
+            
             <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
                 Historial de Donaciones
             </h1>
-            <div class="flex w-1/2 mb-4 space-x-4 ">
-                <!--  -->
-                <select id="donationFilter" class="rounded">
-                    <option value="" selected disabled>Seleccione una opción</option>
-                    <option value="Producto">Producto</option>
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Tarjeta">Tarjeta</option>
-                </select>                                               
-            </div>
-            
-            <div class="flex flex-row">
-                <div class="flex mb-4">
-                    <input required="required" id="initialDateFilter" type="text" placeholder="Fecha inicial" class="px-3 py-2 border border-gray-300 rounded-md">    
-                </div>   
-                <div class="flex px-4 mb-4 ">
-                    <input required="required" id="endDateFilter" type="text" placeholder="Fecha final" class="px-3 py-2 border border-gray-300 rounded-md">
-                </div>      
-                <div class="flex mb-4">
-                    <button type="button" id="dateFilterButton" class="px-4 py-2 text-base font-medium text-white transition duration-300 ease-in-out border border-transparent rounded-md group bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade">Filtrar por Fecha</button>
+            {% if donaciones %}
+                <div class="flex w-1/2 mb-4 space-x-4 ">
+                    <!--  -->
+                    <select id="donationFilter" class="rounded">
+                        <option value="" selected >Todos</option>
+                        <option value="Producto">Producto</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                    </select>                                               
                 </div>
-            </div>
-            <div id="errMessage" class="hidden mb-4 text-2xl font-extrabold text-red-700">Error</div>
+                
+                <div class="flex flex-row">
+                    <div class="flex mb-4">
+                        <input type="date" required="required" id="initialDateFilter" type="text" placeholder="Fecha inicial" class="px-3 py-2 border border-gray-300 rounded-md">    
+                    </div>   
+                    <div class="flex px-4 mb-4 ">
+                        <input type="date" required="required" id="endDateFilter" type="text" placeholder="Fecha final" class="px-3 py-2 border border-gray-300 rounded-md">
+                    </div>      
+                    <div class="flex mb-4">
+                        <button type="button" id="dateFilterButton" class="px-4 py-2 text-base font-medium text-white transition duration-300 ease-in-out border border-transparent rounded-md group bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade">Filtrar por Fecha</button>
+                    </div>
+                </div>
+                <div id="errMessage" class="hidden mb-4 text-2xl font-extrabold text-red-700">Error</div>
+            {% endif %}
             {% if mensaje %}
                 <div>
                     <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
@@ -46,7 +49,7 @@
                             <td class="py-4 break-words whitespace-normal">{{ donacion.telefono or 'No proporcionado' }}</td>
                             {% if donacion.id_tipo == 1 %} <!-- Producto -->
                                 <td class="py-4 break-words whitespace-normal">{{ donacion.descripcion }}</td>
-                                <td class="py-4 break-words whitespace-normal">{{ donacion.categoria.nombre }}</td>
+                                <td class="py-4 break-words whitespace-normal">Producto</td>
                             {% elif donacion.id_tipo == 2 %} <!-- Efectivo -->
                                 <td class="py-4 break-words whitespace-normal"> $ {{ donacion.monto }}</td>
                                 <td class="py-4 break-words whitespace-normal">Efectivo</td>
