@@ -268,6 +268,28 @@ class Notificacion(db.Model):
             self.send_mail(owner.id, new_notificacion2.descripcion)
             db.session.add(new_notificacion2)
         db.session.commit()
+
+    @classmethod
+    def donacionTarjeta(self, id_donacion: int)->None:
+        """
+        envia la notificacion cuando se re registra la donacion con tarjeta
+        """
+        donacion  = Donacion.query.filter_by(id=id_donacion).first()
+        usuario = Usuario.query.filter_by(email=donacion.email).first()
+        owner = Usuario.query.filter_by(email="hopetrade08@gmail.com").first()
+        if usuario: 
+            new_notificacion = Notificacion(id_usuario= usuario.id, descripcion="Hemos registrado con exito su donacion con tarjeta del monto: \n"+str(donacion.monto)+" \n¡Muchas Gracias por Ayudarnos a ayudar! ")
+            self.send_mail(usuario.id, new_notificacion.descripcion)
+            new_notificacion2 = Notificacion(id_usuario= owner.id, descripcion="Hemos registrado con exito una nueva donacion con tarjeta. \n Monto: \n"+str(donacion.monto))
+            self.send_mail(owner.id, new_notificacion2.descripcion)
+            db.session.add(new_notificacion, new_notificacion2)
+        else: 
+            descripcion = "Hemos registrado con exito su donacion con tarjeta del monto: \n"+str(donacion.monto)+" \n¡Muchas Gracias por Ayudarnos a ayudar! "
+            self.send_mail2(donacion.email, descripcion)
+            new_notificacion2 = Notificacion(id_usuario= owner.id, descripcion="Hemos registrado con exito una nueva donacion con tarjeta. \n Monto: \n"+str(donacion.monto))
+            self.send_mail(owner.id, new_notificacion2.descripcion)
+            db.session.add(new_notificacion2)
+        db.session.commit()
         
     @classmethod
     def informarPenalizacion(self, id_usuario: int, motivo: str) -> None:

@@ -11,7 +11,9 @@
                 Historial de Donaciones
             </h1>
             {% if mensaje %}
-                <p>{{ mensaje }}</p>
+                <div>
+                    <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
+                </div>
             {% else %}
                 {% call Table.Table() %}
                     {{ Table.TableHeader(("Email", "Apellido", "Nombre", "Teléfono", "Donación", "Tipo de Donación", "Fecha")) }}

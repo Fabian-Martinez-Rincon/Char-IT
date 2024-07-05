@@ -14,7 +14,7 @@ def todas_donaciones():
     donaciones = Donacion.query.order_by(Donacion.fecha_donacion.asc()).all()
     donaciones.reverse()
     if not donaciones:
-        mensaje = "No hay donaciones disponibles."
+        mensaje = "No existen donaciones realizados en el sistema."
         return render_template('owner/todas_donaciones.html', mensaje=mensaje)
     
     return render_template('owner/todas_donaciones.html', donaciones=donaciones)

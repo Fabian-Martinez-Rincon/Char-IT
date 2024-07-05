@@ -30,10 +30,7 @@
           <label for="Monto" class="block font-bold text-gray-700"
             >Monto</label
           >
-          {{ form.monto(placeholder="$", class="w-full text-gray-900
-          border border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg") }}
+          {{ form.monto(placeholder="$", class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
         </div>
         <div class="mb-4">
           <label
@@ -41,10 +38,7 @@
             class="block font-bold text-gray-700"
             >Tarjetas habilitadas</label
           >
-          {{ form.tarjetas_habilitadas(class="w-full text-gray-900
-          border border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg") }}
+          {{ form.tarjetas_habilitadas(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg") }}
         </div>
         <div class="mb-4">
           <label
@@ -52,10 +46,7 @@
             class="block font-bold text-gray-700"
             >Número de tarjeta</label
           >
-          {{ form.numero_tarjeta(class="w-full text-gray-900 border
-          border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg", type="text", pattern="\d*", title="Ingrese solo
+          {{ form.numero_tarjeta(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", type="text", pattern="\d*", title="Ingrese solo
           números", minlength="16", maxlength="16",
           required="required") }} {% if form.numero_tarjeta.errors %}
           <div class="mt-1 text-red-500">
@@ -71,10 +62,7 @@
             class="block font-bold text-gray-700"
             >Fecha de expiración</label
           >
-          {{ form.fecha_expiracion(class="w-full text-gray-900 border
-          border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg",size=32, maxlength="5", placeholder="MM/AA",
+          {{ form.fecha_expiracion(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg",size=32, maxlength="5", placeholder="MM/AA",
           pattern="(0[1-9]|1[0-2])\/([0-9]{2})", title="MM/AA") }} {%
           if form.fecha_expiracion.errors %}
           <div class="mt-1 text-red-500">
@@ -90,10 +78,7 @@
             class="block font-bold text-gray-700"
             >Código de seguridad</label
           >
-          {{ form.codigo_seguridad(class="w-full text-gray-900 border
-          border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg",type="text", pattern="\d*", title="Ingrese solo
+          {{ form.codigo_seguridad(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg",type="text", pattern="\d*", title="Ingrese solo
           números", minlength="3", maxlength="3", required="required")
           }}
         </div>
@@ -106,36 +91,25 @@
               &nbsp;(Como aparece en la tarjeta)
             </p>
           </label>
-          {{ form.nombre_titular(class="w-full text-gray-900 border
-          border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg", style="text-transform: uppercase;") }}
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block font-bold text-gray-700"
-            >Correo electrónico</label
-          >
-          {{ form.email(class="w-full text-gray-900 border
-          border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg") }}
-        </div>
-        <div class="mb-4">
-          <label for="telefono" class="block font-bold text-gray-700"
-            >Teléfono</label
-          >
-          {{ form.telefono(class="w-full text-gray-900 border
-          border-gray-300 rounded focus:outline-none
-          focus:ring-cyan-shade focus:border-cyan-shade focus:z-10
-          sm:text-lg") }}
-        </div>
+          {{ form.nombre_titular(class="w-full text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-cyan-shade focus:border-cyan-shade focus:z-10 sm:text-lg", style="text-transform: uppercase;") }}
+        </div>       
         <div class="flex flex-row justify-center gap-4 mt-4">
-          {{ form.submit(class="px-4 py-2 font-bold text-white
-          transition duration-300 rounded bg-cyan-shade
-          hover:bg-green-cyan-shade") }}
+          {{ form.submit(id="submit_button", class="px-4 py-2 font-bold text-white transition duration-300 rounded bg-cyan-shade hover:bg-green-cyan-shade") }}
         </div>
       </form>
     </div>
   </div>
-</main>
+</main> 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const submitButton = document.getElementById('submit_button');
+
+    form.addEventListener('submit', function() {
+      submitButton.disabled = true;
+      submitButton.innerText = 'Enviando...'; // Cambia el texto del botón si lo deseas
+    });
+  });
+</script>
 {% endblock %}
+
