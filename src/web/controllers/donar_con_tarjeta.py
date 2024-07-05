@@ -41,51 +41,36 @@ def donar_con_tarjeta():
     def validar_codigo_seguridad(form, tarjeta):
         return form.codigo_seguridad.data == tarjeta.cvv    
     
+    def validar_nombre_titular(form, tarjeta):
+        return form.nombre_titular.data == tarjeta.titular
     form = DonarConTarjeta()    
 
     try: 
-        if form.validate_on_submit():        
-            print('Validado')
+        if form.validate_on_submit():                    
             num_tarjeta = form.numero_tarjeta.data            
             tarjeta = Banco.query.filter_by(nro_tarjeta=num_tarjeta).first()
+
             if not tarjeta:
                 flash('La tarjeta ingresada no está habilitada para donar.', 'error')
                 return redirect(url_for('donar_con_tarjeta.donar_con_tarjeta'))
-            print(tarjeta.activo)
+            
             if not tarjeta.activo:
                 flash('Fallo la conexión con el banco.', 'error')
                 return redirect(url_for('donar_con_tarjeta.donar_con_tarjeta'))
             if tarjeta:                
                 usuario = Usuario.query.filter_by(id=session.get('user_id')).first()               
+                
+                if tarjeta.nombre.upper() != usuario.nombre.upper() or tarjeta.apellido.upper() != usuario.apellido.upper():                    
+                    flash('La donación debe hacerse con una tarjeta a su nombre', 'error')
+                    return redirect(url_for('donar_con_tarjeta.donar_con_tarjeta'))
+                
+                
+                if not validar_codigo_seguridad(form, tarjeta) or not validar_fecha_expiracion(form, tarjeta) or not validar_tipo(form, tarjeta) or not validar_nombre_titular(form, tarjeta):                                    
+                    flash('Los datos de la tarjeta son invalidos.', 'error')
+                    return render_template('/general/donar_con_tarjeta.html', form=form)
 
-                if tarjeta.nombre != usuario.nombre or tarjeta.apellido != usuario.apellido:
-                    form.nombre_titular.data = ''
-                    flash('La donación debe hacerce con una tarjeta a su nombre', 'error')
-                    return render_template('/general/donar_con_tarjeta.html', form=form)                
-                
                 if not validar_monto(form, tarjeta):
-                    form.monto.data = 0.0
-                    print(form.monto.data)
                     flash('El monto ingresado supera el saldo de la tarjeta.', 'error')
-                    return render_template('/general/donar_con_tarjeta.html', form=form)
-                
-                if not validar_tipo(form, tarjeta):
-                    flash('El tipo de tarjeta no coincide.', 'error')
-                    return render_template('/general/donar_con_tarjeta.html', form=form)
-                
-                if not validar_fecha_expiracion(form, tarjeta):
-                    form.fecha_expiracion.data = ''
-                    flash('La fecha de expiración no coincide.', 'error')
-                    return render_template('/general/donar_con_tarjeta.html', form=form)
-                
-                if not validar_codigo_seguridad(form, tarjeta):
-                    form.codigo_seguridad.data = ''
-                    flash('El código de seguridad no coincide.', 'error')
-                    return render_template('/general/donar_con_tarjeta.html', form=form)                
-                
-                if tarjeta.titular != form.nombre_titular.data:
-                    form.nombre_titular.data = ''
-                    flash('El nombre del titular no coincide.', 'error')
                     return render_template('/general/donar_con_tarjeta.html', form=form)
                 
                 monto = form.monto.data        
