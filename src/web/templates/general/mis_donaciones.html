@@ -11,7 +11,9 @@ Table %} {% block head %}
       </h1>
     </div>
     {% if mensaje %}
-    <p>{{ mensaje }}</p>
+    <div>
+      <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
+    </div>
     {% else %} {% call Table.Table() %} {{
     Table.TableHeader(("Donación", "Tipo de Donación", "Fecha")) }}
     <tbody>

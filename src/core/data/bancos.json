@@ -1,6 +1,6 @@
 [  
   {
-        "tipo": "VISA DEBITO",
+        "tipo": "VISA",
         "nro_tarjeta": "4978260000000000",
         "vencimiento": "08/27",
         "cvv": "111",
@@ -11,7 +11,7 @@
     },
     {
         "tipo": "CABAL",
-        "nro_tarjeta": "4978260000000000",
+        "nro_tarjeta": "5100010000000114",
         "vencimiento": "08/27",
         "cvv": "111",
         "titular": "LAMELLA LUCIANA ELI",
@@ -19,5 +19,15 @@
         "nombre": "Luciana Elizabeth",
         "apellido": "Lamella",
         "activo": false
+    }, 
+    {
+        "tipo": "MASTERCARD",
+        "nro_tarjeta": "6011000990139424",
+        "vencimiento": "09/24",
+        "cvv": "222",
+        "titular": "GALLARDO FLORID LUCAS",
+        "saldo": 5000.00,
+        "nombre": "Lucas",
+        "apellido": "Gallardo"
     }
 ]
