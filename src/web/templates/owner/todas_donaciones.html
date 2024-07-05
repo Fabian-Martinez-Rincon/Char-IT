@@ -10,6 +10,21 @@
             <h1 class="mb-4 text-3xl font-extrabold text-center md:text-4xl lg:text-5xl text-green-shade">
                 Historial de Donaciones
             </h1>
+            <div class="flex w-1/2 mb-4 space-x-4">
+                <input id="donationFilter" type="text" placeholder="Filtrar por Tipo" class="px-3 py-2 border border-gray-300 rounded-md">    
+            </div>
+            <div class="flex">
+                <div class="flex w-1/2 mb-4 space-x-4">
+                    <input required="required" id="initialDateFilter" type="text" placeholder="Fecha inicial" class="px-3 py-2 border border-gray-300 rounded-md">    
+                </div>   
+                <div class="flex w-1/2 px-4 mb-4 space-x-4">
+                    <input required="required" id="endDateFilter" type="text" placeholder="Fecha final" class="px-3 py-2 border border-gray-300 rounded-md">
+                </div>      
+                <div>
+                    <button type="button" id="dateFilterButton" class="px-4 py-2 text-base font-medium text-white transition duration-300 ease-in-out border border-transparent rounded-md group bg-cyan-shade hover:bg-green-cyan-shade focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-shade">Filtrar por Fecha</button>
+                </div>
+            </div>
+            <div id="errMessage" class="hidden mb-4 text-2xl font-extrabold text-red-700">Error</div>
             {% if mensaje %}
                 <div>
                     <p class="mb-4 text-2xl font-extrabold text-green-shade">{{ mensaje }}</p>
@@ -42,5 +57,99 @@
             {% endif %}
         </div>
     </section>
+    <div id="noMatchMessage" class="hidden mb-4 text-2xl font-extrabold text-green-shade">No existen coincidencias</div>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const donationFilter = document.getElementById('donationFilter');
+        const initialDateFilter = document.getElementById('initialDateFilter');
+        const endDateFilter = document.getElementById('endDateFilter');
+        const dateFilterButton = document.getElementById('dateFilterButton');
+        const tableRows = Array.from(document.querySelectorAll('tbody tr'));
+        const noMatchMessage = document.getElementById('noMatchMessage');
+        const errMessage = document.getElementById('errMessage');
+    
+        const applyFilters = () => {
+            const filterValue = donationFilter.value.toLowerCase();
+            const initialDate = initialDateFilter.value;
+            const endDate = endDateFilter.value;
+            const actDate = new Date().toLocaleDateString('en-CA');
+            let matchCount = 0;
+
+            tableRows.forEach((row) => {
+                const donationCell = row.querySelector('td:nth-child(4)');
+                const donation = donationCell.textContent.toLowerCase();
+                const dateCell = row.querySelector('td:nth-child(5)');
+                const date = dateCell.textContent.substring(0, 10); // Get only the date and not the hours.
+
+                const donationMatch = donation.startsWith(filterValue) || filterValue === '';
+                const dateMatch = (initialDate === '' || endDate === '' || (date >= initialDate && date <= endDate));
+
+                if (donationMatch && dateMatch) {
+                    row.classList.remove('hidden');
+                    matchCount++;
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+
+            if (matchCount === 0) {
+                noMatchMessage.classList.remove('hidden');
+            } else {
+                noMatchMessage.classList.add('hidden');
+            }
+        };
+
+        donationFilter.addEventListener('input', (event) => {
+            applyFilters();
+        },
+        );
+
+        dateFilterButton.addEventListener('click', (event) => {
+            const initialDate = initialDateFilter.value;
+            const endDate = endDateFilter.value;
+            const actDate = new Date().toLocaleDateString('en-CA');
+            
+            let matchCount = 0;
+            if (initialDate === '' || endDate === ''){
+                tableRows.forEach(row => row.classList.remove('hidden'));
+                noMatchMessage.classList.add('hidden');
+                
+                errMessage.classList.remove('hidden');
+                errMessage.textContent = 'Debe ingresar ambas fechas para filtrar.';
+            }
+            else if (initialDate > endDate){
+                errMessage.classList.remove('hidden');
+                errMessage.textContent = 'La fecha inicial no puede ser mayor a la fecha final.';
+            }
+            else if ((actDate < initialDate) || (actDate < endDate)){
+                errMessage.classList.remove('hidden');
+                errMessage.textContent = 'La fecha no puede ser futura al presente.';
+            }
+            else{
+                tableRows.forEach((row) => {
+                    const dateCell = row.querySelector('td:nth-child(5)');
+                    const date = dateCell.textContent.substring(0, 10); //Get only the date and not the hours.
+    
+                    if (date >= initialDate && date <= endDate) {
+                        row.classList.remove('hidden');
+                        matchCount++;
+                    } else {
+                        row.classList.add('hidden');
+                    }
+                });
+                if (matchCount === 0) {
+                    noMatchMessage.classList.remove('hidden');
+                    errMessage.classList.add('hidden');
+                } else {
+                    errMessage.classList.add('hidden');
+                    applyFilters();
+                }
+            }
+        }
+        );
+
+    });
+    
+  </script>
 {% endblock %}
