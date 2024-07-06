@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, session, flash, request, make_response
+from flask_login import login_user, logout_user, current_user
 from src.core.models.estado import Estado
 from src.core.models.filial import Filial  # Importa el modelo Filial
 from src.core.models.usuario import Usuario
@@ -356,17 +357,20 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = Usuario.query.filter_by(email=form.email.data).first()
-        # Usar check_password_hash para verificar la contraseña
         if user and check_password_hash(user.password, form.password.data):
-            session['user_id'] = user.id
-            session['logged_in'] = True
-            session['rol_id'] = user.id_rol
-            # flash('You have successfully logged in!', 'success')
-            flash('Inicio de sesión Exitoso', 'success')
-            return redirect(url_for('root.index_get'))
+            if user.penaltis < 3:  # Verifica si el usuario no ha sido eliminado (penalizado 3 veces)
+                login_user(user)
+                session['user_id'] = user.id
+                session['logged_in'] = True
+                session['rol_id'] = user.id_rol
+                flash('Inicio de sesión Exitoso', 'success')
+                return redirect(url_for('root.index_get'))
+            else:
+                flash('Este usuario ha sido eliminado.', 'error')
         else:
             flash('El mail o contraseña son incorrectos.', 'error')
     return render_template('/comunes/login.html', form=form)
+
 
 @bp.route('/logout')
 def logout():
