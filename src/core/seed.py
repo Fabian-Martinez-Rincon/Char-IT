@@ -27,7 +27,7 @@ def seed_db():
             Visibilidad: 'visibilidades.json',
             Publicacion: 'publicaciones.json',            
             Estado: 'estados.json',
-            # Oferta: 'ofertas.json'
+            Oferta: 'ofertas.json',
             Tipo: 'tipos.json',
             Donacion: 'donaciones.json',
             Banco: 'bancos.json'
