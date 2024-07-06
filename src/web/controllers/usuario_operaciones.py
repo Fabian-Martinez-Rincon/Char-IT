@@ -68,7 +68,6 @@ def eliminar_usuario(user_id):
         eliminar_publicaciones_usuario(user.id)
         user.penaltis = 3  # Establecer penalizaciones en 3 antes de eliminar
         Notificacion.informarEliminacionUsuario(user.id, motivo)
-        # db.session.delete(user)
         db.session.commit()
         flash(f'Usuario General eliminado correctamente', 'success')
         return jsonify({"success": True, "error": f'Usuario {user.email} eliminado correctamente. Motivo: {motivo}'})

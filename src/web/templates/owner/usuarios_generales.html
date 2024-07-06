@@ -202,6 +202,7 @@ Table %} {% block head %}
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
+                    console.log("Penalizaciones:", data.penaltis);
                     penalizacionesNumero.textContent = data.penaltis;
                 } else {
                     console.error("Error al obtener penalizaciones:", data.error);
