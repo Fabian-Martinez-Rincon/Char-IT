@@ -62,6 +62,7 @@ Table %} {% block head %}
         <p class="mb-4">Nombre: <span id="usuario-nombre"></span> <span id="usuario-apellido"></span></p>
         <p class="mb-4">Email: <span id="usuario-email"></span></p>
         <p class="mb-4">Penalizaciones: <span id="penalizaciones-numero"></span></p>
+        <label for="motivo" class="block mb-2">Motivo:</label>
         <textarea id="motivo" class="w-full p-2 mb-4 border border-gray-300 rounded" placeholder="Ingrese el motivo aquí..."></textarea>
         <div class="flex items-center justify-center gap-2">
           <button id="penalizar-btn" class="px-4 py-2 mb-2 text-white transition duration-300 bg-yellow-500 rounded hover:bg-red-700">Penalizar</button>
@@ -231,9 +232,6 @@ Table %} {% block head %}
             .then((data) => {
                 console.log("Acción realizada:", data);
                 popup.classList.add("hidden");
-                if (data.action === 'deleted') {
-                    alert('El usuario ha sido eliminado debido a demasiadas penalizaciones.');
-                }
                 window.location.reload();
             })
             .catch((error) => {
