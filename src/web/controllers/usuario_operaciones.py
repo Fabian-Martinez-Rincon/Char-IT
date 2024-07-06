@@ -28,11 +28,11 @@ def penalizar_usuario(user_id):
             # db.session.delete(user)
             eliminar_publicaciones_usuario(user.id)
             db.session.commit()
-            flash(f'Usuario {user.email} eliminado correctamente debido a demasiadas penalizaciones. Motivo: {motivo}', 'success')
+            flash(f'El usuario fue penalizado y eliminado con éxito', 'success')
             return jsonify({"success": True, "action": "deleted"})
         db.session.commit()
         Notificacion.informarPenalizacion(user.id, motivo)
-        flash(f'Penalización añadida correctamente al usuario {user.email}. Motivo: {motivo}', 'success')
+        flash(f'El usuario fue penalizado con éxito', 'success')
         return jsonify({"success": True, "action": "penalized"})
     except Exception as e:
         db.session.rollback()
@@ -70,7 +70,7 @@ def eliminar_usuario(user_id):
         Notificacion.informarEliminacionUsuario(user.id, motivo)
         # db.session.delete(user)
         db.session.commit()
-        flash(f'Usuario {user.email} eliminado correctamente. Motivo: {motivo}', 'success')
+        flash(f'Usuario General eliminado correctamente', 'success')
         return jsonify({"success": True, "error": f'Usuario {user.email} eliminado correctamente. Motivo: {motivo}'})
     except Exception as e:
         db.session.rollback()

@@ -15,7 +15,7 @@ def eliminar_colaborador(user_id):
         user = Usuario.query.get_or_404(user_id)
         user.penaltis = 3
         db.session.commit()
-        flash(f'Usuario {user.email} eliminado correctamente', 'success')
+        flash(f'Usuario colaborador eliminado correctamente', 'success')
         return jsonify({"success": True, "message": f'Usuario {user.email} eliminado correctamente.'})
     except Exception as e:
         db.session.rollback()
