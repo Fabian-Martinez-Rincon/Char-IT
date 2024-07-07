@@ -58,10 +58,10 @@ def registrar_donacion_post():
         else:
              if usuario:
                 flash('El Usuario ya se encuentra registrado. Complete los campos como corresponde.', 'error')
-                formAux = RegistrarDonacionForm()
-                formAux.email.data = email
-                formAux.monto.data = monto
-                return render_template('colaborador/registrar_donacion.html', form=formAux)
+                form.nombre.data = ""
+                form.apellido.data = ""
+                form.telefono.data = ""
+                return render_template('colaborador/registrar_donacion.html', form=form)
 
         donacion = Donacion(
             email=email, 
