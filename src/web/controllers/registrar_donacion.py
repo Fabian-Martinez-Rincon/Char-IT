@@ -41,7 +41,9 @@ def registrar_donacion_post():
         apellido = form.apellido.data
         telefono = form.telefono.data if 'telefono' in request.form else None
         usuario = Usuario.query.filter_by(email=email).first()
-        
+        monto = form.monto.data
+        id_tipo = 2 # Tipo Efectivo
+
         if not nombre and not apellido:
             if usuario:
                 if usuario.id_rol != 1:
@@ -52,13 +54,15 @@ def registrar_donacion_post():
                 telefono = usuario.telefono
             else:
                 flash('El usuario no se encuentra registrado. Complete los campos como corresponde.', 'error')
-                return redirect(url_for('registrar_donacion.registrar_donacion'))
+                return render_template('colaborador/registrar_donacion.html', form=form)
         else:
              if usuario:
                 flash('El Usuario ya se encuentra registrado. Complete los campos como corresponde.', 'error')
-                return redirect(url_for('registrar_donacion.registrar_donacion'))
-        monto = form.monto.data
-        id_tipo = 2 # Tipo Efectivo
+                formAux = RegistrarDonacionForm()
+                formAux.email.data = email
+                formAux.monto.data = monto
+                return render_template('colaborador/registrar_donacion.html', form=form)
+
         donacion = Donacion(
             email=email, 
             nombre=nombre,
