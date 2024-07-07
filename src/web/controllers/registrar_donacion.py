@@ -61,7 +61,7 @@ def registrar_donacion_post():
                 formAux = RegistrarDonacionForm()
                 formAux.email.data = email
                 formAux.monto.data = monto
-                return render_template('colaborador/registrar_donacion.html', form=form)
+                return render_template('colaborador/registrar_donacion.html', form=formAux)
 
         donacion = Donacion(
             email=email, 

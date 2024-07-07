@@ -50,7 +50,7 @@ def registrar_donacion():
                 formAux.email.data = email
                 formAux.descripcion.data = descripcion
                 id_categoria = form.categoria.data
-                return render_template('owner/registrar_producto.html', form=form)
+                return render_template('owner/registrar_producto.html', form=formAux)
 
         nueva_donacion = Donacion(
             email=email,
