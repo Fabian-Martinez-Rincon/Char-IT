@@ -56,7 +56,7 @@ def registrar_donacion_post():
         else:
              if usuario:
                 flash('El Usuario ya se encuentra registrado. Complete los campos como corresponde.', 'error')
-                return redirect(url_for('registrar_producto.registrar_donacion'))
+                return redirect(url_for('registrar_donacion.registrar_donacion'))
         monto = form.monto.data
         id_tipo = 2 # Tipo Efectivo
         donacion = Donacion(
