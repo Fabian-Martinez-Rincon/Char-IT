@@ -92,7 +92,7 @@ def eliminar_publicaciones_usuario(user_id):
         # Cambiar el estado de todas las ofertas pendientes que involucran esta publicación a "cancelada"
         for oferta in ofertas_relacionadas:
             oferta.estado = cancelada.id
-            oferta.descripcion = f"La oferta fue cancelada por la eliminación de la publicación {publicacion.titulo}"
+            oferta.descripcion = f"La oferta fue cancelada porque el usuario ya no existe"
             otra_publicacion_id = oferta.ofrecido if oferta.ofrecido != publicacion.id else oferta.solicitado
             otra_publicacion = Publicacion.query.get(otra_publicacion_id)
             if otra_publicacion.id_usuario != user_id:
