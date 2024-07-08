@@ -46,11 +46,10 @@ def registrar_donacion():
         else:
              if usuario:
                 flash('El Usuario ya se encuentra registrado. Complete los campos como corresponde.', 'error')
-                formAux = DonacionForm()
-                formAux.email.data = email
-                formAux.descripcion.data = descripcion
-                id_categoria = form.categoria.data
-                return render_template('owner/registrar_producto.html', form=formAux)
+                form.nombre.data = ""
+                form.apellido.data = ""
+                form.telefono.data = ""
+                return render_template('owner/registrar_producto.html', form=form)
 
         nueva_donacion = Donacion(
             email=email,
