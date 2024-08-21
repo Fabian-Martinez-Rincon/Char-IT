@@ -7,6 +7,8 @@ Fabian Martinez Rincon | Lucia Lamella | Lucas Gallardo | Myles Barker
 ![@FabianMartinez](https://avatars.githubusercontent.com/u/55964635?s=150&v=1) | ![@luciana678](https://avatars.githubusercontent.com/luciana678?s=150&v=1) | ![@Lucas-Andres-GF](https://avatars.githubusercontent.com/u/91075804?s=150&v=1) | ![@KinnaGt](https://avatars.githubusercontent.com/Austin-Myles?s=150&v=1)
 [@fabian-martinez-rincon](https://github.com/fabian-martinez-rincon) | [@luciana678](https://github.com/luciana678) | [@Lucas-Andres-GF](https://github.com/Lucas-Andres-GF) | [@Austin-Myles](https://github.com/Austin-Myles)
 
+---
+
 ### Para Colaborar
 
 - Para asegurarnos de que estamos en la rama main, antes de crear una mara
@@ -32,9 +34,13 @@ Fabian Martinez Rincon | Lucia Lamella | Lucas Gallardo | Myles Barker
     git push origin {nombre-rama}
     ```
 
+---
+
 ### Requirements
 
 - [Python 3.8.10](https://www.python.org/downloads/release/python-3810/)
+
+---
 
 ### Instalación
 
