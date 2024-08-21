@@ -1,6 +1,13 @@
 ## Char-IT
 
-<details><summary>Para colaborar</summary>
+### Integrantes
+
+Fabian Martinez Rincon | Lucia Lamella | Lucas Gallardo | Myles Barker
+--- | --- | --- | ---
+![@FabianMartinez](https://avatars.githubusercontent.com/u/55964635?s=150&v=1) | ![@luciana678](https://avatars.githubusercontent.com/luciana678?s=150&v=1) | ![@Lucas-Andres-GF](https://avatars.githubusercontent.com/u/91075804?s=150&v=1) | ![@KinnaGt](https://avatars.githubusercontent.com/Austin-Myles?s=150&v=1)
+[@fabian-martinez-rincon](https://github.com/fabian-martinez-rincon) | [@luciana678](https://github.com/luciana678) | [@Lucas-Andres-GF](https://github.com/Lucas-Andres-GF) | [@Austin-Myles](https://github.com/Austin-Myles)
+
+### Para Colaborar
 
 - Para asegurarnos de que estamos en la rama main, antes de crear una mara
     ```bash
@@ -25,51 +32,41 @@
     git push origin {nombre-rama}
     ```
 
-</details>
-
-<details><summary>Para colaborar</summary>
-
-Descargamos la version de python
+### Requirements
 
 - [Python 3.8.10](https://www.python.org/downloads/release/python-3810/)
 
-#### Paso 1 Creamos el entorno Virtual
-```bash
-python -m venv .venv
-```
+### Instalación
 
-#### Paso 2 Activamos el entorno
-```bash
-.venv\Scripts\activate
-```
+- Paso 1 Creamos el entorno Virtual
+    ```bash
+    python -m venv .venv
+    ```
+- Paso 2 Activamos el entorno
+    ```bash
+    .venv\Scripts\activate
+    ```
+- Dependiendo el idioma
+    ```bash
+    .venv/Scripts/activate
+    ```
+- En caso de no tener permisos
+    ```bash
+    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+    ```
+- Instalamos las dependencias (Solo hace falta la primera vez)
+    ```bash
+    pip install -r requirements.txt -r requirements-dev.txt
+    ```
+- No hace falta
+    ```bash
+    livetw init -d
+    livetw build
+    ```
 
-Dependiendo el idioma
+---
 
-```bash
-.venv/Scripts/activate
-```
-
-En caso de no tener permisos
-```bash
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-
-#### Instalamos las dependencias (Solo hace falta la primera vez)
-
-```bash
-pip install -r requirements.txt -r requirements-dev.txt
-```
-
-#### No hace falta
-
-```bash
-livetw init -d
-livetw build
-```
-
-</details>
-
-### Comandos de configuración (Opcional)
+### Ejecución
 
 ```bash
 flask resetdb
@@ -88,7 +85,9 @@ flask run --debug
 livetw dev --no-flask
 ```
 
-#### Para configurar las variables de entorno, copiamos y renombramos el archivo `.env.example` a `.env` y configuramos las variables de entorno.
+----
+
+Para configurar las variables de entorno, copiamos y renombramos el archivo `.env.example` a `.env` y configuramos las variables de entorno.
 
 ```json
 DB_PASS = "password_example"
@@ -99,7 +98,7 @@ DB_HOST = "host_example"
 
 ---
 
-## Extensiones recomendadas para Visual Studio Code en el desarrollo del proyecto
+### Extensiones Recomendadas
 
 - Pretier - Code formatter
 - Headwind
@@ -107,6 +106,8 @@ DB_HOST = "host_example"
 - Auto Close Tag
 - Auto Rename Tag
 - Image preview
+
+---
 
 #### Rutas para la primera demo
 
