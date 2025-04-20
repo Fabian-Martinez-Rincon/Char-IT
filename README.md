@@ -34,7 +34,7 @@ Esta épica engloba todas las HU relacionadas con la gestión de las donaciones 
 **Quiero** registrar una donación de producto por parte de un usuario registrado o una persona no registrada
 **Para** que quede registrado en el sistema
 
-# Regla de negocio
+#### Regla de negocio
 - Un usuario colaborador / Owner no puede realizar una donación.
 
 #### Criterios de aceptación
@@ -158,7 +158,7 @@ Entonces el sistema informa “Fallo la conexión con el banco.” Y no registra
 **Quiero** registrar una donación en efectivo por parte de un usuario registrado o una persona no registrada 
 **Para** que quede registrado en el sistema
 
-# Regla de negocio
+#### Regla de negocio
 - Un usuario colaborador / Owner no puede realizar una donación.
 
 #### Criterios de aceptación
